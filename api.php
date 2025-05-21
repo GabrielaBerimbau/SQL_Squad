@@ -156,28 +156,39 @@ class API
         
         $userId = $_SESSION['user_id'];
         
-        // Simpler query to get wishlist items
+        // Query to get all wishlist items with product details, removing price information
         $query = "
             SELECT 
                 p.*,
                 l.in_stock,
-                COALESCE(AVG(r.rating), 0) AS avg_rating,
-                COUNT(r.rating) AS review_count
+                l.listing_id,
+                l.user_id AS seller_id,
+                COALESCE(r.avg_rating, 0) AS avg_rating,
+                COALESCE(r.review_count, 0) AS review_count
             FROM 
                 WISHLIST w
             JOIN 
                 PRODUCT p ON w.product_id = p.product_id
             LEFT JOIN 
-                LISTING l ON p.product_id = l.product_id
-            LEFT JOIN 
-                REVIEW r ON p.product_id = r.product_id
+                LISTING l ON l.listing_id = (
+                    SELECT MIN(listing_id) 
+                    FROM LISTING 
+                    WHERE product_id = p.product_id
+                )
+            LEFT JOIN (
+                SELECT 
+                    product_id,
+                    AVG(rating) AS avg_rating,
+                    COUNT(rating) AS review_count
+                FROM 
+                    REVIEW
+                GROUP BY 
+                    product_id
+            ) r ON p.product_id = r.product_id
             WHERE 
                 w.user_id = ?
-            GROUP BY 
-                p.product_id
             ORDER BY 
-                p.name ASC
-        ";
+                p.name ASC";
         
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $userId);
