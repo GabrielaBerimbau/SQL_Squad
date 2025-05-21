@@ -156,42 +156,25 @@ class API
         
         $userId = $_SESSION['user_id'];
         
-        // Query to get all wishlist items with product details, removing price information
+        // Simpler query to get wishlist items
         $query = "
             SELECT 
                 p.*,
                 l.in_stock,
-                l.listing_id,
-                l.user_id AS seller_id,
-                r_avg.avg_rating,
-                r_avg.review_count
+                COALESCE(AVG(r.rating), 0) AS avg_rating,
+                COUNT(r.rating) AS review_count
             FROM 
                 WISHLIST w
             JOIN 
                 PRODUCT p ON w.product_id = p.product_id
-            LEFT JOIN (
-                SELECT 
-                    product_id,
-                    MIN(listing_id) as min_listing_id
-                FROM 
-                    LISTING
-                GROUP BY 
-                    product_id
-            ) AS min_l ON p.product_id = min_l.product_id
             LEFT JOIN 
-                LISTING l ON min_l.min_listing_id = l.listing_id
-            LEFT JOIN (
-                SELECT 
-                    product_id,
-                    COALESCE(AVG(rating), 0) AS avg_rating,
-                    COUNT(rating) AS review_count
-                FROM 
-                    REVIEW
-                GROUP BY 
-                    product_id
-            ) AS r_avg ON p.product_id = r_avg.product_id
+                LISTING l ON p.product_id = l.product_id
+            LEFT JOIN 
+                REVIEW r ON p.product_id = r.product_id
             WHERE 
                 w.user_id = ?
+            GROUP BY 
+                p.product_id
             ORDER BY 
                 p.name ASC
         ";
@@ -300,23 +283,23 @@ class API
         $stmt->close();
     }
 
-   private function getAllProducts($data) 
+    private function getAllProducts($data) 
     {
         // Initialize the WHERE clause and parameters array
-        $whereClause = "";
+        $whereClause = [];
         $params = [];
         $types = "";
         
         // Check for category_id filter
         if (isset($data['category_id']) && !empty($data['category_id']) && $data['category_id'] !== 'default') {
-            $whereClause .= ($whereClause ? " AND " : " WHERE ") . "p.category_id = ?";
+            $whereClause[] = "p.category_id = ?";
             $params[] = $data['category_id'];
             $types .= "i";  // Integer for category_id
         }
         
         // Check for brand filter
         if (isset($data['brand']) && !empty($data['brand']) && $data['brand'] !== 'default') {
-            $whereClause .= ($whereClause ? " AND " : " WHERE ") . "p.brand = ?";
+            $whereClause[] = "p.brand = ?";
             $params[] = $data['brand'];
             $types .= "s";
         }
@@ -324,55 +307,41 @@ class API
         // Check for search term
         if (isset($data['search']) && !empty($data['search'])) {
             $searchTerm = "%" . $data['search'] . "%";
-            $whereClause .= ($whereClause ? " AND " : " WHERE ") . "(p.name LIKE ? OR p.description LIKE ?)";
+            $whereClause[] = "(p.name LIKE ? OR p.description LIKE ?)";
             $params[] = $searchTerm;
             $params[] = $searchTerm;
             $types .= "ss";
         }
         
-        // Use a subquery to get only one listing per product
+        // Build the WHERE clause string
+        $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
+        
+        // Simpler query that still gets the necessary data
         $query = "
             SELECT 
                 p.*,
                 l.in_stock,
-                l.listing_id,
-                l.user_id AS seller_id,
-                r_avg.avg_rating,
-                r_avg.review_count
+                COALESCE(AVG(r.rating), 0) AS avg_rating,
+                COUNT(r.rating) AS review_count
             FROM 
                 PRODUCT p
-            LEFT JOIN (
-                SELECT 
-                    product_id,
-                    MIN(listing_id) as min_listing_id
-                FROM 
-                    LISTING
-                GROUP BY 
-                    product_id
-            ) AS min_l ON p.product_id = min_l.product_id
             LEFT JOIN 
-                LISTING l ON min_l.min_listing_id = l.listing_id
-            LEFT JOIN (
-                SELECT 
-                    product_id,
-                    COALESCE(AVG(rating), 0) AS avg_rating,
-                    COUNT(rating) AS review_count
-                FROM 
-                    REVIEW
-                GROUP BY 
-                    product_id
-            ) AS r_avg ON p.product_id = r_avg.product_id
-            $whereClause
+                LISTING l ON p.product_id = l.product_id
+            LEFT JOIN 
+                REVIEW r ON p.product_id = r.product_id
+            $whereClauseStr
+            GROUP BY 
+                p.product_id, l.listing_id
         ";
         
-        // Add sorting - removed price sorting options
+        // Add sorting options
         if (isset($data['sort']) && $data['sort'] !== 'default') {
             switch ($data['sort']) {
                 case 'rating-high':
-                    $query .= " ORDER BY r_avg.avg_rating DESC";
+                    $query .= " ORDER BY avg_rating DESC";
                     break;
                 case 'rating-low':
-                    $query .= " ORDER BY r_avg.avg_rating ASC";
+                    $query .= " ORDER BY avg_rating ASC";
                     break;
                 default:
                     $query .= " ORDER BY p.product_id ASC";
@@ -393,28 +362,36 @@ class API
         $stmt->execute();
         $result = $stmt->get_result();
         
-        // Fetch all products
-        $products = [];
+        // Store products by their ID to remove duplicates
+        $productMap = [];
         while ($row = $result->fetch_assoc()) {
-            // Process images field (assuming it's stored as JSON)
-            if (!empty($row['images'])) {
-                // Try to decode as JSON first
-                $imageArray = json_decode($row['images'], true);
-                if ($imageArray) {
-                    $row['primary_image'] = $imageArray[0] ?? 'img/default-product.jpg';
+            $productId = $row['product_id'];
+            
+            // Only add this product if we haven't seen it before
+            if (!isset($productMap[$productId])) {
+                // Process images field
+                if (!empty($row['images'])) {
+                    // Try to decode as JSON first
+                    $imageArray = json_decode($row['images'], true);
+                    if ($imageArray) {
+                        $row['primary_image'] = $imageArray[0] ?? 'img/default-product.jpg';
+                    } else {
+                        // If not JSON, try as comma-separated
+                        $imageArray = explode(',', $row['images']);
+                        $row['primary_image'] = trim($imageArray[0]) ?: 'img/default-product.jpg';
+                    }
                 } else {
-                    // If not JSON, try as comma-separated
-                    $imageArray = explode(',', $row['images']);
-                    $row['primary_image'] = trim($imageArray[0]) ?: 'img/default-product.jpg';
+                    $row['primary_image'] = 'img/default-product.jpg';
                 }
-            } else {
-                $row['primary_image'] = 'img/default-product.jpg';
+                
+                $row['avg_rating'] = round($row['avg_rating'] ?? 0, 1);
+                
+                $productMap[$productId] = $row;
             }
-            
-            $row['avg_rating'] = round($row['avg_rating'] ?? 0, 1);
-            
-            $products[] = $row;
         }
+        
+        // Convert map to array
+        $products = array_values($productMap);
         
         // Get categories for filter dropdown
         $categoryQuery = "SELECT category_id, name FROM CATEGORY ORDER BY name";
