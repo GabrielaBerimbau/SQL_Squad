@@ -701,26 +701,26 @@ private function addProduct($data) {
         
         //===================CHECK====================
         // Handle images/file upload
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $targetDir = "img/products/";
+        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        //     $targetDir = "img/products/";
             
-            // Create directory if it doesn't exist
-            if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0777, true);
-            }
+        //     // Create directory if it doesn't exist
+        //     if (!file_exists($targetDir)) {
+        //         mkdir($targetDir, 0777, true);
+        //     }
             
-            // Use product_id for image name for consistency
-            $filename = $productId . '.jpg';
-            $targetFilePath = $targetDir . $filename;
+        //     // Use product_id for image name for consistency
+        //     $filename = $productId . '.jpg';
+        //     $targetFilePath = $targetDir . $filename;
             
-            // Upload file
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-                // Add entry to PRODUCT_IMAGES table
-                $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-                $imageStmt->bind_param("i", $productId);
-                $imageStmt->execute();
-            }
-        }
+        //     // Upload file
+        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+        //         // Add entry to PRODUCT_IMAGES table
+        //         $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
+        //         $imageStmt->bind_param("i", $productId);
+        //         $imageStmt->execute();
+        //     }
+        // }
         
         //insert into LISTING table
         $listingStmt = $this->conn->prepare("
@@ -851,34 +851,34 @@ private function updateProduct($data) {
         
         // =================== CHECK ====================
         //handle images/file upload
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $targetDir = "img/products/";
+        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        //     $targetDir = "img/products/";
             
-            // Create directory if it doesn't exist
-            if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0777, true);
-            }
+        //     // Create directory if it doesn't exist
+        //     if (!file_exists($targetDir)) {
+        //         mkdir($targetDir, 0777, true);
+        //     }
             
-            // Use product_id for image name for consistency
-            $filename = $productId . '.jpg';
-            $targetFilePath = $targetDir . $filename;
+        //     // Use product_id for image name for consistency
+        //     $filename = $productId . '.jpg';
+        //     $targetFilePath = $targetDir . $filename;
             
-            // Upload file
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-                // Check if entry exists in PRODUCT_IMAGES
-                $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
-                $checkImageStmt->bind_param("i", $productId);
-                $checkImageStmt->execute();
-                $checkImageResult = $checkImageStmt->get_result();
+        //     // Upload file
+        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+        //         // Check if entry exists in PRODUCT_IMAGES
+        //         $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
+        //         $checkImageStmt->bind_param("i", $productId);
+        //         $checkImageStmt->execute();
+        //         $checkImageResult = $checkImageStmt->get_result();
                 
-                if ($checkImageResult->num_rows === 0) {
-                    // Add entry to PRODUCT_IMAGES table if it doesn't exist
-                    $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-                    $imageStmt->bind_param("i", $productId);
-                    $imageStmt->execute();
-                }
-            }
-        }
+        //         if ($checkImageResult->num_rows === 0) {
+        //             // Add entry to PRODUCT_IMAGES table if it doesn't exist
+        //             $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
+        //             $imageStmt->bind_param("i", $productId);
+        //             $imageStmt->execute();
+        //         }
+        //     }
+        // }
         
         //remove trailing comma and space
         $updateProductQuery = rtrim($updateProductQuery, ", ");
