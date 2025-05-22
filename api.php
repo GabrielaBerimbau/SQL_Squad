@@ -53,6 +53,21 @@ class API
         case 'Wishlist':  // Add this case
             $this->handleWishlist($data);
             break;
+
+         //retaileView cases
+        case 'GetRetailerProducts':
+            $this->getRetailerProducts($data);
+            break;
+        case 'AddProduct':
+            $this->addProduct($data);
+            break;
+        case 'UpdateProduct':
+            $this->updateProduct($data);
+            break;
+        case 'DeleteProduct':
+            $this->deleteProduct($data);
+            break;
+            
         default:
             $this->returnError("Invalid type", 400);
             break;
@@ -542,6 +557,494 @@ class API
             break;
     }
 }
+
+// =========================== GABI - API ==========================
+
+private function getRetailerProducts($data) {
+    if (!isset($data['user_id'])) {
+        $this->returnError("User ID required", 400);
+        return;
+    }
+
+    $userId = $data['user_id'];
+
+    // check if user is a retailer
+    $checkStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
+    $checkStmt->bind_param("i", $userId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if ($checkResult->num_rows === 0) {
+        $this->returnError("User is not a retailer", 403);
+        return;
+    }
+
+    //db query
+    $query = "
+        SELECT 
+            p.product_id as id,
+            p.name,
+            p.description,
+            p.brand,
+            p.specification,
+            p.category_id,
+            l.price,
+            l.in_stock,
+            l.listing_id,
+            l.last_updated as updated_at
+        FROM 
+            LISTING l
+        JOIN 
+            PRODUCT p ON l.product_id = p.product_id
+        WHERE 
+            l.user_id = ?
+        ORDER BY 
+            p.name ASC
+    ";
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    //fetching all the products
+    $products = [];
+    while ($row = $result->fetch_assoc()) {
+        // Get product images from PRODUCT_IMAGES table
+        $imageQuery = "SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ? LIMIT 1";
+        $imageStmt = $this->conn->prepare($imageQuery);
+        $productId = $row['id'];
+        $imageStmt->bind_param("i", $productId);
+        $imageStmt->execute();
+        $imageResult = $imageStmt->get_result();
+        
+        if ($imageResult->num_rows > 0) {
+            $row['image'] = 'img/products/' . $row['id'] . '.jpg'; // Assume standard naming convention
+        } else {
+            $row['image'] = 'img/default-product.jpg';
+        }
+
+         // Format price
+        $row['price'] = floatval($row['price']);
+        
+        $products[] = $row;
+    }
+    
+    // Return the data
+    $this->returnSuccess([
+        'products' => $products,
+        'count' => count($products)
+    ]);
+    
+    $stmt->close();
+}   
+    
+
+// add new product as a retailer
+private function addProduct($data) {
+
+    //check user logged in
+    if (!isset($data['user_id'])) {
+        $this->returnError("User ID required", 400);
+        return;
+    }
+    
+    $userId = $data['user_id'];
+
+     //check user is a retailer
+    $checkStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
+    $checkStmt->bind_param("i", $userId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if ($checkResult->num_rows === 0) {
+        $this->returnError("User is not a retailer", 403);
+        return;
+    }
+
+    //validate required fields
+    $requiredFields = ['product_name', 'price', 'description'];
+    foreach ($requiredFields as $field) {
+        if (!isset($data[$field]) || trim($data[$field]) === '') {
+            $this->returnError("$field is required", 400);
+            return;
+        }
+    }
+
+    //start transaction
+    $this->conn->begin_transaction();
+    
+    try {
+        //insert into PRODUCT table
+        $productStmt = $this->conn->prepare("
+            INSERT INTO PRODUCT 
+            (name, description, brand, category_id, specification) 
+            VALUES (?, ?, ?, ?, ?)
+        ");
+        
+        $productName = $data['product_name'];
+        $description = $data['description'];
+        $brand = $data['brand'] ?? null;
+        $categoryId = $data['category_id'] ?? 1; // Default category if not provided
+        $specification = $data['specification'] ?? null;
+        
+        $productStmt->bind_param("sssis", $productName, $description, $brand, $categoryId, $specification);
+        $productStmt->execute();
+        
+        $productId = $this->conn->insert_id;
+        
+        //===================CHECK====================
+        // Handle images/file upload
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $targetDir = "img/products/";
+            
+            // Create directory if it doesn't exist
+            if (!file_exists($targetDir)) {
+                mkdir($targetDir, 0777, true);
+            }
+            
+            // Use product_id for image name for consistency
+            $filename = $productId . '.jpg';
+            $targetFilePath = $targetDir . $filename;
+            
+            // Upload file
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+                // Add entry to PRODUCT_IMAGES table
+                $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
+                $imageStmt->bind_param("i", $productId);
+                $imageStmt->execute();
+            }
+        }
+        
+        //insert into LISTING table
+        $listingStmt = $this->conn->prepare("
+            INSERT INTO LISTING 
+            (product_id, user_id, price, in_stock, last_updated) 
+            VALUES (?, ?, ?, ?, NOW())
+        ");
+        
+        $price = floatval($data['price']);
+        $inStock = isset($data['in_stock']) ? 1 : 1; // Default to in stock
+        
+        $listingStmt->bind_param("iidi", $productId, $userId, $price, $inStock);
+        $listingStmt->execute();
+        
+        $listingId = $this->conn->insert_id;
+        
+        // ==================== Price History ====================
+        //insert into PRICE_HISTORY table for the initial price
+        $historyStmt = $this->conn->prepare("
+            INSERT INTO PRICE_HISTORY 
+            (listing_id, price, recorded_date) 
+            VALUES (?, ?, NOW())
+        ");
+        
+        $historyStmt->bind_param("id", $listingId, $price);
+        $historyStmt->execute();
+        
+        // Commit transaction
+        $this->conn->commit();
+        
+        $this->returnSuccess([
+            'product_id' => $productId,
+            'listing_id' => $listingId,
+            'message' => 'Product added successfully'
+        ]);
+    } catch (Exception $e) {
+        // Rollback on error
+        $this->conn->rollback();
+        $this->returnError("Error adding product: " . $e->getMessage(), 500);
+    }
+}
+
+private function updateProduct($data) {
+    //check user logged in
+    if (!isset($data['user_id'])) {
+        $this->returnError("User ID required", 400);
+        return;
+    }
+    
+    $userId = $data['user_id'];
+
+    //check if product_id is provided
+    if (!isset($data['product_id'])) {
+        $this->returnError("Product ID required", 400);
+        return;
+    }
+    
+    $productId = $data['product_id'];
+
+    //check user is a retailer
+    $checkStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
+    $checkStmt->bind_param("i", $userId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if ($checkResult->num_rows === 0) {
+        $this->returnError("User is not a retailer", 403);
+        return;
+    }
+
+    //check that the product listing belongs to the user
+     $checkProductStmt = $this->conn->prepare("
+        SELECT l.listing_id 
+        FROM LISTING l 
+        WHERE l.product_id = ? AND l.user_id = ?
+    ");
+    $checkProductStmt->bind_param("ii", $productId, $userId);
+    $checkProductStmt->execute();
+    $checkProductResult = $checkProductStmt->get_result();
+    
+    if ($checkProductResult->num_rows === 0) {
+        $this->returnError("Product not found or does not belong to this retailer", 404);
+        return;
+    }
+
+    $listingRow = $checkProductResult->fetch_assoc();
+    $listingId = $listingRow['listing_id'];
+
+    //start transaction
+    $this->conn->begin_transaction();
+
+    try {
+        //update PRODUCT table
+        $updateProductQuery = "UPDATE PRODUCT SET ";
+        $updateProductParams = [];
+        $updateProductTypes = "";
+
+        //check fields to update
+        if (isset($data['product_name']) && !empty($data['product_name'])) {
+            $updateProductQuery .= "name = ?, ";
+            $updateProductParams[] = $data['product_name'];
+            $updateProductTypes .= "s";
+        }
+        
+        if (isset($data['description']) && !empty($data['description'])) {
+            $updateProductQuery .= "description = ?, ";
+            $updateProductParams[] = $data['description'];
+            $updateProductTypes .= "s";
+        }
+        
+        if (isset($data['brand'])) {
+            $updateProductQuery .= "brand = ?, ";
+            $updateProductParams[] = $data['brand'];
+            $updateProductTypes .= "s";
+        }
+        
+        if (isset($data['category_id'])) {
+            $updateProductQuery .= "category_id = ?, ";
+            $updateProductParams[] = $data['category_id'];
+            $updateProductTypes .= "i";
+        }
+        
+        if (isset($data['specification'])) {
+            $updateProductQuery .= "specification = ?, ";
+            $updateProductParams[] = $data['specification'];
+            $updateProductTypes .= "s";
+        }
+        
+        // =================== CHECK ====================
+        //handle images/file upload
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $targetDir = "img/products/";
+            
+            // Create directory if it doesn't exist
+            if (!file_exists($targetDir)) {
+                mkdir($targetDir, 0777, true);
+            }
+            
+            // Use product_id for image name for consistency
+            $filename = $productId . '.jpg';
+            $targetFilePath = $targetDir . $filename;
+            
+            // Upload file
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+                // Check if entry exists in PRODUCT_IMAGES
+                $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
+                $checkImageStmt->bind_param("i", $productId);
+                $checkImageStmt->execute();
+                $checkImageResult = $checkImageStmt->get_result();
+                
+                if ($checkImageResult->num_rows === 0) {
+                    // Add entry to PRODUCT_IMAGES table if it doesn't exist
+                    $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
+                    $imageStmt->bind_param("i", $productId);
+                    $imageStmt->execute();
+                }
+            }
+        }
+        
+        //remove trailing comma and space
+        $updateProductQuery = rtrim($updateProductQuery, ", ");
+        
+        //add WHERE clause
+        $updateProductQuery .= " WHERE product_id = ?";
+        $updateProductParams[] = $productId;
+        $updateProductTypes .= "i";
+        
+        //fields aren't empty and need to be updated
+        if (count($updateProductParams) > 1) { // More than just the product_id
+            $productStmt = $this->conn->prepare($updateProductQuery);
+            $productStmt->bind_param($updateProductTypes, ...$updateProductParams);
+            $productStmt->execute();
+        }
+        
+        //update LISTING table
+        if (isset($data['price']) && !empty($data['price'])) {
+            $price = floatval($data['price']);
+            
+            //update listing price
+            $listingStmt = $this->conn->prepare("UPDATE LISTING SET price = ?, last_updated = NOW() WHERE listing_id = ?");
+            $listingStmt->bind_param("di", $price, $listingId);
+            $listingStmt->execute();
+            
+            //add to price history
+            $historyStmt = $this->conn->prepare("
+                INSERT INTO PRICE_HISTORY 
+                (listing_id, price, recorded_date) 
+                VALUES (?, ?, NOW())
+            ");
+            $historyStmt->bind_param("id", $listingId, $price);
+            $historyStmt->execute();
+        }
+        
+        if (isset($data['in_stock'])) {
+            $inStock = $data['in_stock'] ? 1 : 0;
+            $listingStmt = $this->conn->prepare("UPDATE LISTING SET in_stock = ?, last_updated = NOW() WHERE listing_id = ?");
+            $listingStmt->bind_param("ii", $inStock, $listingId);
+            $listingStmt->execute();
+        }
+        
+        //update timestamp
+        $this->conn->query("UPDATE LISTING SET last_updated = NOW() WHERE listing_id = $listingId");
+        
+        //commit transaction
+        $this->conn->commit();
+        
+        $this->returnSuccess([
+            'product_id' => $productId,
+            'listing_id' => $listingId,
+            'message' => 'Product updated successfully'
+        ]);
+    } catch (Exception $e) {
+        // Rollback on error
+        $this->conn->rollback();
+        $this->returnError("Error updating product: " . $e->getMessage(), 500);
+    }
+}
+
+private function deleteProduct($data) 
+{
+    // Check if user is logged in and is a retailer
+    if (!isset($data['user_id'])) {
+        $this->returnError("User ID required", 400);
+        return;
+    }
+    
+    $userId = $data['user_id'];
+    
+    // Check if product_id is provided
+    if (!isset($data['product_id'])) {
+        $this->returnError("Product ID required", 400);
+        return;
+    }
+    
+    $productId = $data['product_id'];
+    
+    // Check if user is a retailer
+    $checkRetailerStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
+    $checkRetailerStmt->bind_param("i", $userId);
+    $checkRetailerStmt->execute();
+    $checkRetailerResult = $checkRetailerStmt->get_result();
+    
+    if ($checkRetailerResult->num_rows === 0) {
+        $this->returnError("User is not a retailer", 403);
+        return;
+    }
+    
+    // Check if product belongs to this retailer
+    $checkProductStmt = $this->conn->prepare("
+        SELECT l.listing_id 
+        FROM LISTING l 
+        WHERE l.product_id = ? AND l.user_id = ?
+    ");
+    $checkProductStmt->bind_param("ii", $productId, $userId);
+    $checkProductStmt->execute();
+    $checkProductResult = $checkProductStmt->get_result();
+    
+    if ($checkProductResult->num_rows === 0) {
+        $this->returnError("Product not found or does not belong to this retailer", 404);
+        return;
+    }
+    
+    $listingRow = $checkProductResult->fetch_assoc();
+    $listingId = $listingRow['listing_id'];
+    
+    // Start transaction
+    $this->conn->begin_transaction();
+    
+    try {
+        // Delete from PRICE_HISTORY table first (foreign key constraint)
+        $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
+        $deletePriceHistoryStmt->bind_param("i", $listingId);
+        $deletePriceHistoryStmt->execute();
+        
+        // Delete from LISTING table
+        $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
+        $deleteListingStmt->bind_param("i", $listingId);
+        $deleteListingStmt->execute();
+        
+        // Check if the product is listed by other retailers
+        $checkOtherListingsStmt = $this->conn->prepare("SELECT COUNT(*) as count FROM LISTING WHERE product_id = ?");
+        $checkOtherListingsStmt->bind_param("i", $productId);
+        $checkOtherListingsStmt->execute();
+        $checkOtherListingsResult = $checkOtherListingsStmt->get_result();
+        $checkOtherListingsRow = $checkOtherListingsResult->fetch_assoc();
+        
+        // If no other listings exist, delete the product
+        if ($checkOtherListingsRow['count'] == 0) {
+            // Delete from PRODUCT_IMAGES table
+            $deleteImagesStmt = $this->conn->prepare("DELETE FROM PRODUCT_IMAGES WHERE product_id = ?");
+            $deleteImagesStmt->bind_param("i", $productId);
+            $deleteImagesStmt->execute();
+            
+            // Delete image file if it exists
+            $imagePath = "img/products/" . $productId . ".jpg";
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            
+            // Delete from WISHLIST table
+            $deleteWishlistStmt = $this->conn->prepare("DELETE FROM WISHLIST WHERE product_id = ?");
+            $deleteWishlistStmt->bind_param("i", $productId);
+            $deleteWishlistStmt->execute();
+            
+            // Delete from REVIEW table
+            $deleteReviewStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE product_id = ?");
+            $deleteReviewStmt->bind_param("i", $productId);
+            $deleteReviewStmt->execute();
+            
+            // Finally, delete from PRODUCT table
+            $deleteProductStmt = $this->conn->prepare("DELETE FROM PRODUCT WHERE product_id = ?");
+            $deleteProductStmt->bind_param("i", $productId);
+            $deleteProductStmt->execute();
+        }
+        
+        // Commit transaction
+        $this->conn->commit();
+        
+        $this->returnSuccess([
+            'message' => 'Product deleted successfully'
+        ]);
+    } catch (Exception $e) {
+        // Rollback on error
+        $this->conn->rollback();
+        $this->returnError("Error deleting product: " . $e->getMessage(), 500);
+    }
+}
+
+// =========================== END OF GABI ==========================
+
 
     private function returnError($msg, $statusCode = 400) 
     {
