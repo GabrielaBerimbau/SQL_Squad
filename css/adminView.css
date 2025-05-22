@@ -1,1 +1,368 @@
-/* SQL Squad */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    margin-bottom: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar {
+    background-color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #32402f;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #32402f;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+.user-details {
+    text-align: right;
+}
+.user-name {
+    font-weight: bold;
+    color: #333;
+}
+.user-role {
+    font-size: 14px;
+    color: #666;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 8px 15px;
+    width: 300px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    outline: none;
+}
+
+.add-retailer-btn {
+    background-color: #32402f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.add-retailer-btn i {
+    margin-right: 5px;
+}
+
+.retailers-list {
+    width: 100%;
+}
+
+.retailer-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.retailer-item:last-child {
+    border-bottom: none;
+}
+
+.retailer-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 20px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.retailer-logo img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.retailer-logo i {
+    font-size: 24px;
+    color: #999;
+}
+
+.retailer-info {
+    flex-grow: 1;
+}
+
+.retailer-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.retailer-meta {
+    display: flex;
+    font-size: 14px;
+    color: #777;
+}
+
+.retailer-meta span {
+    margin-right: 20px;
+}
+
+.retailer-meta i {
+    margin-right: 5px;
+}
+
+.toggle-container {
+    position: relative;
+    width: 80px;
+}
+
+.toggle {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+}
+
+.toggle-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in-out;
+}
+
+.toggle-inner:before, .toggle-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.toggle-inner:before {
+    content: "ALLOW";
+    padding-left: 10px;
+    background-color: #4CAF50;
+    color: #FFFFFF;
+}
+
+.toggle-inner:after {
+    content: "RESTRICT";
+    padding-right: 10px;
+    background-color: #FF5252;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+.toggle-switch {
+    display: block;
+    width: 22px;
+    margin: 4px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 48px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle:checked + .toggle-label .toggle-inner {
+    margin-left: 0;
+}
+
+.toggle:checked + .toggle-label .toggle-switch {
+    right: 0px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-right: 15px;
+    text-align: center;
+}
+
+.stat-card:last-child {
+    margin-right: 0;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #32402f;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    color: #777;
+    font-size: 14px;
+}
+
+.bulk-actions {
+    margin-bottom: 20px;
+}
+
+.bulk-btn {
+    background-color: #f5f5f5;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+}
+
+.bulk-btn:hover {
+    background-color: #e9e9e9;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-allowed {
+    background-color: #4CAF50;
+}
+
+.status-restricted {
+    background-color: #FF5252;
+}
+
+.logout-button {
+    margin-left: 15px;
+    padding: 6px 12px;
+    background-color: #32402f;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #2e3a30;
+}

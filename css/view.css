@@ -1,1 +1,331 @@
-/* SQL Squad */
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+@media (min-width: 2000px) {
+    body {
+        font-size: 18px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+.view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* 
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.carousel img {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.carousel img.active {
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+#prev-btn {
+    left: 10px;
+}
+
+#next-btn {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+} */
+
+.carousel {
+    display: flex;
+    gap: 10px;
+    margin-right: 30px;
+}
+
+.carousel-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    object-fit: cover;
+}
+
+.product-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: left;
+    max-width: 450px;
+}
+
+.product-title {
+    font-size: 22px;
+    color: #32402f;
+}
+
+.product-price, .product-category, .product-brand {
+    font-weight: bold;
+    color: #32402f;
+}
+
+.product-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+
+.product-characteristics {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-characteristics li {
+    padding: 5px 0;
+}
+
+
+
+
+.button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    background: #32402f;
+    color: white;
+}
+
+.button:hover {
+    background: #272d25;
+}
+
+
+.navbar {
+    background-color: #32402f;
+    padding: 15px;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar .nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.navbar .nav-link:hover {
+    background: #506046;
+}
+
+
+.navbar .nav-link.active {
+    background: white;
+    color: #32402f;
+    font-weight: bold;
+}
+
+.page-layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.sidebar {
+    width: 260px;
+    margin-left: 30px;
+}
+
+.retailer-block {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+
+.retailer-block:hover {
+    transform: translateY(-5px);
+}
+
+.retailer-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.price-container {
+    margin-bottom: 15px;
+}
+
+.new-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #32402f;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.old-price {
+    font-size: 16px;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.view-offer-btn {
+    background-color: #32402f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-family: 'Playfair Display', serif;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.view-offer-btn:hover {
+    background-color: #506046;
+}
+
+/* Reviews Section Styles */
+.reviews-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.reviews-title {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.review {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0;
+    margin-bottom: 15px;
+}
+
+.review:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.review-author {
+    font-weight: 600;
+}
+
+.review-date {
+    color: #777;
+    font-size: 0.9em;
+}
+
+.stars {
+    color: #ffc107;
+    margin-bottom: 10px;
+}
+
+.review-comment {
+    line-height: 1.6;
+}
+
+.empty-star {
+    color: #e0e0e0;
+}
+
+.review-button-container {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.review-button {
+    background-color: #32402f;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.5px;
+}
+
+.review-button:hover {
+    background-color: #506046;
+}
