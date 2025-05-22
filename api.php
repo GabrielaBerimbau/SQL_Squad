@@ -67,7 +67,7 @@ class API
         case 'DeleteProduct':
             $this->deleteProduct($data);
             break;
-            
+
         default:
             $this->returnError("Invalid type", 400);
             break;
@@ -671,6 +671,12 @@ private function addProduct($data) {
         }
     }
 
+    // Validate price - ensure price is a number
+    if (!is_numeric($data['price']) || floatval($data['price']) <= 0) {
+        $this->returnError("Price must be a valid positive number", 400);
+        return;
+    }
+
     //start transaction
     $this->conn->begin_transaction();
     
@@ -891,6 +897,12 @@ private function updateProduct($data) {
         
         //update LISTING table
         if (isset($data['price']) && !empty($data['price'])) {
+            
+            //validate price
+             if (!is_numeric($data['price']) || floatval($data['price']) <= 0) {
+                throw new Exception("Price must be a valid positive number");
+            }
+            
             $price = floatval($data['price']);
             
             //update listing price
