@@ -609,7 +609,7 @@ var RetailerView = {
             'price': parseFloat(formData.get('price')),
             'category_id': parseInt(formData.get('category')) || 1,
             'specification': formData.get('specification') || '',
-            'in_stock': 1
+            'in_stock': formData.get('product_stock') ? 1 : 0
         };
 
         //form validation
