@@ -9,6 +9,7 @@
 </head>
 
 <main>
+    <script src="js/signup.js"></script>
     <section class="signup-section">
         <h2>Create Your Account</h2>
         <form id="signup-form" method="POST">

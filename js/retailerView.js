@@ -32,12 +32,13 @@ var RetailerView = {
             }
         } else {
             console.error("Browser does not support web storage");
-            alert("Your browser does not support web storage"); ////////////////////////////////////////////
+            alert("Your browser does not support web storage");
             return;
         }
         
         RetailerView.setupEventListeners();
         RetailerView.getProducts();
+        RetailerView.searchFunction();
     },
 
     //setting up all event listeners for the page
@@ -47,6 +48,14 @@ var RetailerView = {
         if (addProductButton) {
             addProductButton.addEventListener('click', function() {
                 RetailerView.openAddModal();
+            });
+        }
+
+        //delete all button
+        var deleteAllButton = document.querySelector('.delete-all');
+        if (deleteAllButton) {
+            deleteAllButton.addEventListener('click', function() {
+                RetailerView.deleteAllProducts();
             });
         }
 
@@ -69,7 +78,7 @@ var RetailerView = {
         }
 
         //modal close buttons
-        var closeButtons = document.querySelectorAll('.close'); /////////////////////////////////////////CHECK
+        var closeButtons = document.querySelectorAll('.close');
         for (var i = 0; i < closeButtons.length; i++) {
             closeButtons[i].addEventListener('click', function() {
                 RetailerView.closeAllModals();
@@ -85,28 +94,28 @@ var RetailerView = {
 
         //for edit and delete buttons on products - have to do it like this for when products are dynamically added
         document.addEventListener('click', function(e) {
-            if (e.target && e.target.classList.contains('edit-button') || 
-                (e.target.parentElement && e.target.parentElement.classList.contains('edit-button'))) {
+        if (e.target && e.target.classList.contains('edit-button') || 
+            (e.target.parentElement && e.target.parentElement.classList.contains('edit-button'))) {
             var productCard = RetailerView.findParentWithClass(e.target, 'product-card');
-                if (productCard) {
-                    var productId = parseInt(productCard.getAttribute('data-product-id'), 10);
-                    if (!isNaN(productId)) {
+            if (productCard) {
+                var productId = parseInt(productCard.getAttribute('data-product-id'), 10);
+                if (!isNaN(productId)) {
                     RetailerView.openEditModal(productId);
-                    }
                 }
             }
-            
-            if (e.target && e.target.classList.contains('delete-button') || 
-                (e.target.parentElement && e.target.parentElement.classList.contains('delete-button'))) {
+        }
+        
+        if (e.target && e.target.classList.contains('delete-button') || 
+            (e.target.parentElement && e.target.parentElement.classList.contains('delete-button'))) {
             var productCard = RetailerView.findParentWithClass(e.target, 'product-card');
-                if (productCard) {
-                    var productId = parseInt(productCard.getAttribute('data-product-id'), 10);
-                    if (!isNaN(productId)) {
+            if (productCard) {
+                var productId = parseInt(productCard.getAttribute('data-product-id'), 10);
+                if (!isNaN(productId)) {
                     RetailerView.confirmDelete(productId);
-                    }
                 }
             }
-        });
+        }
+    });
 
         //search input
         var searchInput = document.querySelector('.search-input');
@@ -114,14 +123,12 @@ var RetailerView = {
             searchInput.addEventListener('keyup', RetailerView.handleSearch);
         }
 
-
         //select all button
         var selectAllButton = document.querySelector('.select-all');
         if (selectAllButton) {
             selectAllButton.addEventListener('click', RetailerView.selectAllProducts);
         }
     },
-
 
     //finding parent element with specific class
     findParentWithClass: function(element, className) {
@@ -134,8 +141,7 @@ var RetailerView = {
     //loading state
     setLoading: function(isLoading) {
         var loadingIndicator = document.getElementById('loading-indicator');
-
-          var productGrid = document.querySelector('.products-container');
+        var productGrid = document.querySelector('.products-container');
         
         if (loadingIndicator) {
             loadingIndicator.style.display = isLoading ? 'block' : 'none';
@@ -145,43 +151,57 @@ var RetailerView = {
         }
     },
 
-
-
     //get products via api call
     getProducts: function() {
-
-        RetailerView.setLoading(true); ///////////////////////CHECK
+        RetailerView.setLoading(true);
+        
         //creating request
         var request = new XMLHttpRequest();
-        request.open('POST', '/api.php', true);
+        request.open('POST', 'api.php', true); // Remove leading slash
         request.setRequestHeader('Content-Type', 'application/json');
 
         //when product data response has loaded
         request.onload = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                //parsing response into a JSON object
-                var data = JSON.parse(this.responseText);
-                console.log("Product data as JSON object: ", data);
+            console.log("Response status:", this.status);
+            console.log("Response text:", this.responseText);
+            
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    try {
+                        //parsing response into a JSON object
+                        var data = JSON.parse(this.responseText);
+                        console.log("Product data as JSON object: ", data);
 
-                //checking that the request was successful
-                if (data.status === "success") {
-                    RetailerView.products = data.data.products || data.data; //populating products array
-                    RetailerView.updateProducts(RetailerView.products);
-                    RetailerView.updateStatistics();
-                    console.log("Product data request Successful");
-                    RetailerView.setLoading(false);
+                        //checking that the request was successful
+                        if (data.status === "success") {
+                            RetailerView.products = data.data.products || data.data;
+                            RetailerView.updateProducts(RetailerView.products);
+                            RetailerView.updateStatistics();
+                            console.log("Product data request Successful");
+                        } else {
+                            console.error("API Error:", data.data);
+                            alert("Error loading products: " + data.data);
+                        }
+                    } catch (e) {
+                        console.error("JSON Parse Error:", e);
+                        console.error("Raw response:", this.responseText);
+                        alert("Error parsing server response. Check console for details.");
+                    }
+                } else if (this.status === 404) {
+                    console.error("API file not found (404)");
+                    alert("API endpoint not found. Please check if api.php exists and is accessible.");
+                } else {
+                    console.error("HTTP Error:", this.status, this.statusText);
+                    alert("Network error: " + this.status + " " + this.statusText);
                 }
-                else {
-                    console.error("Return Error:", data.data);
-                    alert("Error loading products: " + data.data);
-                    RetailerView.setLoading(false); ////////////////////////CHECK
-                }
+                RetailerView.setLoading(false);
             }
-            else {
-                console.error("Request Error:", this.statusText);
-                alert("Network error occurred while loading products");
-                RetailerView.setLoading(false); ////////////////////////CHECK
-            }
+        };
+
+        request.onerror = function() {
+            console.error("Network error occurred");
+            alert("Network error occurred. Please check your connection and server.");
+            RetailerView.setLoading(false);
         };
 
         //creating request body
@@ -190,41 +210,45 @@ var RetailerView = {
             "user_id": RetailerView.userId
         });
 
+        console.log("Sending request:", requestData);
         request.send(requestData);
     },
 
-
-
     //add product via api call
     addProduct: function(productData) {
-        RetailerView.setLoading(true); /////////////////////CHECK
+        RetailerView.setLoading(true);
+        
         //creating request
         var request = new XMLHttpRequest();
-        request.open('POST', '/api.php', true);
+        request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
         //when add product response has loaded
         request.onload = function() {
             if (this.readyState === 4 && this.status === 200) {
-                //parsing response into a JSON object
-                var data = JSON.parse(this.responseText);
-                console.log("Add product response as JSON object: ", data);
+                try {
+                    //parsing response into a JSON object
+                    var data = JSON.parse(this.responseText);
+                    console.log("Add product response as JSON object: ", data);
 
-                //checking that the request was successful
-                if (data.status === "success") {
-                    console.log("Product added successfully:", data.data);
-                    //refresh the products list
-                    RetailerView.getProducts();
-                    //close modal
-                    RetailerView.closeAddModal();
-                }
-                else {
-                    console.error("Add Product Error:", data.data);
-                    alert("Error adding product: " + data.data);
+                    //checking that the request was successful
+                    if (data.status === "success") {
+                        console.log("Product added successfully:", data.data);
+                        //refresh the products list
+                        RetailerView.getProducts();
+                        //close modal
+                        RetailerView.closeAddModal();
+                    } else {
+                        console.error("Add Product Error:", data.data);
+                        alert("Error adding product: " + data.data);
+                        RetailerView.setLoading(false);
+                    }
+                } catch (e) {
+                    console.error("JSON Parse Error:", e);
+                    alert("Error parsing server response");
                     RetailerView.setLoading(false);
                 }
-            }
-            else {
+            } else {
                 console.error("Request Error:", this.statusText);
                 alert("Network error occurred while adding product");
                 RetailerView.setLoading(false);
@@ -248,41 +272,44 @@ var RetailerView = {
         request.send(requestData);
     },
 
-
-
     //updating product via api call
     updateProduct: function(productId, productData) {
-        RetailerView.setLoading(true); ////////////////////CHECK
+        RetailerView.setLoading(true);
+        
         //creating request
         var request = new XMLHttpRequest();
-        request.open('POST', '/api.php', true);
+        request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
         //when update product response has loaded
         request.onload = function() {
             if (this.readyState === 4 && this.status === 200) {
-                //parsing response into a JSON object
-                var data = JSON.parse(this.responseText);
-                console.log("Update product response as JSON object: ", data);
+                try {
+                    //parsing response into a JSON object
+                    var data = JSON.parse(this.responseText);
+                    console.log("Update product response as JSON object: ", data);
 
-                //checking that the request was successful
-                if (data.status === "success") {
-                    console.log("Product updated successfully:", data.data);
-                    // Refresh the products list
-                    RetailerView.getProducts();
-                    // Close modal
-                    RetailerView.closeEditModal();
+                    //checking that the request was successful
+                    if (data.status === "success") {
+                        console.log("Product updated successfully:", data.data);
+                        // Refresh the products list
+                        RetailerView.getProducts();
+                        // Close modal
+                        RetailerView.closeEditModal();
+                    } else {
+                        console.error("Update Product Error:", data.data);
+                        alert("Error updating product: " + data.data);
+                        RetailerView.setLoading(false);
+                    }
+                } catch (e) {
+                    console.error("JSON Parse Error:", e);
+                    alert("Error parsing server response");
+                    RetailerView.setLoading(false);
                 }
-                else {
-                    console.error("Update Product Error:", data.data);
-                    alert("Error updating product: " + data.data);
-                    RetailerView.setLoading(false); ////////////////////CHECK
-                }
-            }
-            else {
+            } else {
                 console.error("Request Error:", this.statusText);
                 alert("Network error occurred while updating product");
-                RetailerView.setLoading(false); ////////////////////CHECK
+                RetailerView.setLoading(false);
             }
         };
 
@@ -304,39 +331,42 @@ var RetailerView = {
         request.send(requestData);
     },
 
-
-
     //delete product via api call
     deleteProduct: function(productId) {
-        RetailerView.setLoading(true); ///////////////////////CHECK
+        RetailerView.setLoading(true);
+        
         //creating request
         var request = new XMLHttpRequest();
-        request.open('POST', '/api.php', true);
+        request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
         //when delete product response has loaded
         request.onload = function() {
             if (this.readyState === 4 && this.status === 200) {
-                //parsing response into a JSON object
-                var data = JSON.parse(this.responseText);
-                console.log("Delete product response as JSON object: ", data);
+                try {
+                    //parsing response into a JSON object
+                    var data = JSON.parse(this.responseText);
+                    console.log("Delete product response as JSON object: ", data);
 
-                //checking that the request was successful
-                if (data.status === "success") {
-                    console.log("Product deleted successfully:", data.data);
-                    //refresh the products list
-                    RetailerView.getProducts();
+                    //checking that the request was successful
+                    if (data.status === "success") {
+                        console.log("Product deleted successfully:", data.data);
+                        //refresh the products list
+                        RetailerView.getProducts();
+                    } else {
+                        console.error("Delete Product Error:", data.data);
+                        alert("Error deleting product: " + data.data);
+                        RetailerView.setLoading(false);
+                    }
+                } catch (e) {
+                    console.error("JSON Parse Error:", e);
+                    alert("Error parsing server response");
+                    RetailerView.setLoading(false);
                 }
-                else {
-                    console.error("Delete Product Error:", data.data);
-                    alert("Error deleting product: " + data.data);
-                    RetailerView.setLoading(false); ///////////////////////CHECK
-                }
-            }
-            else {
+            } else {
                 console.error("Request Error:", this.statusText);
                 alert("Network error occurred while deleting product");
-                RetailerView.setLoading(false); ///////////////////////CHECK
+                RetailerView.setLoading(false);
             }
         };
 
@@ -351,14 +381,99 @@ var RetailerView = {
         request.send(requestData);
     },
 
+
+    //delete all products
+    // Add this method to your RetailerView object in retailerView.js
+
+    deleteAllProducts: function() {
+        if (RetailerView.products.length === 0) {
+            alert("No products to delete.");
+            return;
+        }
+        
+        var confirmMessage = "Are you sure you want to delete ALL " + RetailerView.products.length + " products? This action cannot be undone.";
+        
+        if (confirm(confirmMessage)) {
+            RetailerView.setLoading(true);
+            
+            //create request
+            var request = new XMLHttpRequest();
+            request.open('POST', 'api.php', true);
+            request.setRequestHeader('Content-Type', 'application/json');
+
+            //when delete all response has loaded
+            request.onload = function() {
+                console.log("Delete all response status:", this.status);
+                console.log("Delete all response text:", this.responseText);
+                
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        try {
+                            //parse response into a JSON object
+                            var data = JSON.parse(this.responseText);
+                            console.log("Delete all products response:", data);
+
+                            //check that the request was successful
+                            if (data.status === "success") {
+                                console.log("All products deleted successfully");
+                                alert(data.data.message || "All products have been deleted successfully.");
+                                //refresh the products list
+                                RetailerView.getProducts();
+                            } else {
+                                console.error("Delete All Products Error:", data.data);
+                                alert("Error deleting products: " + data.data);
+                            }
+                        } catch (e) {
+                            console.error("JSON Parse Error:", e);
+                            console.error("Raw response:", this.responseText);
+                            alert("Error parsing server response. Check console for details.");
+                        }
+                    } else {
+                        console.error("HTTP Error:", this.status, this.statusText);
+                        alert("Network error: " + this.status + " " + this.statusText);
+                    }
+                    RetailerView.setLoading(false);
+                }
+            };
+
+            request.onerror = function() {
+                console.error("Network error occurred");
+                alert("Network error occurred. Please check your connection and server.");
+                RetailerView.setLoading(false);
+            };
+
+            //create request body
+            var requestData = JSON.stringify({
+                "type": 'DeleteAllProducts',
+                "user_id": RetailerView.userId
+            });
+
+            console.log("Sending delete all request:", requestData);
+            request.send(requestData);
+        }
+    },
+
+    searchFunction: function() {
+        var searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                RetailerView.handleSearch(e.target.value);
+            });
+
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    RetailerView.handleSearch(e.target.value);
+                }
+            });
+        }
+    },
+
     // Confirm delete with user prompt
     confirmDelete: function(productId) {
         if (confirm("Are you sure you want to delete this product? This action cannot be undone.")) {
             RetailerView.deleteProduct(productId);
         }
     },
-
-
 
     //update products display
     updateProducts: function(products) {
@@ -383,41 +498,34 @@ var RetailerView = {
     },
 
     //html for single product card
-     createProductCard: function(product) {
-        var stockStatus = product.in_stock ? 'In Stock' : 'Out of Stock';
-        var stockClass = product.in_stock ? 'in-stock' : 'out-of-stock';
+    createProductCard: function(product) {
+        var stockStatus = product.in_stock ? 'Active' : 'Inactive';
+        var stockClass = product.in_stock ? 'active' : 'inactive';
         
         return '<div class="product-card" data-product-id="' + product.id + '">' +
-                '<div class="product-header">' +
-                    '<h3>' + product.name + '</h3>' +
-                    '<div class="product-actions">' +
-                        '<button class="edit-button" title="Edit Product">' +
-                            '<i class="fas fa-edit"></i>' +
-                        '</button>' +
-                        '<button class="delete-button" title="Delete Product">' +
-                            '<i class="fas fa-trash"></i>' +
-                        '</button>' +
-                    '</div>' +
-                '</div>' +
+                '<img class="product-image" src="https://via.placeholder.com/150" alt="' + product.name + '">' +
                 '<div class="product-details">' +
-                    '<p class="product-description">' + (product.description || 'No description') + '</p>' +
-                    '<div class="product-info">' +
-                        '<span class="product-brand">' + (product.brand || 'No brand') + '</span>' +
-                        '<span class="product-price">R' + parseFloat(product.price).toFixed(2) + '</span>' +
-                    '</div>' +
-                    '<div class="product-specs">' +
-                        '<span class="product-specification">' + (product.specification || 'No specifications') + '</span>' +
-                    '</div>' +
                     '<div class="product-status">' +
-                        '<span class="stock-status ' + stockClass + '">' + stockStatus + '</span>' +
-                        '<span class="last-updated">Updated: ' + RetailerView.formatDate(product.updated_at) + '</span>' +
+                        '<div class="status-dot"></div>' +
+                        stockStatus +
+                    '</div>' +
+                    '<h3 class="product-name">' + product.name + '</h3>' +
+                    '<div class="product-price">R' + parseFloat(product.price).toFixed(2) + '</div>' +
+                    '<div class="product-meta">Updated: ' + RetailerView.formatDate(product.updated_at) + '</div>' +
+                    '<div class="product-actions">' +
+                        '<button class="action-button edit-button">' +
+                            '<i class="fas fa-edit"></i> Edit' +
+                        '</button>' +
+                        '<button class="action-button delete-button">' +
+                            '<i class="fas fa-trash"></i> Delete' +
+                        '</button>' +
                     '</div>' +
                 '</div>' +
             '</div>';
     },
 
     //format date to be displayed
-    formatDate: function(dateString) { /////////////////////////////////CHECK
+    formatDate: function(dateString) {
         if (!dateString) {
             return 'Never';
         }
@@ -425,25 +533,32 @@ var RetailerView = {
         return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
     },
 
-
-    //update retailer stats
+    //update retailer stats with average price calculation
     updateStatistics: function() {
-        var totalProducts = RetailerView.products.length; ////////////////////////CHECK - should it count all or only avaliable products?
-        // var inStockProducts = 0;
+        var totalProducts = RetailerView.products.length;
+        var totalPrice = 0;
+        var averagePrice = 0;
         
-        // for (var i = 0; i < RetailerView.products.length; i++) {
-        //     if (RetailerView.products[i].in_stock) {
-        //         inStockProducts++;
-        //     }
-        // }
+        // Calculate average price
+        if (totalProducts > 0) {
+            for (var i = 0; i < RetailerView.products.length; i++) {
+                totalPrice += parseFloat(RetailerView.products[i].price || 0);
+            }
+            averagePrice = totalPrice / totalProducts;
+        }
         
+        // Update total products display
         var totalElement = document.getElementById('total-products');
         if (totalElement) {
             totalElement.textContent = totalProducts;
         }
+        
+        // Update average price display
+        var avgPriceElements = document.querySelectorAll('.stat-value');
+        if (avgPriceElements.length > 1) {
+            avgPriceElements[1].textContent = 'R' + averagePrice.toFixed(2);
+        }
     },
-
-
 
     //modal functions
     openAddModal: function() {
@@ -462,7 +577,6 @@ var RetailerView = {
         }
     },
 
-
     openEditModal: function(productId) {
         var product = null;
         //finding product to edit
@@ -475,7 +589,7 @@ var RetailerView = {
 
         if (!product) { //if product not found
             console.error('Product not found', productId);
-            return
+            return;
         }
 
         var modal = document.getElementById('editProductModal');
@@ -498,7 +612,6 @@ var RetailerView = {
         RetailerView.closeEditModal();
     },
 
-
     //form functions
 
     //clearing form for adding a new product
@@ -516,7 +629,6 @@ var RetailerView = {
             form.reset();
         }
     },
-
 
     //populating form with existing values in order to update product
     populateEditForm: function(product) {
@@ -552,7 +664,6 @@ var RetailerView = {
         
     },
 
-
     //product handler functions
 
     //add product
@@ -575,7 +686,7 @@ var RetailerView = {
 
         //form validation
         if (!productData.name || !productData.description || !productData.price) {
-            alert('Please fill in all fields');
+            alert('Please fill in all required fields');
             return;
         }
 
@@ -586,7 +697,6 @@ var RetailerView = {
 
         RetailerView.addProduct(productData);
     },
-
 
     //edit product
     handleEditProduct: function() {
@@ -614,7 +724,7 @@ var RetailerView = {
 
         //form validation
         if (!productData.name || !productData.description || !productData.price) {
-            alert('Please fill in all fields');
+            alert('Please fill in all required fields');
             return;
         }
 
@@ -626,8 +736,38 @@ var RetailerView = {
         RetailerView.updateProduct(productId, productData);
     },
 
-    handleSearch: function() {
-        console.log("Search functionality not implemented yet");
+    handleSearch: function(searchText) {
+        var filteredProducts = RetailerView.filterProducts(searchText);
+        RetailerView.updateProducts(filteredProducts);
+    },
+
+    //need to filter products with search result
+    filterProducts: function(searchText) {
+        if (!searchText || searchText.trim() === '') {
+            return RetailerView.products;
+        }
+        
+        var term = searchText.toLowerCase().trim();
+        
+        return RetailerView.products.filter(function(product) {
+            var searchableText = [
+                product.name || '',
+                product.description || '',
+                product.brand || '',
+                product.price ? product.price.toString() : ''
+            ].join(' ').toLowerCase();
+            
+            return searchableText.includes(term);
+        });
+    },
+
+
+    clearSearch: function() {
+        var searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.value = '';
+            RetailerView.handleSearch('');
+        }
     },
 
     selectAllProducts: function() {

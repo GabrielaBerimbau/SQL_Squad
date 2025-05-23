@@ -12,7 +12,9 @@ class API
     
     public function processRequest() 
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if (empty($_POST) && $_SERVER['CONTENT_TYPE'] === 'application/json') 
         {
@@ -30,6 +32,8 @@ class API
             return;
         }
         
+        error_log("API Request: " . json_encode($data));
+
         if (!isset($data['type'])) 
         {
             $this->returnError("Missing type", 400);
@@ -66,6 +70,9 @@ class API
             break;
         case 'DeleteProduct':
             $this->deleteProduct($data);
+            break;
+        case 'DeleteAllProducts':
+            $this->deleteAllProducts($data);
             break;
 
         default:
@@ -568,7 +575,7 @@ private function getRetailerProducts($data) {
 
     $userId = $data['user_id'];
 
-    // check if user is a retailer
+    //check if user is a retailer
     $checkStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
     $checkStmt->bind_param("i", $userId);
     $checkStmt->execute();
@@ -610,21 +617,7 @@ private function getRetailerProducts($data) {
     //fetching all the products
     $products = [];
     while ($row = $result->fetch_assoc()) {
-        // Get product images from PRODUCT_IMAGES table
-        $imageQuery = "SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ? LIMIT 1";
-        $imageStmt = $this->conn->prepare($imageQuery);
-        $productId = $row['id'];
-        $imageStmt->bind_param("i", $productId);
-        $imageStmt->execute();
-        $imageResult = $imageStmt->get_result();
-        
-        if ($imageResult->num_rows > 0) {
-            $row['image'] = 'img/products/' . $row['id'] . '.jpg'; // Assume standard naming convention
-        } else {
-            $row['image'] = 'img/default-product.jpg';
-        }
-
-         // Format price
+        // Format price
         $row['price'] = floatval($row['price']);
         
         $products[] = $row;
@@ -637,10 +630,10 @@ private function getRetailerProducts($data) {
     ]);
     
     $stmt->close();
-}   
+}
     
 
-// add new product as a retailer
+//add new product as a retailer
 private function addProduct($data) {
 
     //check user logged in
@@ -945,9 +938,8 @@ private function updateProduct($data) {
     }
 }
 
-private function deleteProduct($data) 
-{
-    // Check if user is logged in and is a retailer
+private function deleteProduct($data) {
+    //check if user is logged in and is a retailer
     if (!isset($data['user_id'])) {
         $this->returnError("User ID required", 400);
         return;
@@ -996,53 +988,53 @@ private function deleteProduct($data)
     $this->conn->begin_transaction();
     
     try {
-        // Delete from PRICE_HISTORY table first (foreign key constraint)
+        //delete from PRICE_HISTORY table first (foreign key constraint)
         $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
         $deletePriceHistoryStmt->bind_param("i", $listingId);
         $deletePriceHistoryStmt->execute();
         
-        // Delete from LISTING table
+        //delete from LISTING table
         $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
         $deleteListingStmt->bind_param("i", $listingId);
         $deleteListingStmt->execute();
         
-        // Check if the product is listed by other retailers
+        //check if the product is listed by other retailers
         $checkOtherListingsStmt = $this->conn->prepare("SELECT COUNT(*) as count FROM LISTING WHERE product_id = ?");
         $checkOtherListingsStmt->bind_param("i", $productId);
         $checkOtherListingsStmt->execute();
         $checkOtherListingsResult = $checkOtherListingsStmt->get_result();
         $checkOtherListingsRow = $checkOtherListingsResult->fetch_assoc();
         
-        // If no other listings exist, delete the product
+        //if no other listings exist, delete the product
         if ($checkOtherListingsRow['count'] == 0) {
-            // Delete from PRODUCT_IMAGES table
-            $deleteImagesStmt = $this->conn->prepare("DELETE FROM PRODUCT_IMAGES WHERE product_id = ?");
-            $deleteImagesStmt->bind_param("i", $productId);
-            $deleteImagesStmt->execute();
+            // // Delete from PRODUCT_IMAGES table ///////////////////CHECK
+            // $deleteImagesStmt = $this->conn->prepare("DELETE FROM PRODUCT_IMAGES WHERE product_id = ?");
+            // $deleteImagesStmt->bind_param("i", $productId);
+            // $deleteImagesStmt->execute();
             
-            // Delete image file if it exists
-            $imagePath = "img/products/" . $productId . ".jpg";
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+            // // Delete image file if it exists
+            // $imagePath = "img/products/" . $productId . ".jpg";
+            // if (file_exists($imagePath)) {
+            //     unlink($imagePath);
+            // }
             
-            // Delete from WISHLIST table
+            //delete from WISHLIST table
             $deleteWishlistStmt = $this->conn->prepare("DELETE FROM WISHLIST WHERE product_id = ?");
             $deleteWishlistStmt->bind_param("i", $productId);
             $deleteWishlistStmt->execute();
             
-            // Delete from REVIEW table
+            //delete from REVIEW table
             $deleteReviewStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE product_id = ?");
             $deleteReviewStmt->bind_param("i", $productId);
             $deleteReviewStmt->execute();
             
-            // Finally, delete from PRODUCT table
+            //delete from PRODUCT table
             $deleteProductStmt = $this->conn->prepare("DELETE FROM PRODUCT WHERE product_id = ?");
             $deleteProductStmt->bind_param("i", $productId);
             $deleteProductStmt->execute();
         }
         
-        // Commit transaction
+        //commit transaction
         $this->conn->commit();
         
         $this->returnSuccess([
@@ -1054,6 +1046,115 @@ private function deleteProduct($data)
         $this->returnError("Error deleting product: " . $e->getMessage(), 500);
     }
 }
+
+
+private function deleteAllProducts($data) {
+    //check if user is logged in
+    if (!isset($data['user_id'])) {
+        $this->returnError("User ID required", 400);
+        return;
+    }
+    
+    $userId = $data['user_id'];
+    
+    //check if user is a retailer
+    $checkRetailerStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
+    $checkRetailerStmt->bind_param("i", $userId);
+    $checkRetailerStmt->execute();
+    $checkRetailerResult = $checkRetailerStmt->get_result();
+    
+    if ($checkRetailerResult->num_rows === 0) {
+        $this->returnError("User is not a retailer", 403);
+        return;
+    }
+    
+    //get all listings for this retailer
+    $getListingsStmt = $this->conn->prepare("
+        SELECT l.listing_id, l.product_id 
+        FROM LISTING l 
+        WHERE l.user_id = ?
+    ");
+    $getListingsStmt->bind_param("i", $userId);
+    $getListingsStmt->execute();
+    $listingsResult = $getListingsStmt->get_result();
+    
+    if ($listingsResult->num_rows === 0) {
+        $this->returnError("No products found to delete", 404);
+        return;
+    }
+    
+    $listings = [];
+    $productIds = [];
+    
+    while ($row = $listingsResult->fetch_assoc()) {
+        $listings[] = $row;
+        $productIds[] = $row['product_id'];
+    }
+    
+    //start transaction
+    $this->conn->begin_transaction();
+    
+    try {
+        $deletedCount = 0;
+        
+        foreach ($listings as $listing) {
+            $listingId = $listing['listing_id'];
+            $productId = $listing['product_id'];
+            
+            //delete from PRICE_HISTORY table first (foreign key constraint)
+            $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
+            $deletePriceHistoryStmt->bind_param("i", $listingId);
+            $deletePriceHistoryStmt->execute();
+            
+            //delete from LISTING table
+            $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
+            $deleteListingStmt->bind_param("i", $listingId);
+            $deleteListingStmt->execute();
+            
+            //check if the product is listed by other retailers
+            $checkOtherListingsStmt = $this->conn->prepare("SELECT COUNT(*) as count FROM LISTING WHERE product_id = ?");
+            $checkOtherListingsStmt->bind_param("i", $productId);
+            $checkOtherListingsStmt->execute();
+            $checkOtherListingsResult = $checkOtherListingsStmt->get_result();
+            $checkOtherListingsRow = $checkOtherListingsResult->fetch_assoc();
+            
+            //if no other listings exist, delete the product
+            if ($checkOtherListingsRow['count'] == 0) {
+                // Delete from WISHLIST table
+                $deleteWishlistStmt = $this->conn->prepare("DELETE FROM WISHLIST WHERE product_id = ?");
+                $deleteWishlistStmt->bind_param("i", $productId);
+                $deleteWishlistStmt->execute();
+                
+                // Delete from REVIEW table
+                $deleteReviewStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE product_id = ?");
+                $deleteReviewStmt->bind_param("i", $productId);
+                $deleteReviewStmt->execute();
+                
+                // Delete from PRODUCT table
+                $deleteProductStmt = $this->conn->prepare("DELETE FROM PRODUCT WHERE product_id = ?");
+                $deleteProductStmt->bind_param("i", $productId);
+                $deleteProductStmt->execute();
+            }
+            
+            $deletedCount++;
+        }
+        
+        // Commit transaction
+        $this->conn->commit();
+        
+        $this->returnSuccess([
+            'message' => "Successfully deleted $deletedCount products",
+            'deleted_count' => $deletedCount
+        ]);
+        
+    } catch (Exception $e) {
+        // Rollback on error
+        $this->conn->rollback();
+        $this->returnError("Error deleting products: " . $e->getMessage(), 500);
+    }
+}
+
+
 
 // =========================== END OF GABI ==========================
 
