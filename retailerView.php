@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
    <style>
+        /* modal container */
         div#addProductModal,
         div#editProductModal {
             display: none !important;
@@ -57,7 +58,7 @@
             }
         }
 
-        /* Modal Header */
+        /* modal Header */
         div#addProductModal div.modal-content h2,
         div#editProductModal div.modal-content h2 {
             margin: 0 !important;
@@ -73,7 +74,7 @@
             background-clip: text !important;
         }
 
-        /* Close Button */
+        /* close Button */
         div#addProductModal span.close,
         div#editProductModal span.close {
             position: absolute !important;
@@ -100,21 +101,20 @@
             transform: scale(1.1) !important;
         }
 
-        /* Form Container */
+        /* form */
         div#addProductModal form,
         div#editProductModal form {
             padding: 20px 24px 24px 24px !important;
             max-height: calc(90vh - 80px) !important;
-            overflow-y: auto !important;
+            overflow-y: auto !important; /* vertical scroll if needed */
         }
 
-        /* Form Groups */
         div#addProductModal .form-group,
         div#editProductModal .form-group {
-            margin-bottom: 20px !important;
+            margin-bottom: 20px !important; /*space between form groups*/
         }
 
-        /* Labels */
+        /* labels */
         div#addProductModal label,
         div#editProductModal label {
             display: block !important;
@@ -126,7 +126,7 @@
             letter-spacing: 0.5px !important;
         }
 
-        /* Form Controls */
+        /* form controls */
         div#addProductModal .form-control,
         div#editProductModal .form-control {
             width: 100% !important;
@@ -148,7 +148,7 @@
             box-shadow: 0 0 0 3px rgba(50, 64, 47, 0.1) !important;
         }
 
-        /* Textarea */
+        /* textarea */
         div#addProductModal textarea.form-control,
         div#editProductModal textarea.form-control {
             min-height: 80px !important;
@@ -195,32 +195,6 @@
             box-shadow: 0 8px 25px rgba(50, 64, 47, 0.3) !important;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 640px) {
-            div#addProductModal,
-            div#editProductModal {
-                padding: 10px !important;
-            }
-            
-            div#addProductModal div.modal-content,
-            div#editProductModal div.modal-content {
-                max-width: none !important;
-                width: 100% !important;
-                max-height: 95vh !important;
-            }
-            
-            div#addProductModal form,
-            div#editProductModal form {
-                padding: 16px !important;
-                max-height: calc(95vh - 70px) !important;
-            }
-            
-            div#addProductModal div.modal-content h2,
-            div#editProductModal div.modal-content h2 {
-                font-size: 20px !important;
-                padding: 20px 16px 12px 16px !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -339,7 +313,7 @@
         </div>
     </div>
     <script>
-        localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
+        // localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
         
     </script>
 

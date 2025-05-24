@@ -2,6 +2,7 @@
 
 var RetailerView = {
     userId: null,
+    username: null,
     products: [],
     
     //initialize retailerView
@@ -10,20 +11,25 @@ var RetailerView = {
         
         //get stored id of user logged in
         var storedUserId = null;
+        var storedUsername = null;
 
          if (typeof(Storage) !== "undefined") {
             // check localStorage
-            if (localStorage.getItem('user_id')) {
+            if (localStorage.getItem('user_id') && localStorage.getItem('username')) {
                 storedUserId = localStorage.getItem('user_id');
+                storedUsername = localStorage.getItem('username');
             }
             //check sessionStorage
-            else if (sessionStorage.getItem('user_id')) {
+            else if (sessionStorage.getItem('user_id') && sessionStorage.getItem('username')) {
                 storedUserId = sessionStorage.getItem('user_id');
+                storedUsername = sessionStorage.getItem('username');
             }
             
-            if (storedUserId) { //user is logged in
+            if (storedUserId && storedUsername) { //user is logged in
                 RetailerView.userId = parseInt(storedUserId, 10);
+                RetailerView.username = storedUsername;
                 console.log("Found user ID:", RetailerView.userId);
+                console.log("Found username:", RetailerView.username);
             } else {
                 console.error("No user logged in");
                 alert("Please log in first");
@@ -36,9 +42,28 @@ var RetailerView = {
             return;
         }
         
+        RetailerView.displayUsername();
         RetailerView.setupEventListeners();
         RetailerView.getProducts();
         RetailerView.searchFunction();
+    },
+
+    displayUsername: function() {
+        console.log("Displaying username:", RetailerView.username); 
+
+        //update username
+        var userNameElement = document.querySelector('.user-role');
+        if (userNameElement && RetailerView.username) {
+            userNameElement.textContent = RetailerView.username;
+        }
+
+        //avatar
+        var userAvatarElement = document.querySelector('.user-avatar');
+        if (userAvatarElement && RetailerView.username) {
+            userAvatarElement.textContent = RetailerView.username.charAt(0).toUpperCase();
+        }
+
+        console.log("User data displayed successfully");
     },
 
     //setting up all event listeners for the page
