@@ -18,10 +18,9 @@ include('config.php');
 
     <header>
         <h1>All Products</h1>
-        
     </header>
 
-    <?php include('header.php'); ?>
+    <?php include_once "header.php"; ?>
     <div class="success-alert" id="success-alert"></div>
 
 
@@ -52,9 +51,8 @@ include('config.php');
         <img id="loading-animation" src="img/loading.gif" alt="Loading..." /> 
     </div>
 
-   
-
     <script src="js/products.js"></script>
 
+    <?php include_once "footer.php"; ?>
 </body>
 </html>
