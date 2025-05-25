@@ -222,7 +222,7 @@ h1 {
     transition: all 0.3s ease;
 }
 
-/* .success-alert.success {
+.success-alert.success {
     background: #65875e;
     color: white;
     border-left: 4px solid #476242;
@@ -232,7 +232,7 @@ h1 {
     background: #ff5a5f;
     color: white;
     border-left: 4px solid #cd3b40;
-} */
+}
 
 @media (max-width: 768px) 
 {
@@ -283,7 +283,7 @@ h1 {
     font-weight: bold;
 }
 
-/* Success Alert */
+/* Success Alert
 .success-alert {
     display: none;
     position: fixed;
@@ -302,7 +302,7 @@ h1 {
 
 .success-alert.error {
     background-color: #dc3545;
-}
+} */
 
 /* Loading Animation */
 #loading-animation {
