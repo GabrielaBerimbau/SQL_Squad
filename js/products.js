@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="${wishlistBtnClass}" data-id="${product.product_id}">
                     ${wishlistBtnText}
                 </button>
-                <button class="view-details-btn" onclick="window.location.href='product-details.php?id=${product.product_id}'">View Details</button>
+                <button class="view-details-btn" onclick="window.location.href='view.php?id=${product.product_id}'">View Details</button>
             `;
             
             productContainer.appendChild(productCard);
