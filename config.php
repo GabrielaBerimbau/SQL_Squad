@@ -1,9 +1,10 @@
+
 <?php
 //enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
-ini_set('error_log', _DIR_ . '/debug.log');
+ini_set('error_log', __DIR__ . '/debug.log');
 
 class Config 
 {
@@ -17,7 +18,7 @@ class Config
     // Load environment variables from .env file
     private static function loadEnv() 
     {
-        $envFile = _DIR_ . '/.env';
+        $envFile = __DIR__ . '/.env';
         error_log("Looking for .env file at: " . $envFile);
         
         if (file_exists($envFile)) {
@@ -51,8 +52,8 @@ class Config
             }
         } else {
             error_log("Warning: .env file not found at " . $envFile);
-            error_log("Current directory: " . _DIR_);
-            error_log("Files in directory: " . print_r(scandir(_DIR_), true));
+            error_log("Current directory: " . __DIR__);
+            error_log("Files in directory: " . print_r(scandir(__DIR__), true));
         }
     }
     
@@ -138,5 +139,14 @@ class Config
         }
     }
     
+    public static function generateToken($length = 32) 
+    {
+        return bin2hex(random_bytes($length / 2));
+    }
+    
+    public static function generateSalt($length = 16) 
+    {
+        return bin2hex(random_bytes($length / 2));
+    }
 }
 ?>
