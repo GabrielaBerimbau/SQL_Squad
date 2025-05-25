@@ -485,3 +485,20 @@ div#editProductModal .form-submit:hover {
         padding: 20px 16px 12px 16px !important;
     }
 }
+
+/* stock status */
+.product-status.in-stock {
+    color: #4CAF50;
+}
+
+.product-status.out-of-stock {
+    color: #f44336 !important;
+}
+
+.product-status.in-stock .status-dot {
+    background-color: #4CAF50;
+}
+
+.product-status.out-of-stock .status-dot {
+    background-color: #f44336 !important;
+}
