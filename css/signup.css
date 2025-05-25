@@ -114,3 +114,24 @@ footer {
     font-size: 14px;
     box-sizing: border-box;
 }
+
+/* dynamic company field */
+.company-field {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-10px);
+    margin-bottom: 0;
+    visibility: hidden;
+    height: 0;
+}
+
+.company-field.show {
+    opacity: 1;
+    max-height: 120px;
+    transform: translateY(0);
+    margin-bottom: 15px;
+    visibility: visible;
+    height: auto;
+}

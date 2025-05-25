@@ -29,6 +29,12 @@
                 <option value="Administrator">Administrator</option>
             </select>
 
+            <!-- Dynamic Company Field - Initially Hidden -->
+            <div class="form-group company-field" id="company-field">
+                <label for="company">Company Name:</label>
+                <input type="text" id="company" name="company" placeholder="Enter your company name">
+            </div>
+
             <div id="error-msg" style="color: red; display: none;"></div>
 
             <button type="submit">Register</button>

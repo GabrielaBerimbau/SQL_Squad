@@ -129,6 +129,21 @@ class API
                 return;
             }
         }
+
+        //validate company name for retailers
+        if ($data['role'] === 'retailer') {
+            if (!isset($data['company']) || trim($data['company']) === '') {
+                $this->returnError("Company name required for retailers", 400);
+                return;
+            }
+            
+            // Validate company name length
+            if (strlen(trim($data['company'])) < 2 || strlen(trim($data['company'])) > 100) {
+                $this->returnError("Company name must be between 2-100 characters", 400);
+                return;
+            }
+        }
+
         
         // Check if email already exists
         $stmt = $this->conn->prepare("SELECT user_id FROM USERS WHERE email = ?");
@@ -142,7 +157,7 @@ class API
             return;
         }
         
-        // Check if username already exists
+        //check if username already exists
         $stmt = $this->conn->prepare("SELECT user_id FROM USERS WHERE username = ?");
         $stmt->bind_param("s", $data['username']);
         $stmt->execute();
@@ -157,8 +172,13 @@ class API
         // Hash the password 
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
         
-        // Set default value for is_active
-        $isActive = 1;
+        //set default value for is_active
+        if ($data['role'] === 'retailer') {
+            $isActive = 0;
+        }
+        else {
+            $isActive = 1;
+        }
         
         // Insert the new user
         $stmt = $this->conn->prepare("INSERT INTO USERS (username, email, password, role, is_active) VALUES (?, ?, ?, ?, ?)");
@@ -168,7 +188,7 @@ class API
         {
             $userId = $this->conn->insert_id;
             
-            // Now add user to role-specific tables before returning success
+            // add user to role-specific tables before returning success
             if ($data['role'] === 'customer') {
                 try {
                     // Insert into CUSTOMER table
@@ -185,8 +205,9 @@ class API
             if ($data['role'] === 'retailer') {
                 try {
                     // Insert into RETAILER table
+                    $companyName = trim($data['company']);
                     $retailerStmt = $this->conn->prepare("INSERT INTO RETAILER (user_id, company_name) VALUES (?, ?)");
-                    $retailerStmt->bind_param("is", $userId, $data['username']);
+                    $retailerStmt->bind_param("is", $userId, $companyName);
                     $retailerStmt->execute();
                 } catch (Exception $e) {
                     // Log the error but don't exit yet
