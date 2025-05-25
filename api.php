@@ -2075,17 +2075,15 @@ private function getAllReviewsForAdmin($data){
 
     $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
 
-    // query to get all reviews with product and user info
     $query = "
         SELECT 
-            r.review_id,
+            r.user_id,
+            r.product_id,
             r.rating,
             r.comment,
             r.review_date,
             u.username,
-            u.user_id,
-            p.name as product_name,
-            p.product_id
+            p.name as product_name
         FROM REVIEW r
         JOIN USERS u ON r.user_id = u.user_id
         JOIN PRODUCT p ON r.product_id = p.product_id
@@ -2101,9 +2099,11 @@ private function getAllReviewsForAdmin($data){
 
     $stmt->execute();
     $result = $stmt->get_result();
-    $reviews = [];
 
+    $reviews = [];
     while($row = $result->fetch_assoc()){
+        // creating composite review_id
+        $row['review_id'] = $row['user_id'] . '_' . $row['product_id'];
         $reviews[] = $row;
     }
 
@@ -2127,11 +2127,19 @@ private function deleteReviewAdmin($data){
         return;
     }
 
-    $reviewId = $data['review_id'];
+    //parse the composite
+    $reviewIdParts = explode('_', $data['review_id']);
+    if(count($reviewIdParts) !== 2){
+        $this->returnError("Invalid review ID format", 400);
+        return;
+    }
+
+    $userId = intval($reviewIdParts[0]);
+    $productId = intval($reviewIdParts[1]);
 
     // check if review exists
-    $checkStmt = $this->conn->prepare("SELECT review_id FROM REVIEW WHERE review_id = ?");
-    $checkStmt->bind_param("i", $reviewId);
+    $checkStmt = $this->conn->prepare("SELECT user_id, product_id FROM REVIEW WHERE user_id = ? AND product_id = ?");
+    $checkStmt->bind_param("ii", $userId, $productId);
     $checkStmt->execute();
     $checkResult = $checkStmt->get_result();
 
@@ -2140,16 +2148,17 @@ private function deleteReviewAdmin($data){
         return;
     }
 
-    // delete the review
-    $deleteStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE review_id = ?");
-    $deleteStmt->bind_param("i", $reviewId);
+    // delete review
+    $deleteStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE user_id = ? AND product_id = ?");
+    $deleteStmt->bind_param("ii", $userId, $productId);
 
     if($deleteStmt->execute()){
         $this->returnSuccess([
             'message' => 'Review deleted successfully',
-            'review_id' => $reviewId
+            'review_id' => $data['review_id']
         ]);
-    } else {
+    }
+    else{
         $this->returnError("Failed to delete review", 500);
     }
 

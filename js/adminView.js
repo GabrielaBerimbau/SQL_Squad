@@ -220,9 +220,44 @@ class AdminDashboard{
     }
 
     // load reviews asyncronously
+    // async loadReviews(){
+    //     const search = document.getElementById('search-reviews').value;
+    //     const rating = document.getElementById('rating-filter').value;
+        
+    //     try{
+    //         const resp = await fetch('api.php',{
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 type: 'GetAllReviewsForAdmin',
+    //                 search: search,
+    //                 rating: rating
+    //             })
+    //         });
+            
+    //         const res = await resp.json();
+            
+    //         if(res.status === 'success'){
+    //             this.displayReviews(res.data.reviews);
+    //         } 
+    //         else{
+    //             console.error('Error loading reviews:', res.data);
+    //             this.showNotification('Error loading reviews', 'error');
+    //         }
+    //     } 
+    //     catch(err){
+    //         console.error('Error loading reviews:', err);
+    //         this.showNotification('Network error', 'error');
+    //     }
+    // }
+
     async loadReviews(){
         const search = document.getElementById('search-reviews').value;
         const rating = document.getElementById('rating-filter').value;
+        
+        console.log('Loading reviews with:', { search, rating });
         
         try{
             const resp = await fetch('api.php',{
@@ -237,19 +272,44 @@ class AdminDashboard{
                 })
             });
             
-            const res = await resp.json();
+            console.log('Response status:', resp.status);
+            console.log('Response headers:', resp.headers);
+            
+            // get raw resp text
+            const responseText = await resp.text();
+            console.log('Raw response:', responseText);
+            
+            //check if html
+            if(responseText.trim().startsWith('<')){
+                console.error('Received HTML instead of JSON:', responseText.substring(0, 200));
+                this.showNotification('Server returned HTML instead of JSON. Check server logs.', 'error');
+                return;
+            }
+            
+            // parse to json
+            let res;
+            try{
+                res = JSON.parse(responseText);
+            }
+            catch(parseError){
+                console.error('JSON parse error:', parseError);
+                console.error('Response that failed to parse:', responseText);
+                this.showNotification('Invalid JSON response from server', 'error');
+                return;
+            }
             
             if(res.status === 'success'){
+                console.log('Successfully loaded reviews:', res.data);
                 this.displayReviews(res.data.reviews);
             } 
             else{
-                console.error('Error loading reviews:', res.data);
-                this.showNotification('Error loading reviews', 'error');
+                console.error('API error loading reviews:', res.data);
+                this.showNotification('Error loading reviews: ' + res.data, 'error');
             }
         } 
         catch(err){
-            console.error('Error loading reviews:', err);
-            this.showNotification('Network error', 'error');
+            console.error('Network error loading reviews:', err);
+            this.showNotification('Network error: ' + err.message, 'error');
         }
     }
 
@@ -285,7 +345,7 @@ class AdminDashboard{
                 </div>
                 
                 <div class="review-actions">
-                    <button class="action-btn delete-btn" onclick="adminDashboard.confirmDeleteReview(${review.review_id})" title="Delete Review">
+                    <button class="action-btn delete-btn" onclick="adminDashboard.confirmDeleteReview('${review.review_id}')" title="Delete Review">
                         <i class="fas fa-trash-alt"></i> Delete
                     </button>
                 </div>
