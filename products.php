@@ -45,21 +45,6 @@ include('config.php');
                 <option value="default">All Brands</option>
             </select>
         </div>
-
-        <div class="filter-box">
-            <h3>Price Range</h3>
-            <input type="range" id="price-range" min="0" max="1000" step="50">
-            <p id="price-range-value">Max Price: R1000</p>
-        </div>
-
-        <div class="filter-box">
-            <h3>Sort By</h3>
-            <select id="sort-select">
-                <option value="default">Default</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-            </select>
-        </div>
     </div>
 
     <!-- Product List -->
