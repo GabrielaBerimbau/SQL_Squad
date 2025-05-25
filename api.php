@@ -1451,201 +1451,62 @@ private function deleteAllProducts($data) {
 
 
     private function getTopRatedProducts($data) 
-    {
-        // Initialize the WHERE clause and parameters array
-        $whereClause = [];
-        $params = [];
-        $types = "";
-        
-        // Check for category_id filter
-        if (isset($data['category_id']) && !empty($data['category_id']) && $data['category_id'] !== 'default') {
-            $whereClause[] = "p.category_id = ?";
-            $params[] = $data['category_id'];
-            $types .= "i";
-        }
-        
-        // Check for brand filter
-        if (isset($data['brand']) && !empty($data['brand']) && $data['brand'] !== 'default') {
-            $whereClause[] = "p.brand = ?";
-            $params[] = $data['brand'];
-            $types .= "s";
-        }
-        
-        // Check for minimum rating filter
-        if (isset($data['min_rating']) && !empty($data['min_rating']) && $data['min_rating'] > 0) {
-            $whereClause[] = "COALESCE(AVG(r.rating), 0) >= ?";
-            $params[] = floatval($data['min_rating']);
-            $types .= "d";
-        }
-        
-        // Check for search term
-        if (isset($data['search']) && !empty($data['search'])) {
-            $searchTerm = "%" . $data['search'] . "%";
-            $whereClause[] = "(p.name LIKE ? OR p.description LIKE ?)";
-            $params[] = $searchTerm;
-            $params[] = $searchTerm;
-            $types .= "ss";
-        }
-        
-        // Build the WHERE clause string
-        $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
-        
-        // Query to get top rated products with their ratings and listings
-        $query = "
-            SELECT 
-                p.*,
-                l.in_stock,
-                l.price,
-                l.listing_id,
-                COALESCE(AVG(r.rating), 0) AS avg_rating,
-                COUNT(r.rating) AS review_count
-            FROM 
-                PRODUCT p
-            LEFT JOIN 
-                LISTING l ON p.product_id = l.product_id
-            LEFT JOIN 
-                REVIEW r ON p.product_id = r.product_id
-            $whereClauseStr
-            GROUP BY 
-                p.product_id
-            HAVING 
-                COUNT(r.rating) > 0
-        ";
-        
-        // Add sorting options
-        if (isset($data['sort']) && $data['sort'] !== 'default') {
-            switch ($data['sort']) {
-                case 'rating-high':
-                    $query .= " ORDER BY avg_rating DESC, review_count DESC";
-                    break;
-                case 'review-count':
-                    $query .= " ORDER BY review_count DESC, avg_rating DESC";
-                    break;
-                case 'price-low':
-                    $query .= " ORDER BY l.price ASC";
-                    break;
-                case 'price-high':
-                    $query .= " ORDER BY l.price DESC";
-                    break;
-                default:
-                    $query .= " ORDER BY avg_rating DESC, review_count DESC";
-                    break;
+{
+   
+    $query = "
+        SELECT 
+            p.*,
+            AVG(r.rating) AS avg_rating,
+            COUNT(r.rating) AS review_count
+        FROM 
+            PRODUCT p
+        LEFT JOIN 
+            REVIEW r ON p.product_id = r.product_id
+        GROUP BY 
+            p.product_id
+        HAVING 
+            COUNT(r.rating) > 0
+        ORDER BY 
+            avg_rating DESC, review_count DESC
+        LIMIT 20
+    ";
+    
+    $result = $this->conn->query($query);
+    
+    if (!$result) {
+        $this->returnError("Database query failed: " . $this->conn->error, 500);
+        return;
+    }
+    
+    $products = [];
+    while ($row = $result->fetch_assoc()) {
+        // Process images
+        if (!empty($row['images'])) {
+            $imageArray = json_decode($row['images'], true);
+            if ($imageArray) {
+                $row['primary_image'] = $imageArray[0] ?? 'img/default-product.jpg';
+            } else {
+                $imageArray = explode(',', $row['images']);
+                $row['primary_image'] = trim($imageArray[0]) ?: 'img/default-product.jpg';
             }
         } else {
-            $query .= " ORDER BY avg_rating DESC, review_count DESC";
+            $row['primary_image'] = 'img/default-product.jpg';
         }
         
-        // Limit to top rated products (minimum 3.0 rating by default)
-        if (!isset($data['min_rating']) || $data['min_rating'] == 0) {
-            $query .= " HAVING avg_rating >= 3.0";
-        }
-        
-        // Prepare and execute the statement
-        $stmt = $this->conn->prepare($query);
-        
-        // Bind parameters if any
-        if (!empty($params)) {
-            $stmt->bind_param($types, ...$params);
-        }
-        
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        // Store products by their ID to remove duplicates and get best price
-        $productMap = [];
-        while ($row = $result->fetch_assoc()) {
-            $productId = $row['product_id'];
-            
-            // Only add this product if we haven't seen it before, or if this listing has a better price
-            if (!isset($productMap[$productId]) || 
-                (isset($row['price']) && $row['price'] < $productMap[$productId]['price'])) {
-                
-                // Process images field
-                if (!empty($row['images'])) {
-                    $imageArray = json_decode($row['images'], true);
-                    if ($imageArray) {
-                        $row['primary_image'] = $imageArray[0] ?? 'img/default-product.jpg';
-                    } else {
-                        $imageArray = explode(',', $row['images']);
-                        $row['primary_image'] = trim($imageArray[0]) ?: 'img/default-product.jpg';
-                    }
-                } else {
-                    $row['primary_image'] = 'img/default-product.jpg';
-                }
-                
-                $row['avg_rating'] = round($row['avg_rating'] ?? 0, 1);
-                $row['price'] = $row['price'] ? floatval($row['price']) : null;
-                
-                $productMap[$productId] = $row;
-            }
-        }
-        
-        // Convert map to array and sort again by rating
-        $products = array_values($productMap);
-        
-        // Sort the final array by rating (since we might have lost order during deduplication)
-        usort($products, function($a, $b) use ($data) {
-            if (isset($data['sort'])) {
-                switch ($data['sort']) {
-                    case 'rating-high':
-                        if ($b['avg_rating'] == $a['avg_rating']) {
-                            return $b['review_count'] - $a['review_count'];
-                        }
-                        return $b['avg_rating'] <=> $a['avg_rating'];
-                    case 'review-count':
-                        if ($b['review_count'] == $a['review_count']) {
-                            return $b['avg_rating'] <=> $a['avg_rating'];
-                        }
-                        return $b['review_count'] - $a['review_count'];
-                    case 'price-low':
-                        return ($a['price'] ?? PHP_INT_MAX) <=> ($b['price'] ?? PHP_INT_MAX);
-                    case 'price-high':
-                        return ($b['price'] ?? 0) <=> ($a['price'] ?? 0);
-                    default:
-                        if ($b['avg_rating'] == $a['avg_rating']) {
-                            return $b['review_count'] - $a['review_count'];
-                        }
-                        return $b['avg_rating'] <=> $a['avg_rating'];
-                }
-            } else {
-                // Default sort: highest rating first, then most reviews
-                if ($b['avg_rating'] == $a['avg_rating']) {
-                    return $b['review_count'] - $a['review_count'];
-                }
-                return $b['avg_rating'] <=> $a['avg_rating'];
-            }
-        });
-        
-        // Get categories for filter dropdown
-        $categoryQuery = "SELECT category_id, name FROM CATEGORY ORDER BY name";
-        $categoryResult = $this->conn->query($categoryQuery);
-        $categories = [];
-        if ($categoryResult) {
-            while ($row = $categoryResult->fetch_assoc()) {
-                $categories[] = $row;
-            }
-        }
-        
-        // Get unique brands for filter dropdown
-        $brandQuery = "SELECT DISTINCT brand FROM PRODUCT WHERE brand IS NOT NULL AND brand != '' ORDER BY brand";
-        $brandResult = $this->conn->query($brandQuery);
-        $brands = [];
-        if ($brandResult) {
-            while ($row = $brandResult->fetch_assoc()) {
-                $brands[] = $row['brand'];
-            }
-        }
-        
-        // Return the data
-        $this->returnSuccess([
-            'products' => $products,
-            'categories' => $categories,
-            'brands' => $brands,
-            'total_count' => count($products)
-        ]);
-        
-        $stmt->close();
+        $row['avg_rating'] = round($row['avg_rating'] ?? 0, 1);
+        $products[] = $row;
     }
+    
+    // Get categories and brands 
+    $categories = [];
+    $brands = [];
+    
+    $this->returnSuccess([
+        'products' => $products,
+        'categories' => $categories,
+        'brands' => $brands
+    ]);
+}
 
 
 //--------------------------------------------
