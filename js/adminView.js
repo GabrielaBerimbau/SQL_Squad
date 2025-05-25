@@ -941,16 +941,25 @@ class AdminDashboard{
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.user_status.map(role => `
+                        ${data.user_status.map(role=>`
                             <tr>
                                 <td>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</td>
-                                <td><span class="status-active">${role.active_count}</span></td>
-                                <td><span class="status-inactive">${role.inactive_count}</span></td>
+                                <td>
+                                    <span class="status-active">${role.active_count}</span>
+                                </td>
+                                <td>
+                                    <span class="status-inactive">${role.inactive_count}</span>
+                                </td>
                                 <td><strong>${role.total_count}</strong></td>
                             </tr>
                         `).join('')}
                     </tbody>
                 </table>
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    <p><strong>Total:</strong> All users in each role (Active + Inactive)</p>
+                    <p><strong>Active:</strong> Users who can log in and use the platform</p>
+                    <p><strong>Inactive:</strong> Users who are suspended/blocked</p>
+                </div>
             </div>
         `;
 
@@ -968,8 +977,8 @@ class AdminDashboard{
                     </thead>
                     <tbody>
                         ${data.user_roles.map(role => {
-                            const total = data.user_roles.reduce((sum, r) => sum + r.count, 0);
-                            const percentage = ((role.count / total) * 100).toFixed(1);
+                            const total = data.user_roles.reduce((sum, r) => sum + parseInt(r.count), 0);
+                            const percentage = total > 0? ((parseInt(role.count) / total) * 100).toFixed(1): 0;
                             return `
                                 <tr>
                                     <td>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</td>
@@ -984,6 +993,7 @@ class AdminDashboard{
         `;
 
         // 3. review distribution
+        //find the review distribution section in your displayDetailedStats function and replace it
         const reviewDistHtml = `
             <div class="analytics-card">
                 <h3>Review Distribution</h3>
@@ -996,18 +1006,19 @@ class AdminDashboard{
                         </tr>
                     </thead>
                     <tbody>
-                        ${[5,4,3,2,1].map(rating => {
+                        ${[5,4,3,2,1].map(rating=> {
                             const count = data.review_distribution[rating] || 0;
-                            const total = Object.values(data.review_distribution).reduce((sum, c) => sum + c, 0);
-                            const percentage = total > 0 ? (count / total) * 100 : 0;
+                            const total = Object.values(data.review_distribution).reduce((sum, c)=> sum + parseInt(c), 0);
+                            const actualPercentage = total > 0 && count > 0 ? (count / total) * 100 : 0;
                             return `
                                 <tr>
-                                    <td>${'★'.repeat(rating)}</td>
+                                    <td>${'★'.repeat(rating)}${rating < 5? '☆'.repeat(5 - rating): ''}</td>
                                     <td><strong>${count}</strong></td>
                                     <td>
                                         <div class="progress-bar">
-                                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                                            <div class="progress-fill" style="width: ${actualPercentage}%"></div>
                                         </div>
+                                        <span style="font-size: 12px; color: #666; margin-left: 5px;">${Math.round(actualPercentage)}%</span>
                                     </td>
                                 </tr>
                             `;
