@@ -313,7 +313,7 @@
         </div>
     </div>
     <script>
-        localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
+        // localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
         
     </script>
 
