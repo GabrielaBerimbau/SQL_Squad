@@ -1,56 +1,3 @@
-<?php
-
-$retailer_name = "Dischem Retailer";
-$products = [
-    [
-        'id' => 1,
-        'name' => 'Essence Lash Princess Mascara',
-        'price' => 144.99,
-        'image' => 'https://via.placeholder.com/150',
-        'description' => 'False lash effect mascara for dramatic volume'
-    ],
-    [
-        'id' => 2,
-        'name' => 'Essence Pure Nude Highlighter',
-        'price' => 169.99,
-        'image' => 'https://via.placeholder.com/150',
-        'description' => 'Natural glow highlighter for a radiant finish'
-    ],
-    [
-        'id' => 3,
-        'name' => 'Essence Soft Touch Mousse Foundation',
-        'price' => 150.99,
-        'image' => 'https://via.placeholder.com/150',
-        'description' => 'Lightweight mousse foundation with matte finish'
-    ],
-    [
-        'id' => 4,
-        'name' => 'Essence Long Lasting Eye Pencil',
-        'price' => 120.99,
-        'image' => 'https://via.placeholder.com/150',
-        'description' => 'Waterproof eye pencil for precise application'
-    ],
-    [
-        'id' => 5,
-        'name' => 'Essence Shine Shine Shine Lipgloss',
-        'price' => 3.49,
-        'image' => 'https://via.placeholder.com/150',
-        'description' => 'High-shine lip gloss with non-sticky formula'
-    ],
-    [
-        'id' => 6,
-        'name' => 'Essence Make Me Brow Gel',
-        'price' => 2.99,
-        'image' => 'https://via.placeholder.com/150',
-        'description' => 'Tinted brow gel with fibers for fuller-looking brows'
-    ]
-];
-
-// Calculate statistics
-$total_products = count($products);
-$average_price = array_sum(array_column($products, 'price')) / $total_products;
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,8 +5,198 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retailer Dashboard</title>
     <link rel="stylesheet" href="css/retailerView.css">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    </head>
+
+   <style>
+        /* modal container */
+        div#addProductModal,
+        div#editProductModal {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background-color: rgba(0, 0, 0, 0.7) !important;
+            z-index: 9999 !important;
+            overflow: auto !important;
+            backdrop-filter: blur(5px) !important;
+        }
+
+        div#addProductModal.modal[style*="flex"],
+        div#editProductModal.modal[style*="flex"] {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
+        }
+
+        div#addProductModal div.modal-content,
+        div#editProductModal div.modal-content {
+            background: #ffffff !important;
+            border-radius: 16px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+            width: 100% !important;
+            max-width: 500px !important;
+            max-height: 90vh !important;
+            overflow: hidden !important;
+            position: relative !important;
+            margin: 0 !important;
+            animation: modalSlideIn 0.3s ease-out !important;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* modal Header */
+        div#addProductModal div.modal-content h2,
+        div#editProductModal div.modal-content h2 {
+            margin: 0 !important;
+            padding: 24px 24px 16px 24px !important;
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #1a202c !important;
+            text-align: center !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            background: linear-gradient(135deg, #32402f 0%, #506046 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        /* close Button */
+        div#addProductModal span.close,
+        div#editProductModal span.close {
+            position: absolute !important;
+            top: 12px !important;
+            right: 12px !important;
+            width: 32px !important;
+            height: 32px !important;
+            background: rgba(50, 64, 47, 0.1) !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            font-size: 18px !important;
+            color: #666 !important;
+            transition: all 0.2s ease !important;
+            z-index: 10 !important;
+        }
+
+        div#addProductModal span.close:hover,
+        div#editProductModal span.close:hover {
+            background: #e74a3b !important;
+            color: white !important;
+            transform: scale(1.1) !important;
+        }
+
+        /* form */
+        div#addProductModal form,
+        div#editProductModal form {
+            padding: 20px 24px 24px 24px !important;
+            max-height: calc(90vh - 80px) !important;
+            overflow-y: auto !important; /* vertical scroll if needed */
+        }
+
+        div#addProductModal .form-group,
+        div#editProductModal .form-group {
+            margin-bottom: 20px !important; /*space between form groups*/
+        }
+
+        /* labels */
+        div#addProductModal label,
+        div#editProductModal label {
+            display: block !important;
+            margin-bottom: 6px !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            color: #32402f !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        /* form controls */
+        div#addProductModal .form-control,
+        div#editProductModal .form-control {
+            width: 100% !important;
+            padding: 12px 16px !important;
+            border: 2px solid #d1d5db !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            font-family: inherit !important;
+            background-color: #f9fafb !important;
+            transition: all 0.2s ease !important;
+            box-sizing: border-box !important;
+        }
+
+        div#addProductModal .form-control:focus,
+        div#editProductModal .form-control:focus {
+            outline: none !important;
+            border-color: #32402f !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(50, 64, 47, 0.1) !important;
+        }
+
+        /* textarea */
+        div#addProductModal textarea.form-control,
+        div#editProductModal textarea.form-control {
+            min-height: 80px !important;
+            resize: vertical !important;
+        }
+
+        /* File Input */
+        div#addProductModal input[type="file"].form-control,
+        div#editProductModal input[type="file"].form-control {
+            padding: 8px 12px !important;
+            background-color: #ffffff !important;
+            border-style: dashed !important;
+            border-color: #32402f !important;
+        }
+
+        div#addProductModal input[type="file"].form-control:hover,
+        div#editProductModal input[type="file"].form-control:hover {
+            border-color: #506046 !important;
+            background-color: #f0f4f0 !important;
+        }
+
+        /* Submit Button */
+        div#addProductModal .form-submit,
+        div#editProductModal .form-submit {
+            width: 100% !important;
+            padding: 14px 20px !important;
+            background: linear-gradient(135deg, #32402f 0%, #506046 100%) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            margin-top: 8px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        div#addProductModal .form-submit:hover,
+        div#editProductModal .form-submit:hover {
+            background: linear-gradient(135deg, #506046 0%, #65875e 100%) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 8px 25px rgba(50, 64, 47, 0.3) !important;
+        }
+
+    </style>
+</head>
 <body>
 
     <div class="navbar">
@@ -69,7 +206,7 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
                 <div class="user-name">Retailer User</div>
                 <div class="user-role">Essence Beauty</div>
             </div>
-            <div class="user-avatar">E</div>
+            <div class="user-avatar">R</div>
             <a href="index.php" class="logout-button" title="Log out">Logout</a>
         </div>
     </div>
@@ -80,60 +217,41 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
         <!-- Statistics Section -->
         <div class="stats-container">
             <div class="stat-card">
-                <div class="stat-value"><?php echo count($products); ?></div>
+                <div class="stat-value" id="total-products">0</div>
                 <div class="stat-label">Total Products</div>
             </div>
             
             <div class="stat-card">
-                <div class="stat-value">R<?php echo number_format(array_sum(array_column($products, 'price')) / count($products), 2); ?></div>
+                <div class="stat-value">R0.00</div>
                 <div class="stat-label">Average Price</div>
             </div>
         </div>
 
+        <!-- add loading indicator -->
+        <div id="loading-indicator" style="display: none; text-align: center; padding: 20px;">Loading...</div>
+
         <div class="actions-bar">
-            <input type="text" class="search-input" placeholder="Search products...">
-            <button class="add-button" onclick="openAddModal()">
+        <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+            <button class="add-button">
                 <i class="fas fa-plus"></i> Add New Product
             </button>
         </div>
         
         <!-- Action Buttons -->
         <div class="button-group">
-            <button>Select All</button>
-            <button>Bulk Edit</button>
+            <button class="delete-all">Delete All</button>
         </div>
         
         <!-- Products Section -->
         <div class="products-container">
-            <?php foreach ($products as $product): ?>
-            <div class="product-card">
-                <img class="product-image" src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-                <div class="product-details">
-                    <div class="product-status">
-                        <div class="status-dot"></div>
-                        Active
-                    </div>
-                    <h3 class="product-name"><?php echo $product['name']; ?></h3>
-                    <div class="product-price">R<?php echo number_format($product['price'], 2); ?></div>
-                    <div class="product-meta">Updated: 2025-05-19</div>
-                    <div class="product-actions">
-                        <button class="action-button edit-button" onclick="openEditModal(<?php echo $product['id']; ?>)">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-button delete-button" onclick="confirmDelete(<?php echo $product['id']; ?>)">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <?php endforeach; ?>
+            <!-- products loaded with js -->
         </div>
     </div>
     
     <!-- Add Product Modal -->
     <div id="addProductModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeAddModal()">&times;</span>
+            <span class="close">&times;</span>
             <h2>Add New Product</h2>
             <form id="addProductForm">
                 <div class="form-group">
@@ -149,6 +267,10 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
                     <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <input type="text" id="brand" name="brand" class="form-control">
+                </div>
+                <div class="form-group">
                     <label for="image">Product Image</label>
                     <input type="file" id="image" name="image" class="form-control" accept="image/*">
                 </div>
@@ -160,10 +282,9 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
     <!-- Edit Product Modal -->
     <div id="editProductModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeEditModal()">&times;</span>
+            <span class="close">&times;</span>
             <h2>Edit Product</h2>
             <form id="editProductForm">
-                <input type="hidden" id="edit_product_id" name="product_id">
                 <div class="form-group">
                     <label for="edit_product_name">Product Name</label>
                     <input type="text" id="edit_product_name" name="product_name" class="form-control" required>
@@ -177,6 +298,10 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
                     <textarea id="edit_description" name="description" class="form-control" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
+                    <label for="edit_brand">Brand</label>
+                    <input type="text" id="edit_brand" name="brand" class="form-control">
+                </div>
+                <div class="form-group">
                     <label for="edit_image">Product Image</label>
                     <input type="file" id="edit_image" name="image" class="form-control" accept="image/*">
                 </div>
@@ -187,73 +312,12 @@ $average_price = array_sum(array_column($products, 'price')) / $total_products;
             </form>
         </div>
     </div>
-    
     <script>
-        // Add Product Modal Functions
-        function openAddModal() {
-            document.getElementById('addProductModal').style.display = 'block';
-        }
+        // localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
         
-        function closeAddModal() {
-            document.getElementById('addProductModal').style.display = 'none';
-        }
-        
-        // Edit Product Modal Functions
-        function openEditModal(productId) {
-            // In a real application, you would fetch the product details from the server
-            // For demonstration, we'll use the mock data
-            <?php
-            echo "const products = " . json_encode($products) . ";\n";
-            ?>
-            
-            const product = products.find(p => p.id === productId);
-            
-            if (product) {
-                document.getElementById('edit_product_id').value = product.id;
-                document.getElementById('edit_product_name').value = product.name;
-                document.getElementById('edit_price').value = product.price;
-                document.getElementById('edit_description').value = product.description;
-                document.getElementById('current_image_preview').src = product.image;
-                
-                document.getElementById('editProductModal').style.display = 'block';
-            }
-        }
-        
-        function closeEditModal() {
-            document.getElementById('editProductModal').style.display = 'none';
-        }
-        
-        // Delete Product Function
-        function confirmDelete(productId) {
-            if (confirm("Are you sure you want to delete this product?")) {
-                // In a real application, you would send a request to the server to delete the product
-                alert("Product deletion would be processed (Product ID: " + productId + ")");
-            }
-        }
-        
-        // Close modals when clicking outside of them
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('addProductModal')) {
-                closeAddModal();
-            }
-            if (event.target == document.getElementById('editProductModal')) {
-                closeEditModal();
-            }
-        }
-        
-        // Form submissions (would normally send data to server)
-        document.getElementById('addProductForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert("New product would be added.");
-            closeAddModal();
-        });
-        
-        document.getElementById('editProductForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const productId = document.getElementById('edit_product_id').value;
-            alert("Product " + productId + " would be updated.");
-            closeEditModal();
-        });
     </script>
+
+    <script src="js/retailerView.js"></script>
+
 </body>
 <?php include 'footer.php'; ?>

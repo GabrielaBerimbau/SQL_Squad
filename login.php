@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <script src="js/login.js"></script>
     <a href="index.php" class="back-button">← Back</a>
 
     <main>

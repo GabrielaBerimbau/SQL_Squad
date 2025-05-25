@@ -12,7 +12,9 @@ class API
     
     public function processRequest() 
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if (empty($_POST) && $_SERVER['CONTENT_TYPE'] === 'application/json') 
         {
@@ -30,6 +32,8 @@ class API
             return;
         }
         
+        error_log("API Request: " . json_encode($data));
+
         if (!isset($data['type'])) 
         {
             $this->returnError("Missing type", 400);
@@ -54,7 +58,7 @@ class API
             $this->handleWishlist($data);
             break;
 
-         //retaileView cases
+        //retaileView cases
         case 'GetRetailerProducts':
             $this->getRetailerProducts($data);
             break;
@@ -66,6 +70,10 @@ class API
             break;
         case 'DeleteProduct':
             $this->deleteProduct($data);
+            break;
+
+        case 'DeleteAllProducts':
+            $this->deleteAllProducts($data);
             break;
 
 //VIEW PAGE CASES 
@@ -577,6 +585,7 @@ class API
     }
 }
 
+
 // =========================== GABI - API ==========================
 
 private function getRetailerProducts($data) {
@@ -587,7 +596,7 @@ private function getRetailerProducts($data) {
 
     $userId = $data['user_id'];
 
-    // check if user is a retailer
+    //check if user is a retailer
     $checkStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
     $checkStmt->bind_param("i", $userId);
     $checkStmt->execute();
@@ -629,21 +638,7 @@ private function getRetailerProducts($data) {
     //fetching all the products
     $products = [];
     while ($row = $result->fetch_assoc()) {
-        // Get product images from PRODUCT_IMAGES table
-        $imageQuery = "SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ? LIMIT 1";
-        $imageStmt = $this->conn->prepare($imageQuery);
-        $productId = $row['id'];
-        $imageStmt->bind_param("i", $productId);
-        $imageStmt->execute();
-        $imageResult = $imageStmt->get_result();
-        
-        if ($imageResult->num_rows > 0) {
-            $row['image'] = 'img/products/' . $row['id'] . '.jpg'; // Assume standard naming convention
-        } else {
-            $row['image'] = 'img/default-product.jpg';
-        }
-
-         // Format price
+        // Format price
         $row['price'] = floatval($row['price']);
         
         $products[] = $row;
@@ -656,10 +651,10 @@ private function getRetailerProducts($data) {
     ]);
     
     $stmt->close();
-}   
+}
     
 
-// add new product as a retailer
+//add new product as a retailer
 private function addProduct($data) {
 
     //check user logged in
@@ -690,6 +685,12 @@ private function addProduct($data) {
         }
     }
 
+    // Validate price - ensure price is a number
+    if (!is_numeric($data['price']) || floatval($data['price']) <= 0) {
+        $this->returnError("Price must be a valid positive number", 400);
+        return;
+    }
+
     //start transaction
     $this->conn->begin_transaction();
     
@@ -714,26 +715,26 @@ private function addProduct($data) {
         
         //===================CHECK====================
         // Handle images/file upload
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $targetDir = "img/products/";
+        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        //     $targetDir = "img/products/";
             
-            // Create directory if it doesn't exist
-            if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0777, true);
-            }
+        //     // Create directory if it doesn't exist
+        //     if (!file_exists($targetDir)) {
+        //         mkdir($targetDir, 0777, true);
+        //     }
             
-            // Use product_id for image name for consistency
-            $filename = $productId . '.jpg';
-            $targetFilePath = $targetDir . $filename;
+        //     // Use product_id for image name for consistency
+        //     $filename = $productId . '.jpg';
+        //     $targetFilePath = $targetDir . $filename;
             
-            // Upload file
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-                // Add entry to PRODUCT_IMAGES table
-                $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-                $imageStmt->bind_param("i", $productId);
-                $imageStmt->execute();
-            }
-        }
+        //     // Upload file
+        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+        //         // Add entry to PRODUCT_IMAGES table
+        //         $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
+        //         $imageStmt->bind_param("i", $productId);
+        //         $imageStmt->execute();
+        //     }
+        // }
         
         //insert into LISTING table
         $listingStmt = $this->conn->prepare("
@@ -864,34 +865,34 @@ private function updateProduct($data) {
         
         // =================== CHECK ====================
         //handle images/file upload
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $targetDir = "img/products/";
+        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        //     $targetDir = "img/products/";
             
-            // Create directory if it doesn't exist
-            if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0777, true);
-            }
+        //     // Create directory if it doesn't exist
+        //     if (!file_exists($targetDir)) {
+        //         mkdir($targetDir, 0777, true);
+        //     }
             
-            // Use product_id for image name for consistency
-            $filename = $productId . '.jpg';
-            $targetFilePath = $targetDir . $filename;
+        //     // Use product_id for image name for consistency
+        //     $filename = $productId . '.jpg';
+        //     $targetFilePath = $targetDir . $filename;
             
-            // Upload file
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-                // Check if entry exists in PRODUCT_IMAGES
-                $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
-                $checkImageStmt->bind_param("i", $productId);
-                $checkImageStmt->execute();
-                $checkImageResult = $checkImageStmt->get_result();
+        //     // Upload file
+        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+        //         // Check if entry exists in PRODUCT_IMAGES
+        //         $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
+        //         $checkImageStmt->bind_param("i", $productId);
+        //         $checkImageStmt->execute();
+        //         $checkImageResult = $checkImageStmt->get_result();
                 
-                if ($checkImageResult->num_rows === 0) {
-                    // Add entry to PRODUCT_IMAGES table if it doesn't exist
-                    $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-                    $imageStmt->bind_param("i", $productId);
-                    $imageStmt->execute();
-                }
-            }
-        }
+        //         if ($checkImageResult->num_rows === 0) {
+        //             // Add entry to PRODUCT_IMAGES table if it doesn't exist
+        //             $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
+        //             $imageStmt->bind_param("i", $productId);
+        //             $imageStmt->execute();
+        //         }
+        //     }
+        // }
         
         //remove trailing comma and space
         $updateProductQuery = rtrim($updateProductQuery, ", ");
@@ -910,6 +911,12 @@ private function updateProduct($data) {
         
         //update LISTING table
         if (isset($data['price']) && !empty($data['price'])) {
+            
+            //validate price
+             if (!is_numeric($data['price']) || floatval($data['price']) <= 0) {
+                throw new Exception("Price must be a valid positive number");
+            }
+            
             $price = floatval($data['price']);
             
             //update listing price
@@ -952,9 +959,8 @@ private function updateProduct($data) {
     }
 }
 
-private function deleteProduct($data) 
-{
-    // Check if user is logged in and is a retailer
+private function deleteProduct($data) {
+    //check if user is logged in and is a retailer
     if (!isset($data['user_id'])) {
         $this->returnError("User ID required", 400);
         return;
@@ -1003,53 +1009,53 @@ private function deleteProduct($data)
     $this->conn->begin_transaction();
     
     try {
-        // Delete from PRICE_HISTORY table first (foreign key constraint)
+        //delete from PRICE_HISTORY table first (foreign key constraint)
         $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
         $deletePriceHistoryStmt->bind_param("i", $listingId);
         $deletePriceHistoryStmt->execute();
         
-        // Delete from LISTING table
+        //delete from LISTING table
         $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
         $deleteListingStmt->bind_param("i", $listingId);
         $deleteListingStmt->execute();
         
-        // Check if the product is listed by other retailers
+        //check if the product is listed by other retailers
         $checkOtherListingsStmt = $this->conn->prepare("SELECT COUNT(*) as count FROM LISTING WHERE product_id = ?");
         $checkOtherListingsStmt->bind_param("i", $productId);
         $checkOtherListingsStmt->execute();
         $checkOtherListingsResult = $checkOtherListingsStmt->get_result();
         $checkOtherListingsRow = $checkOtherListingsResult->fetch_assoc();
         
-        // If no other listings exist, delete the product
+        //if no other listings exist, delete the product
         if ($checkOtherListingsRow['count'] == 0) {
-            // Delete from PRODUCT_IMAGES table
-            $deleteImagesStmt = $this->conn->prepare("DELETE FROM PRODUCT_IMAGES WHERE product_id = ?");
-            $deleteImagesStmt->bind_param("i", $productId);
-            $deleteImagesStmt->execute();
+            // // Delete from PRODUCT_IMAGES table ///////////////////CHECK
+            // $deleteImagesStmt = $this->conn->prepare("DELETE FROM PRODUCT_IMAGES WHERE product_id = ?");
+            // $deleteImagesStmt->bind_param("i", $productId);
+            // $deleteImagesStmt->execute();
             
-            // Delete image file if it exists
-            $imagePath = "img/products/" . $productId . ".jpg";
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+            // // Delete image file if it exists
+            // $imagePath = "img/products/" . $productId . ".jpg";
+            // if (file_exists($imagePath)) {
+            //     unlink($imagePath);
+            // }
             
-            // Delete from WISHLIST table
+            //delete from WISHLIST table
             $deleteWishlistStmt = $this->conn->prepare("DELETE FROM WISHLIST WHERE product_id = ?");
             $deleteWishlistStmt->bind_param("i", $productId);
             $deleteWishlistStmt->execute();
             
-            // Delete from REVIEW table
+            //delete from REVIEW table
             $deleteReviewStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE product_id = ?");
             $deleteReviewStmt->bind_param("i", $productId);
             $deleteReviewStmt->execute();
             
-            // Finally, delete from PRODUCT table
+            //delete from PRODUCT table
             $deleteProductStmt = $this->conn->prepare("DELETE FROM PRODUCT WHERE product_id = ?");
             $deleteProductStmt->bind_param("i", $productId);
             $deleteProductStmt->execute();
         }
         
-        // Commit transaction
+        //commit transaction
         $this->conn->commit();
         
         $this->returnSuccess([
@@ -1062,8 +1068,550 @@ private function deleteProduct($data)
     }
 }
 
+
+private function deleteAllProducts($data) {
+    //check if user is logged in
+    if (!isset($data['user_id'])) {
+        $this->returnError("User ID required", 400);
+        return;
+    }
+    
+    $userId = $data['user_id'];
+    
+    //check if user is a retailer
+    $checkRetailerStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
+    $checkRetailerStmt->bind_param("i", $userId);
+    $checkRetailerStmt->execute();
+    $checkRetailerResult = $checkRetailerStmt->get_result();
+    
+    if ($checkRetailerResult->num_rows === 0) {
+        $this->returnError("User is not a retailer", 403);
+        return;
+    }
+    
+    //get all listings for this retailer
+    $getListingsStmt = $this->conn->prepare("
+        SELECT l.listing_id, l.product_id 
+        FROM LISTING l 
+        WHERE l.user_id = ?
+    ");
+    $getListingsStmt->bind_param("i", $userId);
+    $getListingsStmt->execute();
+    $listingsResult = $getListingsStmt->get_result();
+    
+    if ($listingsResult->num_rows === 0) {
+        $this->returnError("No products found to delete", 404);
+        return;
+    }
+    
+    $listings = [];
+    $productIds = [];
+    
+    while ($row = $listingsResult->fetch_assoc()) {
+        $listings[] = $row;
+        $productIds[] = $row['product_id'];
+    }
+    
+    //start transaction
+    $this->conn->begin_transaction();
+    
+    try {
+        $deletedCount = 0;
+        
+        foreach ($listings as $listing) {
+            $listingId = $listing['listing_id'];
+            $productId = $listing['product_id'];
+            
+            //delete from PRICE_HISTORY table first (foreign key constraint)
+            $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
+            $deletePriceHistoryStmt->bind_param("i", $listingId);
+            $deletePriceHistoryStmt->execute();
+            
+            //delete from LISTING table
+            $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
+            $deleteListingStmt->bind_param("i", $listingId);
+            $deleteListingStmt->execute();
+            
+            //check if the product is listed by other retailers
+            $checkOtherListingsStmt = $this->conn->prepare("SELECT COUNT(*) as count FROM LISTING WHERE product_id = ?");
+            $checkOtherListingsStmt->bind_param("i", $productId);
+            $checkOtherListingsStmt->execute();
+            $checkOtherListingsResult = $checkOtherListingsStmt->get_result();
+            $checkOtherListingsRow = $checkOtherListingsResult->fetch_assoc();
+            
+            //if no other listings exist, delete the product
+            if ($checkOtherListingsRow['count'] == 0) {
+                // Delete from WISHLIST table
+                $deleteWishlistStmt = $this->conn->prepare("DELETE FROM WISHLIST WHERE product_id = ?");
+                $deleteWishlistStmt->bind_param("i", $productId);
+                $deleteWishlistStmt->execute();
+                
+                // Delete from REVIEW table
+                $deleteReviewStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE product_id = ?");
+                $deleteReviewStmt->bind_param("i", $productId);
+                $deleteReviewStmt->execute();
+                
+                // Delete from PRODUCT table
+                $deleteProductStmt = $this->conn->prepare("DELETE FROM PRODUCT WHERE product_id = ?");
+                $deleteProductStmt->bind_param("i", $productId);
+                $deleteProductStmt->execute();
+            }
+            
+            $deletedCount++;
+        }
+        
+        // Commit transaction
+        $this->conn->commit();
+        
+        $this->returnSuccess([
+            'message' => "Successfully deleted $deletedCount products",
+            'deleted_count' => $deletedCount
+        ]);
+        
+    } catch (Exception $e) {
+        // Rollback on error
+        $this->conn->rollback();
+        $this->returnError("Error deleting products: " . $e->getMessage(), 500);
+    }
+}
+
+
+
 // =========================== END OF GABI ==========================
 
+
+///--------------------------------------NEW METHODS FOR VIEW PAGE
+
+
+
+    private function getProductDetails($data) 
+    {
+        if (!isset($data['product_id'])) {
+            $this->returnError("Product ID required", 400);
+            return;
+        }
+        
+        $productId = $data['product_id'];
+        
+        // Get product details with category name
+        $query = "
+            SELECT 
+                p.*,
+                c.name as category_name,
+                COALESCE(AVG(r.rating), 0) AS avg_rating,
+                COUNT(r.rating) AS review_count
+            FROM 
+                PRODUCT p
+            LEFT JOIN 
+                CATEGORY c ON p.category_id = c.category_id
+            LEFT JOIN 
+                REVIEW r ON p.product_id = r.product_id
+            WHERE 
+                p.product_id = ?
+            GROUP BY 
+                p.product_id
+        ";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows === 0) {
+            $this->returnError("Product not found", 404);
+            return;
+        }
+        
+        $product = $result->fetch_assoc();
+        
+        // Process images
+        if (!empty($product['images'])) {
+            $imageArray = json_decode($product['images'], true);
+            if ($imageArray) {
+                $product['image_list'] = $imageArray;
+            } else {
+                $imageArray = explode(',', $product['images']);
+                $product['image_list'] = array_map('trim', $imageArray);
+            }
+        } else {
+            $product['image_list'] = ['img/default-product.jpg'];
+        }
+        
+        $product['avg_rating'] = round($product['avg_rating'] ?? 0, 1);
+        
+        $this->returnSuccess($product);
+        $stmt->close();
+    }
+
+    private function getProductListings($data) 
+    {
+        if (!isset($data['product_id'])) {
+            $this->returnError("Product ID required", 400);
+            return;
+        }
+        
+        $productId = $data['product_id'];
+        
+        // Get all listings for this product with retailer info
+        $query = "
+            SELECT 
+                l.listing_id,
+                l.price,
+                l.in_stock,
+                l.last_updated,
+                r.company_name as retailer_name,
+                u.username as retailer_username
+            FROM 
+                LISTING l
+            JOIN 
+                RETAILER r ON l.user_id = r.user_id
+            JOIN 
+                USERS u ON r.user_id = u.user_id
+            WHERE 
+                l.product_id = ?
+            ORDER BY 
+                l.price ASC
+        ";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $listings = [];
+        while ($row = $result->fetch_assoc()) {
+            $row['price'] = floatval($row['price']);
+            $listings[] = $row;
+        }
+        
+        $this->returnSuccess([
+            'listings' => $listings,
+            'count' => count($listings)
+        ]);
+        
+        $stmt->close();
+    }
+
+    private function getProductReviews($data) 
+    {
+        if (!isset($data['product_id'])) {
+            $this->returnError("Product ID required", 400);
+            return;
+        }
+        
+        $productId = $data['product_id'];
+        
+        // Get reviews with user information
+        $query = "
+            SELECT 
+                r.rating,
+                r.comment,
+                r.review_date,
+                u.username
+            FROM 
+                REVIEW r
+            JOIN 
+                USERS u ON r.user_id = u.user_id
+            WHERE 
+                r.product_id = ?
+            ORDER BY 
+                r.review_date DESC
+        ";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $reviews = [];
+        while ($row = $result->fetch_assoc()) {
+            $reviews[] = $row;
+        }
+        
+        $this->returnSuccess([
+            'reviews' => $reviews,
+            'count' => count($reviews)
+        ]);
+        
+        $stmt->close();
+    }
+
+    private function addReview($data) 
+    {
+        // Check if user is logged in
+        if (!isset($_SESSION['user_id'])) {
+            $this->returnError("You must be logged in to add a review", 401);
+            return;
+        }
+        
+        $userId = $_SESSION['user_id'];
+        
+        // Validate required fields
+        $requiredFields = ['product_id', 'rating'];
+        foreach ($requiredFields as $field) {
+            if (!isset($data[$field]) || $data[$field] === '') {
+                $this->returnError("$field is required", 400);
+                return;
+            }
+        }
+        
+        $productId = $data['product_id'];
+        $rating = intval($data['rating']);
+        $comment = $data['comment'] ?? '';
+        
+        // Validate rating range
+        if ($rating < 1 || $rating > 5) {
+            $this->returnError("Rating must be between 1 and 5", 400);
+            return;
+        }
+        
+        // Check if user is a customer
+        $customerCheck = $this->conn->prepare("SELECT user_id FROM CUSTOMER WHERE user_id = ?");
+        $customerCheck->bind_param("i", $userId);
+        $customerCheck->execute();
+        $customerResult = $customerCheck->get_result();
+        
+        if ($customerResult->num_rows === 0) {
+            $this->returnError("Only customers can add reviews", 403);
+            return;
+        }
+        
+        // Check if product exists
+        $productCheck = $this->conn->prepare("SELECT product_id FROM PRODUCT WHERE product_id = ?");
+        $productCheck->bind_param("i", $productId);
+        $productCheck->execute();
+        $productResult = $productCheck->get_result();
+        
+        if ($productResult->num_rows === 0) {
+            $this->returnError("Product not found", 404);
+            return;
+        }
+        
+        // Check if user already reviewed this product
+        $reviewCheck = $this->conn->prepare("SELECT * FROM REVIEW WHERE user_id = ? AND product_id = ?");
+        $reviewCheck->bind_param("ii", $userId, $productId);
+        $reviewCheck->execute();
+        $reviewResult = $reviewCheck->get_result();
+        
+        if ($reviewResult->num_rows > 0) {
+            $this->returnError("You have already reviewed this product", 409);
+            return;
+        }
+        
+        // Insert the review
+        $stmt = $this->conn->prepare("INSERT INTO REVIEW (user_id, product_id, rating, comment, review_date) VALUES (?, ?, ?, ?, NOW())");
+        $stmt->bind_param("iiis", $userId, $productId, $rating, $comment);
+        
+        if ($stmt->execute()) {
+            $this->returnSuccess(['message' => 'Review added successfully']);
+        } else {
+            $this->returnError("Failed to add review: " . $stmt->error, 500);
+        }
+        
+        $stmt->close();
+    }
+//-------------------highest review api
+
+
+    private function getTopRatedProducts($data) 
+    {
+        // Initialize the WHERE clause and parameters array
+        $whereClause = [];
+        $params = [];
+        $types = "";
+        
+        // Check for category_id filter
+        if (isset($data['category_id']) && !empty($data['category_id']) && $data['category_id'] !== 'default') {
+            $whereClause[] = "p.category_id = ?";
+            $params[] = $data['category_id'];
+            $types .= "i";
+        }
+        
+        // Check for brand filter
+        if (isset($data['brand']) && !empty($data['brand']) && $data['brand'] !== 'default') {
+            $whereClause[] = "p.brand = ?";
+            $params[] = $data['brand'];
+            $types .= "s";
+        }
+        
+        // Check for minimum rating filter
+        if (isset($data['min_rating']) && !empty($data['min_rating']) && $data['min_rating'] > 0) {
+            $whereClause[] = "COALESCE(AVG(r.rating), 0) >= ?";
+            $params[] = floatval($data['min_rating']);
+            $types .= "d";
+        }
+        
+        // Check for search term
+        if (isset($data['search']) && !empty($data['search'])) {
+            $searchTerm = "%" . $data['search'] . "%";
+            $whereClause[] = "(p.name LIKE ? OR p.description LIKE ?)";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= "ss";
+        }
+        
+        // Build the WHERE clause string
+        $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
+        
+        // Query to get top rated products with their ratings and listings
+        $query = "
+            SELECT 
+                p.*,
+                l.in_stock,
+                l.price,
+                l.listing_id,
+                COALESCE(AVG(r.rating), 0) AS avg_rating,
+                COUNT(r.rating) AS review_count
+            FROM 
+                PRODUCT p
+            LEFT JOIN 
+                LISTING l ON p.product_id = l.product_id
+            LEFT JOIN 
+                REVIEW r ON p.product_id = r.product_id
+            $whereClauseStr
+            GROUP BY 
+                p.product_id
+            HAVING 
+                COUNT(r.rating) > 0
+        ";
+        
+        // Add sorting options
+        if (isset($data['sort']) && $data['sort'] !== 'default') {
+            switch ($data['sort']) {
+                case 'rating-high':
+                    $query .= " ORDER BY avg_rating DESC, review_count DESC";
+                    break;
+                case 'review-count':
+                    $query .= " ORDER BY review_count DESC, avg_rating DESC";
+                    break;
+                case 'price-low':
+                    $query .= " ORDER BY l.price ASC";
+                    break;
+                case 'price-high':
+                    $query .= " ORDER BY l.price DESC";
+                    break;
+                default:
+                    $query .= " ORDER BY avg_rating DESC, review_count DESC";
+                    break;
+            }
+        } else {
+            $query .= " ORDER BY avg_rating DESC, review_count DESC";
+        }
+        
+        // Limit to top rated products (minimum 3.0 rating by default)
+        if (!isset($data['min_rating']) || $data['min_rating'] == 0) {
+            $query .= " HAVING avg_rating >= 3.0";
+        }
+        
+        // Prepare and execute the statement
+        $stmt = $this->conn->prepare($query);
+        
+        // Bind parameters if any
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        // Store products by their ID to remove duplicates and get best price
+        $productMap = [];
+        while ($row = $result->fetch_assoc()) {
+            $productId = $row['product_id'];
+            
+            // Only add this product if we haven't seen it before, or if this listing has a better price
+            if (!isset($productMap[$productId]) || 
+                (isset($row['price']) && $row['price'] < $productMap[$productId]['price'])) {
+                
+                // Process images field
+                if (!empty($row['images'])) {
+                    $imageArray = json_decode($row['images'], true);
+                    if ($imageArray) {
+                        $row['primary_image'] = $imageArray[0] ?? 'img/default-product.jpg';
+                    } else {
+                        $imageArray = explode(',', $row['images']);
+                        $row['primary_image'] = trim($imageArray[0]) ?: 'img/default-product.jpg';
+                    }
+                } else {
+                    $row['primary_image'] = 'img/default-product.jpg';
+                }
+                
+                $row['avg_rating'] = round($row['avg_rating'] ?? 0, 1);
+                $row['price'] = $row['price'] ? floatval($row['price']) : null;
+                
+                $productMap[$productId] = $row;
+            }
+        }
+        
+        // Convert map to array and sort again by rating
+        $products = array_values($productMap);
+        
+        // Sort the final array by rating (since we might have lost order during deduplication)
+        usort($products, function($a, $b) use ($data) {
+            if (isset($data['sort'])) {
+                switch ($data['sort']) {
+                    case 'rating-high':
+                        if ($b['avg_rating'] == $a['avg_rating']) {
+                            return $b['review_count'] - $a['review_count'];
+                        }
+                        return $b['avg_rating'] <=> $a['avg_rating'];
+                    case 'review-count':
+                        if ($b['review_count'] == $a['review_count']) {
+                            return $b['avg_rating'] <=> $a['avg_rating'];
+                        }
+                        return $b['review_count'] - $a['review_count'];
+                    case 'price-low':
+                        return ($a['price'] ?? PHP_INT_MAX) <=> ($b['price'] ?? PHP_INT_MAX);
+                    case 'price-high':
+                        return ($b['price'] ?? 0) <=> ($a['price'] ?? 0);
+                    default:
+                        if ($b['avg_rating'] == $a['avg_rating']) {
+                            return $b['review_count'] - $a['review_count'];
+                        }
+                        return $b['avg_rating'] <=> $a['avg_rating'];
+                }
+            } else {
+                // Default sort: highest rating first, then most reviews
+                if ($b['avg_rating'] == $a['avg_rating']) {
+                    return $b['review_count'] - $a['review_count'];
+                }
+                return $b['avg_rating'] <=> $a['avg_rating'];
+            }
+        });
+        
+        // Get categories for filter dropdown
+        $categoryQuery = "SELECT category_id, name FROM CATEGORY ORDER BY name";
+        $categoryResult = $this->conn->query($categoryQuery);
+        $categories = [];
+        if ($categoryResult) {
+            while ($row = $categoryResult->fetch_assoc()) {
+                $categories[] = $row;
+            }
+        }
+        
+        // Get unique brands for filter dropdown
+        $brandQuery = "SELECT DISTINCT brand FROM PRODUCT WHERE brand IS NOT NULL AND brand != '' ORDER BY brand";
+        $brandResult = $this->conn->query($brandQuery);
+        $brands = [];
+        if ($brandResult) {
+            while ($row = $brandResult->fetch_assoc()) {
+                $brands[] = $row['brand'];
+            }
+        }
+        
+        // Return the data
+        $this->returnSuccess([
+            'products' => $products,
+            'categories' => $categories,
+            'brands' => $brands,
+            'total_count' => count($products)
+        ]);
+        
+        $stmt->close();
+    }
+
+
+//--------------------------------------------
 
     private function returnError($msg, $statusCode = 400) 
     {
