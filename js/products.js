@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchBar = document.querySelector('.search-bar');
     const categorySelect = document.getElementById('category-select');
     const brandSelect = document.getElementById('brand-select');
-    const sortSelect = document.getElementById('sort-select');
     const loadingAnimation = document.getElementById('loading-animation');
     const successAlert = document.getElementById('success-alert');
     
@@ -46,10 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
         loadProducts();
     });
     
-    sortSelect.addEventListener('change', function() {
-        filters.sort = this.value;
-        loadProducts();
-    });
     
     // Add event listener for wishlist buttons
     document.addEventListener('click', function(e) {

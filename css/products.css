@@ -72,10 +72,10 @@ h1 {
 }
 
 .product-card img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
+    width: 293px;
+    height: 205px;
+    object-fit: fill;
+    border-radius: 8px;
 }
 
 .product-title {
