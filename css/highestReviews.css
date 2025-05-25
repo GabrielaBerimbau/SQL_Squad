@@ -131,35 +131,122 @@ h1 {
 }
 
 .wishlist-btn, .view-details-btn {
-    padding: 10px;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    margin: 5px;
     font-family: 'Playfair Display', serif;
+    margin: 5px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
 }
 
 .wishlist-btn {
-    background: #ff5a5f;
+    background: #32402f;
     color: white;
+    border: 2px solid #32402f;
 }
 
 .wishlist-btn:hover {
-    background: #cd3b40;
+    background: #506046;
+    border-color: #506046;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(50, 64, 47, 0.3);
 }
 
 .wishlist-btn.in-wishlist {
-    background: #28a745;
+    background: #ff5a5f;
+    color: white;
+    border-color: #ff5a5f;
+}
+
+.wishlist-btn.in-wishlist:hover {
+    background: #cd3b40;
+    border-color: #cd3b40;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 90, 95, 0.3);
 }
 
 .view-details-btn {
     background: #65875e;
     color: white;
+    border: 2px solid #65875e;
+    text-decoration: none;
 }
 
 .view-details-btn:hover {
     background: #476242;
+    border-color: #476242;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(101, 135, 94, 0.3);
+}
+
+.product-card .buttons {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.wishlist-btn:active, .view-details-btn:active {
+    transform: translateY(0px);
+    transition: all 0.1s ease;
+}
+
+.wishlist-btn:focus, .view-details-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(101, 135, 94, 0.2);
+}
+
+.wishlist-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.success-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* .success-alert.success {
+    background: #65875e;
+    color: white;
+    border-left: 4px solid #476242;
+}
+
+.success-alert.error {
+    background: #ff5a5f;
+    color: white;
+    border-left: 4px solid #cd3b40;
+} */
+
+@media (max-width: 768px) 
+{
+    .wishlist-btn, .view-details-btn 
+    {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-width: 100px;
+    }
+    
+    .product-card .buttons 
+    {
+        gap: 6px;
+    }
 }
 
 .navbar {
