@@ -45,6 +45,14 @@ class AdminDashboard{
         // modals
         this.setupModalListeners();
 
+        // review management events
+        document.getElementById('search-reviews').addEventListener('input', this.debounce(()=>this.loadReviews(), 300));
+        document.getElementById('rating-filter').addEventListener('change', ()=>this.loadReviews());
+        document.getElementById('refresh-reviews').addEventListener('click', ()=>{
+            this.loadReviews();
+            this.loadStats(); // refresh stats too
+        });
+
     }
 
     setupModalListeners(){
@@ -93,6 +101,10 @@ class AdminDashboard{
         // specfic data load
         if (tabName === 'stats') {
             this.loadDetailedStats();
+        }
+
+        else if (tabName === 'system') {
+            this.loadReviews(); // loading reviews
         }
     }
 
@@ -205,6 +217,105 @@ class AdminDashboard{
             this.showNotification('Network error', 'error');
         }
 
+    }
+
+    // load reviews asyncronously
+    async loadReviews(){
+        const search = document.getElementById('search-reviews').value;
+        const rating = document.getElementById('rating-filter').value;
+        
+        try{
+            const resp = await fetch('api.php',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'GetAllReviewsForAdmin',
+                    search: search,
+                    rating: rating
+                })
+            });
+            
+            const res = await resp.json();
+            
+            if(res.status === 'success'){
+                this.displayReviews(res.data.reviews);
+            } 
+            else{
+                console.error('Error loading reviews:', res.data);
+                this.showNotification('Error loading reviews', 'error');
+            }
+        } 
+        catch(err){
+            console.error('Error loading reviews:', err);
+            this.showNotification('Network error', 'error');
+        }
+    }
+
+    // display reviews asynchronously
+    displayReviews(reviews){
+        const container = document.getElementById('reviews-container');
+        
+        if(reviews.length === 0){
+            container.innerHTML = '<div class="no-results">No reviews found matching your criteria.</div>';
+            return;
+        }
+        
+        container.innerHTML = reviews.map(review => `
+            <div class="review-item" data-review-id="${review.review_id}">
+                <div class="review-header">
+                    <div class="review-rating">
+                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                        <span class="rating-number">${review.rating}/5</span>
+                    </div>
+                    <div class="review-date">${new Date(review.review_date).toLocaleDateString()}</div>
+                </div>
+                
+                <div class="review-content">
+                    <div class="review-product">
+                        <strong>Product:</strong> ${review.product_name}
+                    </div>
+                    <div class="review-user">
+                        <strong>Reviewer:</strong> ${review.username}
+                    </div>
+                    <div class="review-comment">
+                        <strong>Comment:</strong> ${review.comment || 'No comment provided'}
+                    </div>
+                </div>
+                
+                <div class="review-actions">
+                    <button class="action-btn delete-btn" onclick="adminDashboard.confirmDeleteReview(${review.review_id})" title="Delete Review">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // confirm deleting review
+    confirmDeleteReview(reviewId){
+        this.pendingAction = {
+            type: 'delete_review',
+            reviewId: reviewId
+        };
+        
+        document.getElementById('modal-title').textContent = 'Confirm Delete Review';
+        document.getElementById('modal-message').textContent = 'Are you sure you want to permanently delete this review? This action cannot be undone.';
+        
+        document.getElementById('modal-user-info').innerHTML = `
+            <div class="user-preview delete-warning">
+                <div class="warning-text">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    This will permanently delete the review and cannot be undone.
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('modal-confirm').className = 'btn btn-danger';
+        document.getElementById('modal-confirm').textContent = 'Delete Review';
+        
+        this.showModal('confirmation-modal');
     }
 
     displayUsers(users) {
@@ -426,7 +537,7 @@ class AdminDashboard{
                 this.loadUsers();
                 this.loadStats();
             } 
-            // Handle single actions
+            // handling single actions
             else {
                 let resp;
                 
@@ -443,6 +554,7 @@ class AdminDashboard{
                         })
                     });
                 } 
+
                 else if(this.pendingAction.type === 'delete_user'){
                     resp = await fetch('api.php',{
                         method: 'POST',
@@ -455,7 +567,21 @@ class AdminDashboard{
                         })
                     });
                 }
-                else {
+
+                else if(this.pendingAction.type === 'delete_review'){
+                resp = await fetch('api.php',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'DeleteReviewAdmin',
+                        review_id: this.pendingAction.reviewId
+                    })
+                });
+            }
+
+                else{
                     console.error('Unknown action type:', this.pendingAction.type);
                     this.showNotification('Unknown action type', 'error');
                     return;
@@ -470,17 +596,23 @@ class AdminDashboard{
                 if(res.status === 'success'){
                     this.showNotification(res.data.message || 'Action completed successfully', 'success');
 
-                    // Update the toggle switch if it was a status change
-                    if (this.pendingAction.type === 'status_change') {
+                    // reload reviews if it was a review deletion
+                    if(this.pendingAction.type === 'delete_review'){
+                        this.loadReviews();
+                    }
+
+                    // update toggle for status change
+                    if(this.pendingAction.type === 'status_change'){
                         const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
-                        if (toggle) {
+
+                        if(toggle){
                             toggle.checked = this.pendingAction.newStatus;
                         }
                     }
 
                     this.loadUsers();
                     this.loadStats();
-                } 
+                }
                 else{
                     this.showNotification(res.data || 'Action failed', 'error');
 
@@ -499,27 +631,26 @@ class AdminDashboard{
             this.showNotification('Network error occurred', 'error');
         }
         
-        // MOVED THE CLEANUP OUTSIDE OF finally TO ENSURE IT ALWAYS RUNS
         console.log('Cleaning up modal...');
         
-        // Reset button states
+        // reset bttns
         confirmBtn.disabled = false;
         cancelBtn.disabled = false;
         
-        // Close modal - try multiple methods to ensure it closes
+        // modal close
         this.closeModal('confirmation-modal');
         
-        // Force close if the above doesn't work
+        // force close for incase
         const modal = document.getElementById('confirmation-modal');
         if (modal) {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
         
-        // Reset state
+        // state reset
         this.pendingAction = null;
         
-        // Reset confirm button
+        //  confirm button
         confirmBtn.className = 'btn btn-primary';
         confirmBtn.textContent = 'Confirm';
     }

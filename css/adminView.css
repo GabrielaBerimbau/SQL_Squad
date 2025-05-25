@@ -875,7 +875,7 @@ select {
     line-height: 1;
 }
 
-notification-close:hover {
+.notification-close:hover {
     opacity: 0.8;
 }
 
@@ -1008,4 +1008,92 @@ notification-close:hover {
 .analytics-table .status-inactive {
     color: #dc3545;
     font-weight: bold;
+}
+
+.reviews-list {
+    width: 100%;
+}
+
+.review-item {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+}
+
+.review-item:hover {
+    background-color: #f8f9fa;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    color: #ffc107;
+}
+
+.rating-number {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #777;
+}
+
+.review-content {
+    margin-bottom: 15px;
+}
+
+.review-product,
+.review-user,
+.review-comment {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.review-comment {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 3px solid #32402f;
+    font-style: italic;
+}
+
+.review-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-actions .action-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.review-actions .action-btn:hover {
+    background-color: #c82333;
 }

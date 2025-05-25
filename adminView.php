@@ -27,18 +27,6 @@ $isAdmin = true;
 </head>
 <body>
 
-    <!-- <div class="navbar">
-        <a href="#" class="brand">CompareIt</a>
-        <div class="user-info">
-            <div class="user-details">
-                <div class="user-name">admin</div>
-                <div class="user-role">System Administrator</div>
-            </div>
-            <div class="user-avatar">A</div>
-            <a href="index.php" class="logout-button" title="Log out">Logout</a>
-        </div>
-    </div> -->
-
     <div class="navbar">
         <a href="#" class="brand">CompareIt</a>
         <div class="navbar-user-info">
@@ -57,7 +45,7 @@ $isAdmin = true;
             <div class="admin-tabs">
                 <button class="tab-btn active" data-tab="users">User Management</button>
                 <button class="tab-btn" data-tab="stats">Analytics</button>
-                <button class="tab-btn" data-tab="system">System Info</button>
+                <button class="tab-btn" data-tab="system">Review Management</button>
             </div>
         </div>
 
@@ -131,33 +119,37 @@ $isAdmin = true;
             </div>
         </div>
 
-        <!-- system information -->
-         <!-- double-check if needed -->
+        
+        <!-- review management -->
         <div class="tab-content" id="system-tab">
-            <div class="system-info-grid">
-
-                <div class="info-card">
-                    <h3>Database Status</h3>
-
-                    <div class="status-indicator">
-                        <span class="status-dot status-online"></span>
-                        <span>Online</span>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Review Management</h3>
+                    <div class="filters-section">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-reviews" placeholder="Search reviews, products, or users...">
+                        </div>
+                        <select id="rating-filter">
+                            <option value="all">All Ratings</option>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                        <button id="refresh-reviews" class="refresh-btn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
                     </div>
                 </div>
-                <div class="info-card">
-                    <h3>System Health</h3>
-                    <div class="health-metrics">
 
-                        <div class="metric">
-                            <span class="metric-label">CPU Usage:</span>
-                            <span class="metric-value">12%</span>
-                        </div>
+                <div class="reviews-list" id="reviews-container">
+                    <!-- reviews loaded dynamically -->
+                </div>
 
-                        <div class="metric">
-                            <span class="metric-label">Memory:</span>
-                            <span class="metric-value">456 MB</span>
-                        </div>
-                    </div>
+                <div class="pagination" id="reviews-pagination">
+                    <!-- pagination if needed -->
                 </div>
             </div>
         </div>

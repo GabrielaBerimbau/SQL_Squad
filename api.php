@@ -113,6 +113,12 @@ class API
         case 'GetDetailedAnalytics':
             $this->getDetailedAnalytics($data);
             break;
+        case 'GetAllReviewsForAdmin':
+            $this->getAllReviewsForAdmin($data);
+            break;
+        case 'DeleteReviewAdmin':
+            $this->deleteReviewAdmin($data);
+            break;
     
         default:
             $this->returnError("Invalid type", 400);
@@ -2036,6 +2042,118 @@ private function getDetailedAnalytics($data){
         'review_distribution' => $reviewDistData,
         'customer_engagement' => $engagementData
     ]);
+}
+
+private function getAllReviewsForAdmin($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    // filter initialisation
+    $whereClause = [];
+    $params = [];
+    $types = "";
+
+    // filter by rating
+    if(isset($data['rating']) && !empty($data['rating']) && $data['rating'] !== 'all'){
+        $whereClause[] = "r.rating = ?";
+        $params[] = intval($data['rating']);
+        $types .= "i";
+    }
+
+    // searching by product name or reviewer name
+    if(isset($data['search']) && !empty($data['search'])){
+        $searchTerm = "%" . $data['search'] . "%";
+        $whereClause[] = "(p.name LIKE ? OR u.username LIKE ? OR r.comment LIKE ?)";
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $types .= "sss";
+    }
+
+    $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
+
+    // query to get all reviews with product and user info
+    $query = "
+        SELECT 
+            r.review_id,
+            r.rating,
+            r.comment,
+            r.review_date,
+            u.username,
+            u.user_id,
+            p.name as product_name,
+            p.product_id
+        FROM REVIEW r
+        JOIN USERS u ON r.user_id = u.user_id
+        JOIN PRODUCT p ON r.product_id = p.product_id
+        $whereClauseStr
+        ORDER BY r.review_date DESC
+    ";
+
+    $stmt = $this->conn->prepare($query);
+    
+    if(!empty($params)){
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $reviews = [];
+
+    while($row = $result->fetch_assoc()){
+        $reviews[] = $row;
+    }
+
+    $this->returnSuccess([
+        'reviews' => $reviews,
+        'count' => count($reviews)
+    ]);
+
+    $stmt->close();
+}
+
+private function deleteReviewAdmin($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    if(!isset($data['review_id'])){
+        $this->returnError("Review ID required", 400);
+        return;
+    }
+
+    $reviewId = $data['review_id'];
+
+    // check if review exists
+    $checkStmt = $this->conn->prepare("SELECT review_id FROM REVIEW WHERE review_id = ?");
+    $checkStmt->bind_param("i", $reviewId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if($checkResult->num_rows === 0){
+        $this->returnError("Review not found", 404);
+        return;
+    }
+
+    // delete the review
+    $deleteStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE review_id = ?");
+    $deleteStmt->bind_param("i", $reviewId);
+
+    if($deleteStmt->execute()){
+        $this->returnSuccess([
+            'message' => 'Review deleted successfully',
+            'review_id' => $reviewId
+        ]);
+    } else {
+        $this->returnError("Failed to delete review", 500);
+    }
+
+    $deleteStmt->close();
 }
 
 
