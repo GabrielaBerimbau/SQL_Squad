@@ -357,80 +357,6 @@ class AdminDashboard{
     }
 
     // confirm the action asyncronously
-    // async executeConfirmedAction(){
-    //     if(!this.pendingAction){
-    //         return;
-    //     } 
-        
-    //     try{
-    //         let resp;
-            
-    //         if(this.pendingAction.type === 'status_change'){
-    //             resp = await fetch('api.php',{
-
-    //                 method: 'POST',
-    //                 headers:{
-    //                     'Content-Type': 'application/json',
-    //                 },
-
-    //                 body: JSON.stringify({
-    //                     type: 'UpdateUserStatus',
-    //                     user_id: this.pendingAction.userId,
-    //                     is_active: this.pendingAction.newStatus
-    //                 })
-    //             });
-    //         } 
-            
-    //         else if(this.pendingAction.type === 'delete_user'){
-    //             resp = await fetch('api.php',{
-
-    //                 method: 'POST',
-    //                 headers:{
-    //                     'Content-Type': 'application/json',
-    //                 },
-
-    //                 body: JSON.stringify({
-    //                     type: 'DeleteUser',
-    //                     user_id: this.pendingAction.userId
-    //                 })
-    //             });
-    //         }
-            
-    //         const res = await resp.json();
-            
-    //         if(res.status === 'success'){
-    //             this.showNotification(res.data.message || 'Action completed successfully', 'success');
-    //             this.loadUsers();
-    //             this.loadStats();
-    //         } 
-            
-    //         else{
-    //             this.showNotification(res.data || 'Action failed', 'error');
-
-    //             // if status change has failed - revert toggle back
-    //             if (this.pendingAction.type === 'status_change') {
-    //                 const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
-    //                 if (toggle) {
-    //                     toggle.checked = !this.pendingAction.newStatus;
-    //                 }
-    //             }
-    //         }
-    //     } 
-        
-    //     catch(err){
-    //         console.error('Error executing action:', err);
-    //         this.showNotification('Network error occurred', 'error');
-    //     } 
-    //     finally{
-    //         this.closeModal('confirmation-modal');
-    //         this.pendingAction = null;
-            
-    //         // reset confrim btn
-    //         document.getElementById('modal-confirm').className = 'btn btn-primary';
-    //         document.getElementById('modal-confirm').textContent = 'Confirm';
-    //     }
-    // }
-
     async executeConfirmedAction(){
         if(!this.pendingAction){
             return;
@@ -783,9 +709,144 @@ class AdminDashboard{
         });
     }
 
-    loadDetailedStats() {
-        // detailed analytics placeholder
-        console.log('Loading detailed statistics...');
+    async loadDetailedStats(){
+        try{
+            const resp = await fetch('api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'GetDetailedAnalytics'
+                })
+            });
+            
+            const res = await resp.json();
+            
+            if(res.status === 'success'){
+                this.displayDetailedStats(res.data);
+            } 
+            else{
+                console.error('Error loading detailed stats:', res.data);
+            }
+        } 
+        catch(error){
+            console.error('Error loading detailed stats:', error);
+        }
+    }
+
+    displayDetailedStats(data){
+        // 1. user status breakdown table
+        const userStatusHtml = `
+            <div class="analytics-card">
+                <h3>User Status by Role</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Active</th>
+                            <th>Inactive</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.user_status.map(role => `
+                            <tr>
+                                <td>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</td>
+                                <td><span class="status-active">${role.active_count}</span></td>
+                                <td><span class="status-inactive">${role.inactive_count}</span></td>
+                                <td><strong>${role.total_count}</strong></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        // 2. users per role table
+        const userRolesHtml = `
+            <div class="analytics-card">
+                <h3>Users by Role</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.user_roles.map(role => {
+                            const total = data.user_roles.reduce((sum, r) => sum + r.count, 0);
+                            const percentage = ((role.count / total) * 100).toFixed(1);
+                            return `
+                                <tr>
+                                    <td>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</td>
+                                    <td><strong>${role.count}</strong></td>
+                                    <td>${percentage}%</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        // 3. review distribution
+        const reviewDistHtml = `
+            <div class="analytics-card">
+                <h3>Review Distribution</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Rating</th>
+                            <th>Count</th>
+                            <th>Bar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${[5,4,3,2,1].map(rating => {
+                            const count = data.review_distribution[rating] || 0;
+                            const total = Object.values(data.review_distribution).reduce((sum, c) => sum + c, 0);
+                            const percentage = total > 0 ? (count / total) * 100 : 0;
+                            return `
+                                <tr>
+                                    <td>${'★'.repeat(rating)}</td>
+                                    <td><strong>${count}</strong></td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        // 4. customer engagement
+        const engagementHtml = `
+            <div class="analytics-card">
+                <h3>Customer Engagement</h3>
+                <div class="engagement-stats">
+                    <div class="engagement-metric">
+                        <div class="engagement-number">${data.customer_engagement.engagement_percentage}%</div>
+                        <div class="engagement-label">Customer Engagement</div>
+                        <div class="engagement-detail">
+                            ${data.customer_engagement.customers_with_reviews} of ${data.customer_engagement.total_customers} customers have written reviews
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // update the analytics grid
+        const analyticsGrid = document.querySelector('.analytics-grid');
+        if(analyticsGrid){
+            analyticsGrid.innerHTML = userStatusHtml + userRolesHtml + reviewDistHtml + engagementHtml;
+        }
     }
 
     debounce(func, wait){

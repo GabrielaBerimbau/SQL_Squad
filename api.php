@@ -110,6 +110,9 @@ class API
         case 'DeleteUser':
             $this->deleteUser($data);
             break;
+        case 'GetDetailedAnalytics':
+            $this->getDetailedAnalytics($data);
+            break;
     
         default:
             $this->returnError("Invalid type", 400);
@@ -1933,6 +1936,106 @@ private function deleteUser($data){
         $this-> conn-> rollback();
         $this-> returnError("Error deleting user: " . $e->getMessage(), 500);
     }
+}
+
+private function getDetailedAnalytics($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    // 1. active vs inactive users by role
+    $queryUserStatus = "
+        SELECT 
+            role,
+            COUNT(*) as total_count,
+            SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active_count,
+            SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive_count
+        FROM USERS 
+        WHERE role != 'admin'
+        GROUP BY role
+    ";
+
+    $userStatusResult = $this->conn->query($queryUserStatus);
+    $userStatusData = [];
+    if($userStatusResult){
+        while($row = $userStatusResult->fetch_assoc()){
+            $userStatusData[] = $row;
+        }
+    }
+
+    // 2. users per role (including admins)
+    $queryUserRoles = "
+        SELECT 
+            role,
+            COUNT(*) as count
+        FROM USERS 
+        GROUP BY role
+        ORDER BY count DESC
+    ";
+
+    $userRolesResult = $this->conn->query($queryUserRoles);
+    $userRolesData = [];
+    if($userRolesResult){
+        while($row = $userRolesResult->fetch_assoc()){
+            $userRolesData[] = $row;
+        }
+    }
+
+    // 3. review distribution (star ratings)
+    $queryReviewDist = "
+        SELECT 
+            rating,
+            COUNT(*) as count
+        FROM REVIEW 
+        GROUP BY rating
+        ORDER BY rating ASC
+    ";
+
+    $reviewDistResult = $this->conn->query($queryReviewDist);
+    $reviewDistData = [];
+    // init all ratings to 0
+    for($i = 1; $i <= 5; $i++){
+        $reviewDistData[$i] = 0;
+    }
+    
+    if($reviewDistResult){
+        while($row = $reviewDistResult->fetch_assoc()){
+            $reviewDistData[$row['rating']] = $row['count'];
+        }
+    }
+
+    // 4. customer engagement (customers who wrote reviews)
+    $queryEngagement = "
+        SELECT 
+            (SELECT COUNT(*) FROM CUSTOMER) as total_customers,
+            COUNT(DISTINCT r.user_id) as customers_with_reviews
+        FROM REVIEW r
+        JOIN CUSTOMER c ON r.user_id = c.user_id
+    ";
+
+    $engagementResult = $this->conn->query($queryEngagement);
+    $engagementData = ['total_customers' => 0, 'customers_with_reviews' => 0, 'engagement_percentage' => 0];
+    
+    if($engagementResult){
+        $row = $engagementResult->fetch_assoc();
+        $engagementData['total_customers'] = $row['total_customers'] ?? 0;
+        $engagementData['customers_with_reviews'] = $row['customers_with_reviews'] ?? 0;
+        
+        if($engagementData['total_customers'] > 0){
+            $engagementData['engagement_percentage'] = round(
+                ($engagementData['customers_with_reviews'] / $engagementData['total_customers']) * 100, 1
+            );
+        }
+    }
+
+    $this->returnSuccess([
+        'user_status' => $userStatusData,
+        'user_roles' => $userRolesData,
+        'review_distribution' => $reviewDistData,
+        'customer_engagement' => $engagementData
+    ]);
 }
 
 
