@@ -110,6 +110,15 @@ class API
         case 'DeleteUser':
             $this->deleteUser($data);
             break;
+        case 'GetDetailedAnalytics':
+            $this->getDetailedAnalytics($data);
+            break;
+        case 'GetAllReviewsForAdmin':
+            $this->getAllReviewsForAdmin($data);
+            break;
+        case 'DeleteReviewAdmin':
+            $this->deleteReviewAdmin($data);
+            break;
     
         default:
             $this->returnError("Invalid type", 400);
@@ -1933,6 +1942,227 @@ private function deleteUser($data){
         $this-> conn-> rollback();
         $this-> returnError("Error deleting user: " . $e->getMessage(), 500);
     }
+}
+
+private function getDetailedAnalytics($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    // 1. active vs inactive users by role
+    $queryUserStatus = "
+        SELECT 
+            role,
+            COUNT(*) as total_count,
+            SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active_count,
+            SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive_count
+        FROM USERS 
+        WHERE role != 'admin'
+        GROUP BY role
+    ";
+
+    $userStatusResult = $this->conn->query($queryUserStatus);
+    $userStatusData = [];
+    if($userStatusResult){
+        while($row = $userStatusResult->fetch_assoc()){
+            $userStatusData[] = $row;
+        }
+    }
+
+    // 2. users per role (including admins)
+    $queryUserRoles = "
+        SELECT 
+            role,
+            COUNT(*) as count
+        FROM USERS 
+        GROUP BY role
+        ORDER BY count DESC
+    ";
+
+    $userRolesResult = $this->conn->query($queryUserRoles);
+    $userRolesData = [];
+    if($userRolesResult){
+        while($row = $userRolesResult->fetch_assoc()){
+            $userRolesData[] = $row;
+        }
+    }
+
+    // 3. review distribution (star ratings)
+    $queryReviewDist = "
+        SELECT 
+            rating,
+            COUNT(*) as count
+        FROM REVIEW 
+        GROUP BY rating
+        ORDER BY rating ASC
+    ";
+
+    $reviewDistResult = $this->conn->query($queryReviewDist);
+    $reviewDistData = [];
+    // init all ratings to 0
+    for($i = 1; $i <= 5; $i++){
+        $reviewDistData[$i] = 0;
+    }
+    
+    if($reviewDistResult){
+        while($row = $reviewDistResult->fetch_assoc()){
+            $reviewDistData[$row['rating']] = $row['count'];
+        }
+    }
+
+    // 4. customer engagement (customers who wrote reviews)
+    $queryEngagement = "
+        SELECT 
+            (SELECT COUNT(*) FROM CUSTOMER) as total_customers,
+            COUNT(DISTINCT r.user_id) as customers_with_reviews
+        FROM REVIEW r
+        JOIN CUSTOMER c ON r.user_id = c.user_id
+    ";
+
+    $engagementResult = $this->conn->query($queryEngagement);
+    $engagementData = ['total_customers' => 0, 'customers_with_reviews' => 0, 'engagement_percentage' => 0];
+    
+    if($engagementResult){
+        $row = $engagementResult->fetch_assoc();
+        $engagementData['total_customers'] = $row['total_customers'] ?? 0;
+        $engagementData['customers_with_reviews'] = $row['customers_with_reviews'] ?? 0;
+        
+        if($engagementData['total_customers'] > 0){
+            $engagementData['engagement_percentage'] = round(
+                ($engagementData['customers_with_reviews'] / $engagementData['total_customers']) * 100, 1
+            );
+        }
+    }
+
+    $this->returnSuccess([
+        'user_status' => $userStatusData,
+        'user_roles' => $userRolesData,
+        'review_distribution' => $reviewDistData,
+        'customer_engagement' => $engagementData
+    ]);
+}
+
+private function getAllReviewsForAdmin($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    // filter initialisation
+    $whereClause = [];
+    $params = [];
+    $types = "";
+
+    // filter by rating
+    if(isset($data['rating']) && !empty($data['rating']) && $data['rating'] !== 'all'){
+        $whereClause[] = "r.rating = ?";
+        $params[] = intval($data['rating']);
+        $types .= "i";
+    }
+
+    // searching by product name or reviewer name
+    if(isset($data['search']) && !empty($data['search'])){
+        $searchTerm = "%" . $data['search'] . "%";
+        $whereClause[] = "(p.name LIKE ? OR u.username LIKE ? OR r.comment LIKE ?)";
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $types .= "sss";
+    }
+
+    $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
+
+    $query = "
+        SELECT 
+            r.user_id,
+            r.product_id,
+            r.rating,
+            r.comment,
+            r.review_date,
+            u.username,
+            p.name as product_name
+        FROM REVIEW r
+        JOIN USERS u ON r.user_id = u.user_id
+        JOIN PRODUCT p ON r.product_id = p.product_id
+        $whereClauseStr
+        ORDER BY r.review_date DESC
+    ";
+
+    $stmt = $this->conn->prepare($query);
+    
+    if(!empty($params)){
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $reviews = [];
+    while($row = $result->fetch_assoc()){
+        // creating composite review_id
+        $row['review_id'] = $row['user_id'] . '_' . $row['product_id'];
+        $reviews[] = $row;
+    }
+
+    $this->returnSuccess([
+        'reviews' => $reviews,
+        'count' => count($reviews)
+    ]);
+
+    $stmt->close();
+}
+
+private function deleteReviewAdmin($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    if(!isset($data['review_id'])){
+        $this->returnError("Review ID required", 400);
+        return;
+    }
+
+    //parse the composite
+    $reviewIdParts = explode('_', $data['review_id']);
+    if(count($reviewIdParts) !== 2){
+        $this->returnError("Invalid review ID format", 400);
+        return;
+    }
+
+    $userId = intval($reviewIdParts[0]);
+    $productId = intval($reviewIdParts[1]);
+
+    // check if review exists
+    $checkStmt = $this->conn->prepare("SELECT user_id, product_id FROM REVIEW WHERE user_id = ? AND product_id = ?");
+    $checkStmt->bind_param("ii", $userId, $productId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if($checkResult->num_rows === 0){
+        $this->returnError("Review not found", 404);
+        return;
+    }
+
+    // delete review
+    $deleteStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE user_id = ? AND product_id = ?");
+    $deleteStmt->bind_param("ii", $userId, $productId);
+
+    if($deleteStmt->execute()){
+        $this->returnSuccess([
+            'message' => 'Review deleted successfully',
+            'review_id' => $data['review_id']
+        ]);
+    }
+    else{
+        $this->returnError("Failed to delete review", 500);
+    }
+
+    $deleteStmt->close();
 }
 
 
