@@ -159,11 +159,6 @@ class AdminDashboard{
             </div>
 
             <div class="stat-card">
-                <div class="stat-number">${stats.recent_registrations}</div>
-                <div class="stat-label">New Users (30 days)</div>
-            </div>
-
-            <div class="stat-card">
                 <div class="stat-number">${stats.total_products}</div>
                 <div class="stat-label">Total Products</div>
                 <div class="stat-sublabel">${stats.total_listings} listings</div>
@@ -927,7 +922,7 @@ class AdminDashboard{
     }
 
     displayDetailedStats(data){
-        // 1. user status breakdown table
+        // user status breakdown with visual bars
         const userStatusHtml = `
             <div class="analytics-card">
                 <h3>User Status by Role</h3>
@@ -935,35 +930,49 @@ class AdminDashboard{
                     <thead>
                         <tr>
                             <th>Role</th>
-                            <th>Active</th>
-                            <th>Inactive</th>
+                            <th>Active vs Inactive</th>
                             <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.user_status.map(role=>`
-                            <tr>
-                                <td>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</td>
-                                <td>
-                                    <span class="status-active">${role.active_count}</span>
-                                </td>
-                                <td>
-                                    <span class="status-inactive">${role.inactive_count}</span>
-                                </td>
-                                <td><strong>${role.total_count}</strong></td>
-                            </tr>
-                        `).join('')}
+                        ${data.user_status.map(role=>{
+                            const activePercentage = role.total_count > 0? (role.active_count / role.total_count) * 100: 0;
+                            const inactivePercentage = role.total_count > 0? (role.inactive_count / role.total_count) * 100: 0;
+                            
+                            return `
+                                <tr>
+                                    <td><strong>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</strong></td>
+                                    <td>
+                                        <div class="status-bar-container">
+                                            <div class="status-bar">
+                                                <div class="status-bar-active" style="width: ${activePercentage}%" title="Active: ${activePercentage.toFixed(1)}%"></div>
+                                                <div class="status-bar-inactive" style="width: ${inactivePercentage}%" title="Inactive: ${inactivePercentage.toFixed(1)}%"></div>
+                                            </div>
+                                            <div class="status-legend">
+                                                <span class="legend-item">
+                                                    <span class="legend-color active"></span>Active
+                                                </span>
+                                                <span class="legend-item">
+                                                    <span class="legend-color inactive"></span>Inactive
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>${role.total_count}</strong></td>
+                                </tr>
+                            `;
+                        }).join('')}
                     </tbody>
                 </table>
                 <div style="margin-top: 15px; font-size: 14px; color: #666;">
-                    <p><strong>Total:</strong> All users in each role (Active + Inactive)</p>
-                    <p><strong>Active:</strong> Users who can log in and use the platform</p>
-                    <p><strong>Inactive:</strong> Users who are suspended/blocked</p>
+                    <p><strong>Visual Proportion of active vs inactive users</strong></p>
+                    <p><strong>Active:</strong> Users who can log in and use the website</p>
+                    <p><strong>Inactive:</strong> Users who are suspended/ blocked from using the website</p>
                 </div>
             </div>
         `;
 
-        // 2. users per role table
+        // users per role table
         const userRolesHtml = `
             <div class="analytics-card">
                 <h3>Users by Role</h3>
@@ -976,8 +985,8 @@ class AdminDashboard{
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.user_roles.map(role => {
-                            const total = data.user_roles.reduce((sum, r) => sum + parseInt(r.count), 0);
+                        ${data.user_roles.map(role=>{
+                            const total = data.user_roles.reduce((sum, r)=> sum + parseInt(r.count), 0);
                             const percentage = total > 0? ((parseInt(role.count) / total) * 100).toFixed(1): 0;
                             return `
                                 <tr>
@@ -992,8 +1001,7 @@ class AdminDashboard{
             </div>
         `;
 
-        // 3. review distribution
-        //find the review distribution section in your displayDetailedStats function and replace it
+        // review distribution
         const reviewDistHtml = `
             <div class="analytics-card">
                 <h3>Review Distribution</h3>
@@ -1006,10 +1014,10 @@ class AdminDashboard{
                         </tr>
                     </thead>
                     <tbody>
-                        ${[5,4,3,2,1].map(rating=> {
+                        ${[5,4,3,2,1].map(rating=>{
                             const count = data.review_distribution[rating] || 0;
                             const total = Object.values(data.review_distribution).reduce((sum, c)=> sum + parseInt(c), 0);
-                            const actualPercentage = total > 0 && count > 0 ? (count / total) * 100 : 0;
+                            const actualPercentage = total > 0 && count > 0? (count / total) * 100: 0;
                             return `
                                 <tr>
                                     <td>${'★'.repeat(rating)}${rating < 5? '☆'.repeat(5 - rating): ''}</td>
@@ -1028,7 +1036,7 @@ class AdminDashboard{
             </div>
         `;
 
-        // 4. customer engagement
+        // customer engagement
         const engagementHtml = `
             <div class="analytics-card">
                 <h3>Customer Engagement</h3>

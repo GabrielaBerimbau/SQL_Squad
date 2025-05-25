@@ -1108,3 +1108,90 @@ select {
 .review-actions .action-btn:hover {
     background-color: #c82333;
 }
+
+.status-bar-container{
+    width: 100%;
+}
+
+.status-bar{
+    width: 200px;
+    height: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #dee2e6;
+    display: flex;
+}
+
+.status-bar-active{
+    background-color: #28a745;
+    height: 100%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.status-bar-inactive{
+    background-color: #dc3545;
+    height: 100%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.status-legend{
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.legend-item{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-color{
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.legend-color.active{
+    background-color: #28a745;
+}
+
+.legend-color.inactive{
+    background-color: #dc3545;
+}
+
+.status-numbers{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 13px;
+}
+
+.status-numbers .status-active{
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-numbers .status-inactive{
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.analytics-table td:nth-child(2){
+    min-width: 220px;
+}
+
+.analytics-table td:nth-child(3){
+    min-width: 100px;
+}
+
+.status-bar-active:hover,
+.status-bar-inactive:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
