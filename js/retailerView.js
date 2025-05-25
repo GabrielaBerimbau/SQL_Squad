@@ -524,13 +524,14 @@ var RetailerView = {
 
     //html for single product card
     createProductCard: function(product) {
-        var stockStatus = product.in_stock ? 'Active' : 'Inactive';
-        var stockClass = product.in_stock ? 'active' : 'inactive';
+        var isInStock = product.in_stock === 1 || product.in_stock === '1' || product.in_stock === true;
+        var stockStatus = isInStock ? 'In Stock' : 'Out of Stock';
+        var stockClass = isInStock ? 'in-stock' : 'out-of-stock';
         
         return '<div class="product-card" data-product-id="' + product.id + '">' +
                 '<img class="product-image" src="https://via.placeholder.com/150" alt="' + product.name + '">' +
                 '<div class="product-details">' +
-                    '<div class="product-status">' +
+                    '<div class="product-status ' + stockClass + '">' +
                         '<div class="status-dot"></div>' +
                         stockStatus +
                     '</div>' +
