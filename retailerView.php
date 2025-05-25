@@ -271,14 +271,14 @@
                     <input type="text" id="brand" name="brand" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="image">Product Image</label>
-                    <input type="file" id="image" name="image" class="form-control" accept="image/*">
+                    <label for="image_url">Product Image URL</label>
+                    <input type="url" id="image_url" name="image_url" class="form-control" placeholder="https://example.com/image.jpg">
                 </div>
                 <button type="submit" class="form-submit">Add Product</button>
             </form>
         </div>
     </div>
-    
+        
     <!-- Edit Product Modal -->
     <div id="editProductModal" class="modal">
         <div class="modal-content">
@@ -302,16 +302,22 @@
                     <input type="text" id="edit_brand" name="brand" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="edit_image">Product Image</label>
-                    <input type="file" id="edit_image" name="image" class="form-control" accept="image/*">
+                    <label for="edit_image_url">Product Image URL</label>
+                    <input type="url" id="edit_image_url" name="image_url" class="form-control" placeholder="https://example.com/image.jpg">
                 </div>
                 <div class="form-group">
-                    <img id="current_image_preview" src="" alt="Current product image" style="max-width: 100px; max-height: 100px; display: block; margin-top: 10px;">
+                    <label>
+                        <input type="checkbox" id="edit_stock" name="product_stock"> In Stock
+                    </label>
+                </div>
+                <div class="form-group">
+                    <img id="current_image_preview" src="" alt="Current product image" style="max-width: 100px; max-height: 100px; display: none; margin-top: 10px; border-radius: 4px;">
                 </div>
                 <button type="submit" class="form-submit">Update Product</button>
             </form>
         </div>
     </div>
+
     <script>
         // localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
         

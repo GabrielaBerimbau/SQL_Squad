@@ -653,7 +653,7 @@ private function getRetailerProducts($data) {
         return;
     }
 
-    //db query
+    //db query - FIXED: Added p.images to SELECT
     $query = "
         SELECT 
             p.product_id as id,
@@ -662,6 +662,7 @@ private function getRetailerProducts($data) {
             p.brand,
             p.specification,
             p.category_id,
+            p.images,
             l.price,
             l.in_stock,
             l.listing_id,
@@ -702,7 +703,6 @@ private function getRetailerProducts($data) {
 
 //add new product as a retailer
 private function addProduct($data) {
-
     //check user logged in
     if (!isset($data['user_id'])) {
         $this->returnError("User ID required", 400);
@@ -731,7 +731,7 @@ private function addProduct($data) {
         }
     }
 
-    // Validate price - ensure price is a number
+    //validate price - ensure price is a number
     if (!is_numeric($data['price']) || floatval($data['price']) <= 0) {
         $this->returnError("Price must be a valid positive number", 400);
         return;
@@ -741,11 +741,11 @@ private function addProduct($data) {
     $this->conn->begin_transaction();
     
     try {
-        //insert into PRODUCT table
+        //insert into PRODUCT table - FIXED: Added images field
         $productStmt = $this->conn->prepare("
             INSERT INTO PRODUCT 
-            (name, description, brand, category_id, specification) 
-            VALUES (?, ?, ?, ?, ?)
+            (name, description, brand, category_id, specification, images) 
+            VALUES (?, ?, ?, ?, ?, ?)
         ");
         
         $productName = $data['product_name'];
@@ -753,34 +753,12 @@ private function addProduct($data) {
         $brand = $data['brand'] ?? null;
         $categoryId = $data['category_id'] ?? 1; // Default category if not provided
         $specification = $data['specification'] ?? null;
+        $images = $data['image_url'] ?? null; // FIXED: Handle image URL
         
-        $productStmt->bind_param("sssis", $productName, $description, $brand, $categoryId, $specification);
+        $productStmt->bind_param("sssiss", $productName, $description, $brand, $categoryId, $specification, $images);
         $productStmt->execute();
         
         $productId = $this->conn->insert_id;
-        
-        //===================CHECK====================
-        // Handle images/file upload
-        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        //     $targetDir = "img/products/";
-            
-        //     // Create directory if it doesn't exist
-        //     if (!file_exists($targetDir)) {
-        //         mkdir($targetDir, 0777, true);
-        //     }
-            
-        //     // Use product_id for image name for consistency
-        //     $filename = $productId . '.jpg';
-        //     $targetFilePath = $targetDir . $filename;
-            
-        //     // Upload file
-        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-        //         // Add entry to PRODUCT_IMAGES table
-        //         $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-        //         $imageStmt->bind_param("i", $productId);
-        //         $imageStmt->execute();
-        //     }
-        // }
         
         //insert into LISTING table
         $listingStmt = $this->conn->prepare("
@@ -797,18 +775,7 @@ private function addProduct($data) {
         
         $listingId = $this->conn->insert_id;
         
-        // ==================== Price History ====================
-        //insert into PRICE_HISTORY table for the initial price
-        $historyStmt = $this->conn->prepare("
-            INSERT INTO PRICE_HISTORY 
-            (listing_id, price, recorded_date) 
-            VALUES (?, ?, NOW())
-        ");
-        
-        $historyStmt->bind_param("id", $listingId, $price);
-        $historyStmt->execute();
-        
-        // Commit transaction
+        //commit transaction
         $this->conn->commit();
         
         $this->returnSuccess([
@@ -817,7 +784,7 @@ private function addProduct($data) {
             'message' => 'Product added successfully'
         ]);
     } catch (Exception $e) {
-        // Rollback on error
+        //rollback on error
         $this->conn->rollback();
         $this->returnError("Error adding product: " . $e->getMessage(), 500);
     }
@@ -908,37 +875,13 @@ private function updateProduct($data) {
             $updateProductParams[] = $data['specification'];
             $updateProductTypes .= "s";
         }
-        
-        // =================== CHECK ====================
-        //handle images/file upload
-        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        //     $targetDir = "img/products/";
-            
-        //     // Create directory if it doesn't exist
-        //     if (!file_exists($targetDir)) {
-        //         mkdir($targetDir, 0777, true);
-        //     }
-            
-        //     // Use product_id for image name for consistency
-        //     $filename = $productId . '.jpg';
-        //     $targetFilePath = $targetDir . $filename;
-            
-        //     // Upload file
-        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-        //         // Check if entry exists in PRODUCT_IMAGES
-        //         $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
-        //         $checkImageStmt->bind_param("i", $productId);
-        //         $checkImageStmt->execute();
-        //         $checkImageResult = $checkImageStmt->get_result();
-                
-        //         if ($checkImageResult->num_rows === 0) {
-        //             // Add entry to PRODUCT_IMAGES table if it doesn't exist
-        //             $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-        //             $imageStmt->bind_param("i", $productId);
-        //             $imageStmt->execute();
-        //         }
-        //     }
-        // }
+
+        //FIXED: Handle image URL updates
+        if (isset($data['image_url'])) {
+            $updateProductQuery .= "images = ?, ";
+            $updateProductParams[] = $data['image_url'];
+            $updateProductTypes .= "s";
+        }
         
         //remove trailing comma and space
         $updateProductQuery = rtrim($updateProductQuery, ", ");
@@ -969,15 +912,6 @@ private function updateProduct($data) {
             $listingStmt = $this->conn->prepare("UPDATE LISTING SET price = ?, last_updated = NOW() WHERE listing_id = ?");
             $listingStmt->bind_param("di", $price, $listingId);
             $listingStmt->execute();
-            
-            //add to price history
-            $historyStmt = $this->conn->prepare("
-                INSERT INTO PRICE_HISTORY 
-                (listing_id, price, recorded_date) 
-                VALUES (?, ?, NOW())
-            ");
-            $historyStmt->bind_param("id", $listingId, $price);
-            $historyStmt->execute();
         }
         
         if (isset($data['in_stock'])) {
@@ -1054,12 +988,7 @@ private function deleteProduct($data) {
     // Start transaction
     $this->conn->begin_transaction();
     
-    try {
-        //delete from PRICE_HISTORY table first (foreign key constraint)
-        $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
-        $deletePriceHistoryStmt->bind_param("i", $listingId);
-        $deletePriceHistoryStmt->execute();
-        
+    try {        
         //delete from LISTING table
         $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
         $deleteListingStmt->bind_param("i", $listingId);
@@ -1167,11 +1096,6 @@ private function deleteAllProducts($data) {
         foreach ($listings as $listing) {
             $listingId = $listing['listing_id'];
             $productId = $listing['product_id'];
-            
-            //delete from PRICE_HISTORY table first (foreign key constraint)
-            $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
-            $deletePriceHistoryStmt->bind_param("i", $listingId);
-            $deletePriceHistoryStmt->execute();
             
             //delete from LISTING table
             $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
