@@ -26,6 +26,10 @@
 
                 <button type="submit">Login</button>
             </form>
+            
+            <div style="margin-top: 20px; text-align: center; color: #32402f;">
+                <p>Don't have an account? <a href="signup.php" style="color: #32402f; text-decoration: underline;">Sign up here</a></p>
+            </div>
         </section>
     </main>
 

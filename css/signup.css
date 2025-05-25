@@ -1,6 +1,6 @@
 body {
     font-family: 'Playfair Display', serif;
-    background-color: #f4f4f4;
+    background-color: #32402f;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -49,6 +49,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
+    margin-top: 20px;
 }
 
 #signup-form button:hover {
@@ -92,14 +93,6 @@ body {
     background-color: #476242;
 }
 
-body {
-    background-color: #32402f;
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
 footer {
     width: 100%;
     background-color: #32402f;
@@ -115,23 +108,40 @@ footer {
     box-sizing: border-box;
 }
 
-/* dynamic company field */
+/* Updated company field styling */
 .company-field {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(-10px);
-    margin-bottom: 0;
+    margin-top: -15px;
+    margin-bottom: -15px;
     visibility: hidden;
-    height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .company-field.show {
     opacity: 1;
     max-height: 120px;
     transform: translateY(0);
-    margin-bottom: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
     visibility: visible;
-    height: auto;
+}
+
+.company-field label {
+    text-align: left;
+    font-weight: bold;
+    color: #32402f;
+    margin-bottom: 5px;
+}
+
+.company-field input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

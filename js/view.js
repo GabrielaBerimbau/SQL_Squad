@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.status === 'success') {
                 productListings = data.data.listings;
                 displayRetailerListings();
+                createPriceComparisonChart(); // Add this line
             } else {
                 console.error('Failed to load listings:', data.data);
             }
@@ -209,9 +210,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="stock-status ${stockClass}">${stockStatus}</div>
                 <div class="last-updated">Updated: ${formatDate(listing.last_updated)}</div>
-                <button class="view-offer-btn" ${!listing.in_stock ? 'disabled' : ''}>
-                    ${listing.in_stock ? 'View Offer' : 'Out of Stock'}
-                </button>
             `;
             
             sidebar.appendChild(retailerBlock);
@@ -231,8 +229,23 @@ document.addEventListener('DOMContentLoaded', function() {
         
         reviewsContainer.innerHTML = '';
         
+        // Add review button at the top if user is logged in
+        if (isLoggedIn) {
+            const reviewButtonContainer = document.createElement('div');
+            reviewButtonContainer.className = 'review-button-container';
+            reviewButtonContainer.innerHTML = `
+                <button class="review-button" onclick="openReviewModal()">Write a Review</button>
+            `;
+            reviewsContainer.appendChild(reviewButtonContainer);
+        }
+        
         if (productReviews.length === 0) {
-            reviewsContainer.innerHTML = '<div class="no-reviews">No reviews yet. Be the first to review this product!</div>';
+            const noReviewsDiv = document.createElement('div');
+            noReviewsDiv.className = 'no-reviews';
+            noReviewsDiv.innerHTML = isLoggedIn ? 
+                'No reviews yet. Be the first to review this product!' : 
+                'No reviews yet. <a href="login.php">Log in</a> to be the first to review this product!';
+            reviewsContainer.appendChild(noReviewsDiv);
         } else {
             productReviews.forEach(review => {
                 const reviewElement = document.createElement('div');
@@ -252,18 +265,223 @@ document.addEventListener('DOMContentLoaded', function() {
                 reviewsContainer.appendChild(reviewElement);
             });
         }
-        
-        // Add review button if user is logged in
-        if (isLoggedIn) {
-            const reviewButton = document.createElement('div');
-            reviewButton.className = 'review-button-container';
-            reviewButton.innerHTML = `
-                <button class="review-button" onclick="openReviewModal()">Review This Product</button>
-            `;
-            reviewsContainer.appendChild(reviewButton);
-        }
     }
+    //--------------------chart
+
+// Function to create price comparison chart
+function createPriceComparisonChart() {
+    if (productListings.length <= 1) {
+        // Don't show chart if only one retailer or no retailers
+        return;
+    }
+
+    // Create chart container
+    const chartContainer = document.createElement('div');
+    chartContainer.className = 'price-chart-container';
+    chartContainer.innerHTML = `
+        <h3 class="chart-title">Price Comparison Across Retailers</h3>
+        <div class="chart-wrapper">
+            <canvas id="priceComparisonChart" width="400" height="200"></canvas>
+        </div>
+        <div class="chart-summary">
+            <div class="price-stats">
+                <div class="stat">
+                    <span class="stat-label">Lowest Price:</span>
+                    <span class="stat-value lowest-price">R${Math.min(...productListings.map(l => l.price)).toFixed(2)}</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Highest Price:</span>
+                    <span class="stat-value highest-price">R${Math.max(...productListings.map(l => l.price)).toFixed(2)}</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Price Difference:</span>
+                    <span class="stat-value price-diff">R${(Math.max(...productListings.map(l => l.price)) - Math.min(...productListings.map(l => l.price))).toFixed(2)}</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Insert chart after the main view container but before reviews
+    const reviewsSection = document.querySelector('.reviews-section');
+    if (reviewsSection) {
+        reviewsSection.parentNode.insertBefore(chartContainer, reviewsSection);
+    }
+
+    // Prepare data for chart
+    const retailers = productListings.map(listing => listing.retailer_name || listing.retailer_username);
+    const prices = productListings.map(listing => listing.price);
+    const stockStatus = productListings.map(listing => listing.in_stock);
+
+    // Create colors matching your site's aesthetic
+    const backgroundColors = prices.map((price, index) => {
+        const minPrice = Math.min(...prices);
+        
+        if (!stockStatus[index]) {
+            return 'rgba(128, 128, 128, 0.7)'; // Gray for out of stock
+        }
+        
+        // Dark green for cheapest, lighter gray-green for more expensive
+        if (price === minPrice) {
+            return 'rgba(50, 64, 47, 0.9)'; // Dark green for best price
+        } else {
+            return 'rgba(101, 135, 94, 0.8)'; // Lighter green for other prices
+        }
+    });
+
+    const borderColors = backgroundColors.map(color => {
+        if (color.includes('128, 128, 128')) {
+            return 'rgba(128, 128, 128, 1)'; // Gray border
+        } else if (color.includes('50, 64, 47')) {
+            return 'rgba(50, 64, 47, 1)'; // Dark green border
+        } else {
+            return 'rgba(101, 135, 94, 1)'; // Light green border
+        }
+    });
+
+    // Create the chart
+    const ctx = document.getElementById('priceComparisonChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: retailers,
+            datasets: [{
+                label: 'Price (R)',
+                data: prices,
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
+                borderWidth: 2,
+                borderRadius: 8,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const listing = productListings[context.dataIndex];
+                            const stockText = listing.in_stock ? 'In Stock' : 'Out of Stock';
+                            return [
+                                `Price: R${context.parsed.y.toFixed(2)}`,
+                                `Status: ${stockText}`,
+                                `Updated: ${formatDate(listing.last_updated)}`
+                            ];
+                        }
+                    },
+                    backgroundColor: 'rgba(50, 64, 47, 0.95)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#32402f',
+                    borderWidth: 2,
+                    cornerRadius: 8
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: Math.min(...prices) * 0.95,
+                    ticks: {
+                        callback: function(value) {
+                            return 'R' + value.toFixed(2);
+                        },
+                        color: '#32402f',
+                        font: {
+                            family: 'Playfair Display',
+                            weight: 'bold'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(50, 64, 47, 0.1)',
+                        lineWidth: 1
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#32402f',
+                        font: {
+                            family: 'Playfair Display',
+                            weight: 'bold'
+                        },
+                        maxRotation: 45
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            animation: {
+                duration: 1200,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+}
+
+// Simple CSS-only bar chart with updated colors
+function createSimplePriceChart() {
+    if (productListings.length <= 1) return;
+
+    const chartContainer = document.createElement('div');
+    chartContainer.className = 'simple-price-chart';
     
+    const minPrice = Math.min(...productListings.map(l => l.price));
+    const maxPrice = Math.max(...productListings.map(l => l.price));
+    
+    let chartHTML = `
+        <h3 class="chart-title">Price Comparison Across Retailers</h3>
+        <div class="simple-chart-container">
+    `;
+    
+    productListings.forEach(listing => {
+        const percentage = ((listing.price - minPrice) / (maxPrice - minPrice)) * 100 || 0;
+        const barHeight = Math.max(percentage, 15); // Minimum height for visibility
+        
+        let barColor = '#808080'; // Gray for out of stock
+        if (listing.in_stock) {
+            barColor = listing.price === minPrice ? '#32402f' : '#65875e'; // Dark green for best price, light green for others
+        }
+        
+        chartHTML += `
+            <div class="price-bar-item">
+                <div class="retailer-label">${listing.retailer_name || listing.retailer_username}</div>
+                <div class="price-bar-container">
+                    <div class="price-bar ${!listing.in_stock ? 'out-of-stock' : (listing.price === minPrice ? 'best-price' : 'other-price')}" 
+                         style="height: ${barHeight}%; background-color: ${barColor}">
+                    </div>
+                </div>
+                <div class="price-label">R${listing.price.toFixed(2)}</div>
+                <div class="stock-indicator ${listing.in_stock ? 'in-stock' : 'out-of-stock'}">
+                    ${listing.in_stock ? '✓ In Stock' : '✗ Out of Stock'}
+                </div>
+            </div>
+        `;
+    });
+    
+    chartHTML += `
+        </div>
+        <div class="chart-legend">
+            <span class="legend-item"><span class="legend-color best-price"></span> Best Price</span>
+            <span class="legend-item"><span class="legend-color other-price"></span> Other Prices</span>
+            <span class="legend-item"><span class="legend-color out-of-stock"></span> Out of Stock</span>
+        </div>
+    `;
+    
+    chartContainer.innerHTML = chartHTML;
+    
+    // Insert after the main view container but before reviews
+    const reviewsSection = document.querySelector('.reviews-section');
+    if (reviewsSection) {
+        reviewsSection.parentNode.insertBefore(chartContainer, reviewsSection);
+    }
+}
+
+//----------
+
     function generateStarRating(rating) {
         let stars = '';
         for (let i = 1; i <= 5; i++) {

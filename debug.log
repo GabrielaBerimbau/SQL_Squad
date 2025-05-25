@@ -1,1520 +1,842 @@
-[25-May-2025 12:30:30 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:30:30 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:30:30 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:30:30 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:30:30 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:30:30 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:30:30 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:30:30 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:30:30 Europe/Berlin] User: u24601358
-[25-May-2025 12:30:30 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:30:30 Europe/Berlin] Password length: 32
-[25-May-2025 12:30:30 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:30:30 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:30:35 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:30:35 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:30:35 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:30:35 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:30:35 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:30:35 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:30:35 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:30:35 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:30:35 Europe/Berlin] User: u24601358
-[25-May-2025 12:30:35 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:30:35 Europe/Berlin] Password length: 32
-[25-May-2025 12:30:35 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:30:35 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:31:12 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:31:12 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:31:12 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:31:12 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:31:12 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:31:12 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:31:12 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:31:12 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:31:12 Europe/Berlin] User: u24601358
-[25-May-2025 12:31:12 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:31:12 Europe/Berlin] Password length: 32
-[25-May-2025 12:31:12 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:31:12 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:33:06 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:33:06 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:33:06 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:33:06 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:33:06 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:33:06 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:33:06 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:33:06 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:33:06 Europe/Berlin] User: u24601358
-[25-May-2025 12:33:06 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:33:06 Europe/Berlin] Password length: 32
-[25-May-2025 12:33:06 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:33:06 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:33:31 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:33:31 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:33:31 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:33:31 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:33:31 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:33:31 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:33:31 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:33:31 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:33:31 Europe/Berlin] User: u24601358
-[25-May-2025 12:33:31 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:33:31 Europe/Berlin] Password length: 32
-[25-May-2025 12:33:31 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:33:31 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:34:16 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:34:16 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:34:16 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:34:16 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:34:16 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:34:16 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:34:16 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:34:16 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:34:16 Europe/Berlin] User: u24601358
-[25-May-2025 12:34:16 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:34:16 Europe/Berlin] Password length: 32
-[25-May-2025 12:34:16 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:34:16 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:34:16 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+[25-May-2025 13:25:11 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 13:25:11 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 13:25:11 Europe/Berlin] .env file found, loading...
+[25-May-2025 13:25:11 Europe/Berlin] .env file found, loading...
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 13:25:11 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 13:25:11 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 13:25:11 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 13:25:11 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 13:25:11 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 13:25:11 Europe/Berlin] User: u24601358
+[25-May-2025 13:25:11 Europe/Berlin] User: u24601358
+[25-May-2025 13:25:11 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 13:25:11 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 13:25:11 Europe/Berlin] Password length: 32
+[25-May-2025 13:25:11 Europe/Berlin] Password length: 32
+[25-May-2025 13:25:11 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 13:25:11 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 13:25:11 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 13:25:11 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:26:39 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:26:39 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:26:39 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:26:39 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:26:39 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:26:39 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:26:39 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:26:39 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:26:39 Europe/Berlin] User: u24601358
+[25-May-2025 14:26:39 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:26:39 Europe/Berlin] Password length: 32
+[25-May-2025 14:26:39 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:26:39 Europe/Berlin] API Request: {"type":"Register","username":"Sipho","email":"siphoiscool@gmail.com","password":"Sipho123!","role":"retailer","company":"Dilfs"}
+[25-May-2025 14:26:54 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:26:54 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:26:54 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:26:54 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:26:54 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:26:54 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:26:54 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:26:54 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:26:54 Europe/Berlin] User: u24601358
+[25-May-2025 14:26:54 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:26:54 Europe/Berlin] Password length: 32
+[25-May-2025 14:26:54 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:26:54 Europe/Berlin] API Request: {"type":"Login","username":"Sipho","password":"Sipho123!"}
+[25-May-2025 14:27:03 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:27:03 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:27:03 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:27:03 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:27:03 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:27:03 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:27:03 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:27:03 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:27:03 Europe/Berlin] User: u24601358
+[25-May-2025 14:27:03 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:27:03 Europe/Berlin] Password length: 32
+[25-May-2025 14:27:03 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:27:03 Europe/Berlin] API Request: {"type":"Login","username":"Sipho","password":"Sipho123!"}
+[25-May-2025 14:27:05 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:27:05 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:27:05 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:27:05 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:27:05 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:27:05 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:27:05 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:27:05 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:27:05 Europe/Berlin] User: u24601358
+[25-May-2025 14:27:05 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:27:05 Europe/Berlin] Password length: 32
+[25-May-2025 14:27:05 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:27:05 Europe/Berlin] API Request: {"type":"GetRetailerProducts","user_id":4}
+[25-May-2025 14:28:46 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:28:46 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:28:46 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:28:46 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:28:46 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:28:46 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:28:46 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:28:46 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:28:46 Europe/Berlin] User: u24601358
+[25-May-2025 14:28:46 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:28:46 Europe/Berlin] Password length: 32
+[25-May-2025 14:28:46 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:28:46 Europe/Berlin] API Request: {"type":"GetRetailerProducts","user_id":4}
+[25-May-2025 14:28:51 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:28:51 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:28:51 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:28:51 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:28:51 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:28:51 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:28:51 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:28:51 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:28:51 Europe/Berlin] User: u24601358
+[25-May-2025 14:28:51 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:28:51 Europe/Berlin] Password length: 32
+[25-May-2025 14:28:52 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:28:52 Europe/Berlin] API Request: {"type":"Login","username":"Sipho","password":"Sipho123!"}
+[25-May-2025 14:28:53 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:28:53 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:28:53 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:28:53 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:28:53 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:28:53 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:28:53 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:28:53 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:28:53 Europe/Berlin] User: u24601358
+[25-May-2025 14:28:53 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:28:53 Europe/Berlin] Password length: 32
+[25-May-2025 14:28:53 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:28:53 Europe/Berlin] API Request: {"type":"GetRetailerProducts","user_id":47}
+[25-May-2025 14:30:58 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:30:58 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:30:58 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:30:58 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:30:58 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:30:58 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:30:58 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:30:58 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:30:58 Europe/Berlin] User: u24601358
+[25-May-2025 14:30:58 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:30:58 Europe/Berlin] Password length: 32
+[25-May-2025 14:30:58 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:30:58 Europe/Berlin] API Request: {"type":"Login","username":"Sipho","password":"Sipho123!"}
+[25-May-2025 14:30:59 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:30:59 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:30:59 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:30:59 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:30:59 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:30:59 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:30:59 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:30:59 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:30:59 Europe/Berlin] User: u24601358
+[25-May-2025 14:30:59 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:30:59 Europe/Berlin] Password length: 32
+[25-May-2025 14:30:59 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:30:59 Europe/Berlin] API Request: {"type":"GetRetailerProducts","user_id":47}
+[25-May-2025 14:31:15 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:31:15 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:31:15 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:31:15 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:31:15 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:31:15 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:31:15 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:31:15 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:31:15 Europe/Berlin] User: u24601358
+[25-May-2025 14:31:15 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:31:15 Europe/Berlin] Password length: 32
+[25-May-2025 14:31:15 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:31:15 Europe/Berlin] API Request: {"type":"Login","username":"Sipho","password":"Sipho123!"}
+[25-May-2025 14:31:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:31:17 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:31:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:31:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:31:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:31:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:31:17 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:31:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:31:17 Europe/Berlin] User: u24601358
+[25-May-2025 14:31:17 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:31:17 Europe/Berlin] Password length: 32
+[25-May-2025 14:31:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:31:17 Europe/Berlin] API Request: {"type":"GetRetailerProducts","user_id":47}
+[25-May-2025 14:33:11 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:33:11 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:33:11 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:33:11 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:33:11 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:33:11 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:33:11 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:33:11 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:33:11 Europe/Berlin] User: u24601358
+[25-May-2025 14:33:11 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:33:11 Europe/Berlin] Password length: 32
+[25-May-2025 14:33:11 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:33:11 Europe/Berlin] API Request: {"type":"Login","username":"Sipho","password":"Sipho123!"}
+[25-May-2025 14:33:13 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:33:13 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:33:13 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:33:13 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:33:13 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:33:13 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:33:13 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:33:13 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:33:13 Europe/Berlin] User: u24601358
+[25-May-2025 14:33:13 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:33:13 Europe/Berlin] Password length: 32
+[25-May-2025 14:33:13 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:33:13 Europe/Berlin] API Request: {"type":"GetRetailerProducts","user_id":47}
+[25-May-2025 14:36:53 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:36:53 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:36:53 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:36:53 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:36:53 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:36:53 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:36:53 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:36:53 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:36:53 Europe/Berlin] User: u24601358
+[25-May-2025 14:36:53 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:36:53 Europe/Berlin] Password length: 32
+[25-May-2025 14:36:53 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:36:53 Europe/Berlin] API Request: {"type":"Login","username":"Test","password":"Password123!"}
+[25-May-2025 14:36:55 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:36:55 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:36:55 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:36:55 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:36:55 Europe/Berlin] User: u24601358
+[25-May-2025 14:36:55 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:36:55 Europe/Berlin] Password length: 32
+[25-May-2025 14:36:55 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:36:55 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:36:55 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:36:55 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:36:55 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:36:55 Europe/Berlin] User: u24601358
+[25-May-2025 14:36:55 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:36:55 Europe/Berlin] Password length: 32
+[25-May-2025 14:36:55 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:36:55 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:36:55 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:36:55 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:19 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:19 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:19 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:19 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:19 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:19 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:19 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:19 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:19 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:19 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:19 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:37:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:34:21 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:34:21 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:34:21 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:34:21 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:34:21 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:34:21 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:34:21 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:34:21 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:34:21 Europe/Berlin] User: u24601358
-[25-May-2025 12:34:21 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:34:21 Europe/Berlin] Password length: 32
-[25-May-2025 12:34:22 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:34:22 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:34:35 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:34:35 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:34:35 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:34:35 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:34:35 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:34:35 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:34:35 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:34:35 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:34:35 Europe/Berlin] User: u24601358
-[25-May-2025 12:34:35 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:34:35 Europe/Berlin] Password length: 32
-[25-May-2025 12:34:36 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:34:36 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:34:46 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:34:46 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:34:46 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:34:46 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:34:46 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:34:46 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:34:46 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:34:46 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:34:46 Europe/Berlin] User: u24601358
-[25-May-2025 12:34:46 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:34:46 Europe/Berlin] Password length: 32
-[25-May-2025 12:34:46 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:34:46 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:36:46 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:36:46 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:36:46 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:36:46 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:36:46 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:36:46 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:36:46 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:36:46 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:36:46 Europe/Berlin] User: u24601358
-[25-May-2025 12:36:46 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:36:46 Europe/Berlin] Password length: 32
-[25-May-2025 12:36:46 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:36:46 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:38:53 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:38:53 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:38:53 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:38:53 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:38:53 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:38:53 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:38:53 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:38:53 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:38:53 Europe/Berlin] User: u24601358
-[25-May-2025 12:38:53 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:38:53 Europe/Berlin] Password length: 32
-[25-May-2025 12:38:53 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:38:53 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:49:13 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:13 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:13 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:13 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:13 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:13 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:13 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:13 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:13 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:13 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:13 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:13 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:13 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:49:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:19 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:19 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:19 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:19 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:19 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:19 Europe/Berlin] API Request: {"type":"Login","username":"Test","password":"Password123!"}
-[25-May-2025 12:49:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:20 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:20 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:20 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:20 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:21 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:49:21 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:49:25 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:25 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:25 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:25 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:25 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:25 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:25 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:25 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:25 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:25 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:25 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] API Request: {"type":"GetProductDetails","product_id":"2"}
-[25-May-2025 12:49:25 Europe/Berlin] API Request: {"type":"GetProductListings","product_id":"2"}
-[25-May-2025 12:49:25 Europe/Berlin] API Request: {"type":"GetProductReviews","product_id":"2"}
-[25-May-2025 12:49:25 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:25 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:25 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:25 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:25 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:25 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:25 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:25 Europe/Berlin] API Request: {"type":"Wishlist","action":"check","product_id":"2","user_id":"40"}
-[25-May-2025 12:49:27 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:27 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:27 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:27 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:27 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:27 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:27 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:27 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:27 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:27 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:27 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:27 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:27 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:27 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:27 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:27 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:27 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:49:27 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:27 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:49:29 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:29 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:29 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:29 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:29 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:29 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:29 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:29 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:29 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:29 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:29 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:29 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:29 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:49:33 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:33 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:33 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:33 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:33 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:33 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:33 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:33 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:33 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:33 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:33 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:33 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:33 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 12:49:57 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:49:57 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:49:57 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:49:57 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:49:57 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:49:57 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:49:57 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:49:57 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:49:57 Europe/Berlin] User: u24601358
-[25-May-2025 12:49:57 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:49:57 Europe/Berlin] Password length: 32
-[25-May-2025 12:49:57 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:49:57 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:50:57 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:50:57 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:50:57 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:50:57 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:50:57 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:50:57 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:50:57 Europe/Berlin] User: u24601358
-[25-May-2025 12:50:57 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:50:57 Europe/Berlin] Password length: 32
-[25-May-2025 12:50:57 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:50:57 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:50:57 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:50:57 Europe/Berlin] User: u24601358
-[25-May-2025 12:50:57 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:50:57 Europe/Berlin] Password length: 32
-[25-May-2025 12:50:57 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:50:57 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:50:57 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:50:57 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:50:59 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:50:59 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:50:59 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:50:59 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:50:59 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:50:59 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:50:59 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:50:59 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:50:59 Europe/Berlin] User: u24601358
-[25-May-2025 12:50:59 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:50:59 Europe/Berlin] Password length: 32
-[25-May-2025 12:50:59 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:50:59 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 12:51:15 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:51:15 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:51:15 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:51:15 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:51:15 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:51:15 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:51:15 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:51:15 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:51:15 Europe/Berlin] User: u24601358
-[25-May-2025 12:51:15 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:51:15 Europe/Berlin] Password length: 32
-[25-May-2025 12:51:15 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:51:15 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:51:16 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:51:16 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:51:16 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:51:16 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:51:16 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:51:16 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:51:16 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:51:16 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:51:16 Europe/Berlin] User: u24601358
-[25-May-2025 12:51:16 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:51:16 Europe/Berlin] Password length: 32
-[25-May-2025 12:51:16 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:51:16 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 12:51:26 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:51:26 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:51:26 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:51:26 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:51:26 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:51:26 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:51:26 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:51:26 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:51:26 Europe/Berlin] User: u24601358
-[25-May-2025 12:51:26 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:51:26 Europe/Berlin] Password length: 32
-[25-May-2025 12:51:26 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:51:26 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:51:29 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:51:29 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:51:29 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:51:29 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:51:29 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:51:29 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:51:29 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:51:29 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:51:29 Europe/Berlin] User: u24601358
-[25-May-2025 12:51:29 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:51:29 Europe/Berlin] Password length: 32
-[25-May-2025 12:51:29 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:51:29 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 12:52:48 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:52:48 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:52:48 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:52:48 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:52:48 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:52:48 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:52:48 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:52:48 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:52:48 Europe/Berlin] User: u24601358
-[25-May-2025 12:52:48 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:52:48 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:52:48 Europe/Berlin] User: u24601358
-[25-May-2025 12:52:48 Europe/Berlin] Password length: 32
-[25-May-2025 12:52:48 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:52:48 Europe/Berlin] Password length: 32
-[25-May-2025 12:52:48 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:52:48 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:52:48 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:52:48 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:52:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:37:19 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:20 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:20 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:20 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:20 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:20 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:20 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:20 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:20 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:20 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:20 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:20 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:37:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:20 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:21 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:21 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:21 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:21 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:21 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:21 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:21 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:21 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:21 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:21 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:21 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:21 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:21 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:21 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:21 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:21 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:37:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:52:50 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:52:50 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:52:50 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:52:50 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:52:50 Europe/Berlin] User: u24601358
-[25-May-2025 12:52:50 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:52:50 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:52:50 Europe/Berlin] Password length: 32
-[25-May-2025 12:52:50 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:52:50 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:52:50 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:52:50 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:52:50 Europe/Berlin] User: u24601358
-[25-May-2025 12:52:50 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:52:50 Europe/Berlin] Password length: 32
-[25-May-2025 12:52:50 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:52:50 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:52:50 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:52:50 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:52:50 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:37:21 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:22 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:22 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:22 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:22 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:22 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:22 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:22 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:22 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:22 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:22 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:22 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:22 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:22 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:22 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:22 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:23 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:23 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:23 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:37:23 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:24 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:24 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:24 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:24 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:24 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:24 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:24 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:24 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:24 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:24 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:24 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:24 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:24 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:24 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:24 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:24 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:24 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:24 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:24 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:37:24 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:52:51 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:52:51 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:52:51 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:52:51 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:52:51 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:52:51 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:52:51 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:52:51 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:52:51 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:52:51 Europe/Berlin] User: u24601358
-[25-May-2025 12:52:51 Europe/Berlin] User: u24601358
-[25-May-2025 12:52:51 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:52:51 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:52:51 Europe/Berlin] Password length: 32
-[25-May-2025 12:52:51 Europe/Berlin] Password length: 32
-[25-May-2025 12:52:51 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:52:51 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:52:51 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:52:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:37:26 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:26 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:26 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:26 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:26 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:26 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:26 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:26 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:26 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:26 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:26 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:26 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:26 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:26 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:26 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:26 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:26 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:26 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:37:26 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:27 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:27 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:27 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:27 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:27 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:27 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:27 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:27 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:27 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:27 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:27 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:27 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:27 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:27 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:27 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:27 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:27 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:27 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:27 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:37:27 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:52:51 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:53:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:19 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:19 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:19 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:19 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:19 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:19 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:19 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:19 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:19 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:19 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:19 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:53:19 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:53:21 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:21 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:21 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:21 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:21 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:21 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:21 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:21 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:21 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:21 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:21 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:21 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:21 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:21 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:21 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:21 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:53:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:37:29 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:29 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:29 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:29 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:29 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:29 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:29 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:29 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:29 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:29 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:29 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:29 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:29 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:29 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:29 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:29 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:29 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:29 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:29 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:37:30 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:30 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:30 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:30 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:30 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:30 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:30 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:30 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:30 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:30 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:30 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:30 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:30 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:30 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:30 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:30 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:30 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:30 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:37:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:53:21 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:53:22 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:22 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:22 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:22 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:22 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:22 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:22 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:22 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:22 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:22 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:22 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:22 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:22 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:22 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:22 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:22 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:22 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:22 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:53:22 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:53:23 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:23 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:23 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:23 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:23 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:23 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:23 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:23 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:23 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:23 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:23 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:23 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:23 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:23 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:23 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:23 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:23 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:23 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:53:23 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:37:30 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:32 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:32 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:32 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:32 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:37:32 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:37:32 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:32 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:37:32 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:37:32 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:32 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:37:32 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:37:32 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:37:32 Europe/Berlin] User: u24601358
+[25-May-2025 14:37:32 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:37:32 Europe/Berlin] Password length: 32
+[25-May-2025 14:37:32 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:32 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:37:32 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:37:32 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:39:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:39:17 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:39:17 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:39:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:39:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:39:17 Europe/Berlin] User: u24601358
+[25-May-2025 14:39:17 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:39:17 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:39:17 Europe/Berlin] Password length: 32
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:39:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:39:17 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:39:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:39:17 Europe/Berlin] User: u24601358
+[25-May-2025 14:39:17 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:39:17 Europe/Berlin] Password length: 32
+[25-May-2025 14:39:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:39:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:39:17 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:39:17 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:39:17 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:53:23 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:53:29 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:29 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:29 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:29 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:53:29 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:53:29 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:53:29 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:29 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:53:29 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:29 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:53:29 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:29 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:53:29 Europe/Berlin] User: u24601358
-[25-May-2025 12:53:29 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:53:29 Europe/Berlin] Password length: 32
-[25-May-2025 12:53:29 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:29 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:53:29 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:53:29 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:54:00 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:54:00 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:54:00 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:54:00 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:54:00 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:54:00 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:54:00 Europe/Berlin] User: u24601358
-[25-May-2025 12:54:00 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:54:00 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:54:00 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:54:00 Europe/Berlin] Password length: 32
-[25-May-2025 12:54:00 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:54:00 Europe/Berlin] User: u24601358
-[25-May-2025 12:54:00 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:54:00 Europe/Berlin] Password length: 32
-[25-May-2025 12:54:00 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:54:00 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:54:00 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:54:00 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:54:09 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:54:09 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:54:09 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:54:09 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:54:09 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:54:09 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:54:09 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:54:09 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:54:09 Europe/Berlin] User: u24601358
-[25-May-2025 12:54:09 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:54:09 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:54:09 Europe/Berlin] User: u24601358
-[25-May-2025 12:54:09 Europe/Berlin] Password length: 32
-[25-May-2025 12:54:09 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:54:09 Europe/Berlin] Password length: 32
-[25-May-2025 12:54:09 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:54:09 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:54:09 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:54:09 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:55:49 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:55:49 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:55:49 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:55:49 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:55:49 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:55:49 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:55:49 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:55:49 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:55:49 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:55:49 Europe/Berlin] User: u24601358
-[25-May-2025 12:55:49 Europe/Berlin] User: u24601358
-[25-May-2025 12:55:49 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:55:49 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:55:49 Europe/Berlin] Password length: 32
-[25-May-2025 12:55:49 Europe/Berlin] Password length: 32
-[25-May-2025 12:55:49 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:55:49 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:55:49 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:55:49 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:55:51 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:55:51 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:55:51 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:55:51 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:55:51 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:55:51 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:55:51 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:55:51 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:55:51 Europe/Berlin] User: u24601358
-[25-May-2025 12:55:51 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:55:51 Europe/Berlin] Password length: 32
-[25-May-2025 12:55:51 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:55:51 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:55:54 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:55:54 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:55:54 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:55:54 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:55:54 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:55:54 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:55:54 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:55:54 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:55:54 Europe/Berlin] User: u24601358
-[25-May-2025 12:55:54 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:55:54 Europe/Berlin] Password length: 32
-[25-May-2025 12:55:54 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:55:54 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 12:56:18 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:18 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:18 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:18 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:18 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:18 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:18 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:18 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:18 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:18 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:18 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:19 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:56:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:20 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:20 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:21 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:21 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 12:56:42 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:42 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:42 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:42 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:42 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:42 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:42 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:42 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:42 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:42 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:42 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:42 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:42 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:42 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:42 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:42 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:42 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:56:42 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:42 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:56:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:39:18 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:39:18 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:39:18 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:39:18 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:39:18 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:39:18 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:39:18 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:39:18 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:39:18 Europe/Berlin] User: u24601358
+[25-May-2025 14:39:18 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:39:18 Europe/Berlin] Password length: 32
+[25-May-2025 14:39:18 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:39:18 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:39:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:39:20 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:39:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:39:20 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:39:20 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:39:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:39:20 Europe/Berlin] User: u24601358
+[25-May-2025 14:39:20 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:39:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:39:20 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:39:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:39:20 Europe/Berlin] User: u24601358
+[25-May-2025 14:39:20 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:39:20 Europe/Berlin] Password length: 32
+[25-May-2025 14:39:20 Europe/Berlin] Password length: 32
+[25-May-2025 14:39:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:39:20 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:39:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:39:20 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:40:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:17 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:17 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:17 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:17 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:17 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:17 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:17 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:17 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:17 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:17 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:17 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:17 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
+[25-May-2025 14:40:17 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1544
 Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
+#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1544): mysqli->prepare('\r\n            S...')
 #1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
+#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2116): API->processRequest()
 #3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:56:43 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:43 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:43 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:43 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:43 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:43 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:43 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:43 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:43 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:43 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:43 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:43 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:43 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:43 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:43 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:44 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:44 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:44 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:56:44 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:56:47 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:47 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:47 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:47 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:47 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:47 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:47 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:47 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:47 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 12:56:47 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
-Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
-#1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
-#3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 12:56:47 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:56:48 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:48 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:48 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:48 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:48 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:48 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:48 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:48 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:48 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:48 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:48 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:48 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:48 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:48 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:48 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:48 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:48 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 12:56:48 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:48 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 12:56:56 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:56 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:56 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:56 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:56 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:56 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:56 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:56 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:56 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:56 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:56 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:56 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:56 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"2","user_id":"40"}
-[25-May-2025 12:56:58 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 12:56:58 Europe/Berlin] .env file found, loading...
-[25-May-2025 12:56:58 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 12:56:58 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 12:56:58 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 12:56:58 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 12:56:58 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 12:56:58 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 12:56:58 Europe/Berlin] User: u24601358
-[25-May-2025 12:56:58 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 12:56:58 Europe/Berlin] Password length: 32
-[25-May-2025 12:56:58 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 12:56:58 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"2","user_id":"40"}
-[25-May-2025 13:00:44 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:00:44 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:00:44 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:00:44 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:00:44 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:00:44 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:00:44 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:00:44 Europe/Berlin] User: u24601358
-[25-May-2025 13:00:44 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:00:44 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:00:44 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:00:44 Europe/Berlin] Password length: 32
-[25-May-2025 13:00:44 Europe/Berlin] User: u24601358
-[25-May-2025 13:00:44 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:00:44 Europe/Berlin] Password length: 32
-[25-May-2025 13:00:44 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:00:44 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:00:44 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:00:44 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:10:42 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:10:42 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:10:42 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:10:42 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:10:42 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:10:42 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:10:42 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:10:42 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:10:42 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:10:42 Europe/Berlin] User: u24601358
-[25-May-2025 13:10:42 Europe/Berlin] User: u24601358
-[25-May-2025 13:10:42 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:10:42 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:10:42 Europe/Berlin] Password length: 32
-[25-May-2025 13:10:42 Europe/Berlin] Password length: 32
-[25-May-2025 13:10:42 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:10:42 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:10:42 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:10:42 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:11:46 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:46 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:46 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:46 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:47 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:47 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:47 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:11:48 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:48 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:48 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:48 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:48 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:48 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:48 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:48 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:48 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:48 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:48 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:48 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:48 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:48 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:48 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:48 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:48 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:48 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 13:11:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
-Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
-#1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
-#3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 13:11:48 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:11:49 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:49 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:49 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:49 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:49 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:49 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:49 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:49 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:49 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:49 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:49 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:49 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:49 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:49 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:49 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:49 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:49 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:49 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:11:49 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:11:50 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:50 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:50 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:50 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:50 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:50 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:50 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:50 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:50 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:50 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:50 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:50 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:50 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:11:51 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:51 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:11:51 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:51 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:51 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:11:51 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:51 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:11:51 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:51 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:11:51 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:51 Europe/Berlin] User: u24601358
-[25-May-2025 13:11:51 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:51 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:11:51 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:51 Europe/Berlin] Password length: 32
-[25-May-2025 13:11:51 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:51 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:11:51 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:11:51 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 13:11:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
-Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
-#1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
-#3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 13:12:09 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:12:09 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:12:09 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:12:09 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:12:09 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:12:09 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:12:09 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:12:09 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:12:09 Europe/Berlin] User: u24601358
-[25-May-2025 13:12:09 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:12:09 Europe/Berlin] Password length: 32
-[25-May-2025 13:12:09 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:12:09 Europe/Berlin] API Request: {"type":"Login","username":"Test","password":"Password123!"}
-[25-May-2025 13:12:11 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:12:11 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:12:11 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:12:11 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:12:11 Europe/Berlin] User: u24601358
-[25-May-2025 13:12:11 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:12:11 Europe/Berlin] Password length: 32
-[25-May-2025 13:12:11 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:12:11 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:12:11 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:12:11 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:12:11 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:12:11 Europe/Berlin] User: u24601358
-[25-May-2025 13:12:11 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:12:11 Europe/Berlin] Password length: 32
-[25-May-2025 13:12:11 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:12:11 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:12:11 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:12:11 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:12:18 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:12:18 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:12:18 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:12:18 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:12:18 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:12:18 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:12:18 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:12:18 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:12:18 Europe/Berlin] User: u24601358
-[25-May-2025 13:12:18 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:12:18 Europe/Berlin] Password length: 32
-[25-May-2025 13:12:18 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:12:18 Europe/Berlin] API Request: {"type":"Login","username":"Test","password":"Password123!"}
-[25-May-2025 13:12:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:12:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:12:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:12:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:12:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:12:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:12:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:12:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:12:20 Europe/Berlin] User: u24601358
-[25-May-2025 13:12:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:12:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:12:20 Europe/Berlin] User: u24601358
-[25-May-2025 13:12:20 Europe/Berlin] Password length: 32
-[25-May-2025 13:12:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:12:20 Europe/Berlin] Password length: 32
-[25-May-2025 13:12:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:12:20 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:12:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:12:20 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:13:12 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:13:12 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:13:12 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:13:12 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:13:12 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:13:12 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:13:12 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:13:12 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:13:12 Europe/Berlin] User: u24601358
-[25-May-2025 13:13:12 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:13:12 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:13:12 Europe/Berlin] Password length: 32
-[25-May-2025 13:13:12 Europe/Berlin] User: u24601358
-[25-May-2025 13:13:12 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:13:12 Europe/Berlin] Password length: 32
-[25-May-2025 13:13:12 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:13:12 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:13:12 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:13:12 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:14:00 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:00 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:00 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:00 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:00 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:00 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:00 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:00 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:00 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:00 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:00 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:00 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:00 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:00 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:00 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:00 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:00 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:00 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:14:00 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:14:15 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:15 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:15 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:15 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:15 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:15 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:15 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:15 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:15 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:15 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:15 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:15 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:15 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:14:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:17 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:17 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:17 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:17 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:17 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:17 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:17 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:17 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:17 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:17 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:17 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:17 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:17 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:17 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:17 Europe/Berlin] API Request: {"type":"GetTopRatedProducts","category_id":"default","brand":"default","min_rating":0,"sort":"rating-high","search":""}
-[25-May-2025 13:14:17 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'HAVING avg_rating >= 3.0' at line 19 in C:\xampp\htdocs\cba\SQL_Squad\api.php:1523
-Stack trace:
-#0 C:\xampp\htdocs\cba\SQL_Squad\api.php(1523): mysqli->prepare('\r\n            S...')
-#1 C:\xampp\htdocs\cba\SQL_Squad\api.php(94): API->getTopRatedProducts(Array)
-#2 C:\xampp\htdocs\cba\SQL_Squad\api.php(2095): API->processRequest()
-#3 {main}
-  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1523
-[25-May-2025 13:14:17 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:14:18 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:18 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:18 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:18 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:18 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:18 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:18 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:18 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:18 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:18 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:18 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:18 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:18 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:14:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:19 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:19 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:14:19 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:14:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:19 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:14:19 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:14:19 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:19 Europe/Berlin] User: u24601358
-[25-May-2025 13:14:19 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:19 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:14:19 Europe/Berlin] Password length: 32
-[25-May-2025 13:14:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:19 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:14:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:14:19 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:16:15 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:16:15 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:16:15 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:16:15 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:16:15 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:16:15 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:16:15 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:16:15 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:16:15 Europe/Berlin] User: u24601358
-[25-May-2025 13:16:15 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:16:15 Europe/Berlin] Password length: 32
-[25-May-2025 13:16:15 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:16:15 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:16:18 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:16:18 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:16:18 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:16:18 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:16:18 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:16:18 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:16:18 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:16:18 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:16:18 Europe/Berlin] User: u24601358
-[25-May-2025 13:16:18 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:16:18 Europe/Berlin] Password length: 32
-[25-May-2025 13:16:18 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:16:18 Europe/Berlin] API Request: {"type":"Login","username":"Test","password":"Password123!"}
-[25-May-2025 13:16:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:16:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:16:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:16:20 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:16:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:16:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:16:20 Europe/Berlin] User: u24601358
-[25-May-2025 13:16:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:16:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:16:20 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:16:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:16:20 Europe/Berlin] Password length: 32
-[25-May-2025 13:16:20 Europe/Berlin] User: u24601358
-[25-May-2025 13:16:20 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:16:20 Europe/Berlin] Password length: 32
-[25-May-2025 13:16:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:16:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:16:20 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:16:20 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:18:30 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:18:30 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:18:30 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:18:30 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:18:30 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:18:30 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:18:30 Europe/Berlin] User: u24601358
-[25-May-2025 13:18:30 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:18:30 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:18:30 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:18:30 Europe/Berlin] Password length: 32
-[25-May-2025 13:18:30 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:18:30 Europe/Berlin] User: u24601358
-[25-May-2025 13:18:30 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:18:30 Europe/Berlin] Password length: 32
-[25-May-2025 13:18:30 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:18:30 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:18:30 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:18:30 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:18:40 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:18:40 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:18:40 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:18:40 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:18:40 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:18:40 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:18:40 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:18:40 Europe/Berlin] User: u24601358
-[25-May-2025 13:18:40 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:18:40 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:18:40 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:18:40 Europe/Berlin] Password length: 32
-[25-May-2025 13:18:40 Europe/Berlin] User: u24601358
-[25-May-2025 13:18:40 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:18:40 Europe/Berlin] Password length: 32
-[25-May-2025 13:18:40 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:18:40 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:18:40 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:18:40 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:18:47 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:18:47 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:18:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:18:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:18:47 Europe/Berlin] User: u24601358
-[25-May-2025 13:18:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:18:47 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:18:47 Europe/Berlin] Password length: 32
-[25-May-2025 13:18:47 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:18:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:18:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:18:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:18:47 Europe/Berlin] User: u24601358
-[25-May-2025 13:18:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:18:47 Europe/Berlin] Password length: 32
-[25-May-2025 13:18:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:18:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:18:47 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:18:47 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:20:24 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:20:24 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:20:24 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:20:24 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:20:24 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:20:24 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:20:24 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:20:24 Europe/Berlin] User: u24601358
-[25-May-2025 13:20:24 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:20:24 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:20:24 Europe/Berlin] Password length: 32
-[25-May-2025 13:20:24 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:20:24 Europe/Berlin] User: u24601358
-[25-May-2025 13:20:24 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:20:24 Europe/Berlin] Password length: 32
-[25-May-2025 13:20:24 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:20:24 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:20:24 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:20:24 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:20:34 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:20:34 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:20:34 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:20:34 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:20:34 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:20:34 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:20:34 Europe/Berlin] User: u24601358
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:20:34 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:20:34 Europe/Berlin] Password length: 32
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:20:34 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:20:34 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:20:34 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:20:34 Europe/Berlin] User: u24601358
-[25-May-2025 13:20:34 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:20:34 Europe/Berlin] Password length: 32
-[25-May-2025 13:20:34 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:20:34 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
-[25-May-2025 13:20:34 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:20:34 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:20:46 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:20:46 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
-[25-May-2025 13:20:46 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:20:46 Europe/Berlin] .env file found, loading...
-[25-May-2025 13:20:46 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:20:46 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
-[25-May-2025 13:20:46 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:20:47 Europe/Berlin] Loaded env var: DB_USER = u24601358
-[25-May-2025 13:20:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:20:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
-[25-May-2025 13:20:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:20:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:20:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
-[25-May-2025 13:20:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:20:47 Europe/Berlin] Attempting to connect to database:
-[25-May-2025 13:20:47 Europe/Berlin] User: u24601358
-[25-May-2025 13:20:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
-[25-May-2025 13:20:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:20:47 Europe/Berlin] User: u24601358
-[25-May-2025 13:20:47 Europe/Berlin] Password length: 32
-[25-May-2025 13:20:47 Europe/Berlin] Database: u24601358_SQL_Squad
-[25-May-2025 13:20:47 Europe/Berlin] Password length: 32
-[25-May-2025 13:20:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:20:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
-[25-May-2025 13:20:47 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
-[25-May-2025 13:20:47 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+  thrown in C:\xampp\htdocs\cba\SQL_Squad\api.php on line 1544
+[25-May-2025 14:40:18 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:18 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:18 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:18 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:18 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:18 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:18 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:18 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:18 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:18 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:18 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:18 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:18 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:19 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:19 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:19 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:19 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:19 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:19 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:19 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:19 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:19 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:19 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:19 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:19 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:19 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:19 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:40:19 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:19 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:20 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:20 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:20 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:20 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:20 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:20 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:20 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:20 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:20 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:20 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:20 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:20 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:20 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:22 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:22 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:22 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:22 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:22 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:22 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:22 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:22 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:22 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:22 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:22 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:22 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:22 Europe/Berlin] API Request: {"type":"Wishlist","action":"remove","product_id":"17"}
+[25-May-2025 14:40:24 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:24 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:24 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:24 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:24 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:24 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:24 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:24 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:24 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:24 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:24 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:24 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:24 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:24 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:24 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:24 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:24 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:24 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:24 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:40:25 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:25 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:25 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:25 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:25 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:25 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:25 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:25 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:25 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:25 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:25 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:25 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:25 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:26 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:26 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:26 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:26 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:26 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:26 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:26 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:26 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:26 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:26 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:26 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:26 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:26 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:26 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:26 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:26 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:26 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:26 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:26 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:40:32 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:32 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:32 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:32 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:32 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:32 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:32 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:32 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:32 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:32 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:32 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:32 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:32 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"5","user_id":"40"}
+[25-May-2025 14:40:34 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:34 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:34 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:34 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:34 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:34 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:34 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:34 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:34 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:34 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:34 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:34 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:34 Europe/Berlin] API Request: {"type":"Wishlist","action":"add","product_id":"7","user_id":"40"}
+[25-May-2025 14:40:47 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:47 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:47 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:47 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:47 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:47 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:47 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:47 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:47 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:47 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:47 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:47 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:47 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:56 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:56 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:56 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:56 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:56 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:56 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:56 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:56 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:56 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:56 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:56 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:56 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:56 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:56 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:56 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:56 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:56 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:56 Europe/Berlin] API Request: {"type":"GetWishlistItems"}
+[25-May-2025 14:40:56 Europe/Berlin] API Request: {"type":"GetAllProducts","category_id":"default","brand":"default","sort":"default","search":""}
+[25-May-2025 14:40:57 Europe/Berlin] Looking for .env file at: C:\xampp\htdocs\cba\SQL_Squad/.env
+[25-May-2025 14:40:57 Europe/Berlin] .env file found, loading...
+[25-May-2025 14:40:57 Europe/Berlin] Loaded env var: DB_HOST = wheatley.cs.up.ac.za
+[25-May-2025 14:40:57 Europe/Berlin] Loaded env var: DB_USER = u24601358
+[25-May-2025 14:40:57 Europe/Berlin] Loaded env var: DB_PASS = GSJRNMQRDA7GZFYATARBH7TMQNTQKJ7A
+[25-May-2025 14:40:57 Europe/Berlin] Loaded env var: DB_NAME = u24601358_SQL_Squad
+[25-May-2025 14:40:57 Europe/Berlin] Attempting to connect to database:
+[25-May-2025 14:40:57 Europe/Berlin] Host: wheatley.cs.up.ac.za
+[25-May-2025 14:40:57 Europe/Berlin] User: u24601358
+[25-May-2025 14:40:57 Europe/Berlin] Database: u24601358_SQL_Squad
+[25-May-2025 14:40:57 Europe/Berlin] Password length: 32
+[25-May-2025 14:40:57 Europe/Berlin] Database connection successful to u24601358_SQL_Squad
+[25-May-2025 14:40:57 Europe/Berlin] API Request: {"type":"GetWishlistItems"}

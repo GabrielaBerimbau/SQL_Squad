@@ -333,7 +333,6 @@ body {
 
 /* //--------- additonal css */
 
-
 /* Additional CSS for view.css */
 
 /* Retailer listings styles */
@@ -525,5 +524,121 @@ body {
     text-align: center;
     padding: 50px;
     font-size: 18px;
+    color: #dc3545;
+}
+
+/* Carousel image hover effects */
+.carousel-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+/* Product rating display */
+.product-rating {
+    font-size: 18px;
+    color: #ffc107;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .view-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .carousel {
+        margin-right: 0;
+        margin-bottom: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .carousel-image {
+        width: 120px;
+        height: 120px;
+        margin: 5px;
+    }
+    
+    .product-info {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .retailer-block {
+        margin-bottom: 15px;
+    }
+    
+    .modal-content {
+        margin: 10px;
+        max-width: calc(100% - 20px);
+    }
+    
+    .review-modal .modal-content {
+        min-width: auto;
+        width: calc(100% - 40px);
+    }
+}
+
+/* Additional utility classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* Wishlist button states */
+.add-to-cart:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.add-to-cart.in-wishlist {
+    background-color: #28a745;
+}
+
+/* Price highlighting */
+.price-highlight {
+    background-color: #fff3cd;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border-left: 3px solid #ffc107;
+}
+
+/* Review date formatting */
+.review-date {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Stock status icons */
+.stock-status::before {
+    content: "●";
+    margin-right: 5px;
+}
+
+.stock-status.in-stock::before {
+    color: #28a745;
+}
+
+.stock-status.out-of-stock::before {
     color: #dc3545;
 }
