@@ -432,156 +432,171 @@ class AdminDashboard{
     // }
 
     async executeConfirmedAction(){
-    if(!this.pendingAction){
-        return;
-    } 
-    
-    try{
-        // Handle bulk actions first
-        if(this.pendingAction.type === 'bulk_status_change'){
-            // Handle bulk status changes
-            const userIds = this.pendingAction.userIds;
-            const newStatus = this.pendingAction.newStatus;
-            let successCount = 0;
-            let failCount = 0;
-            
-            // Process each user individually
-            for(const userId of userIds) {
-                try {
-                    const bulkResp = await fetch('api.php', {
+        if(!this.pendingAction){
+            return;
+        } 
+        
+        // Disable the confirm button to prevent double-clicks
+        const confirmBtn = document.getElementById('modal-confirm');
+        const cancelBtn = document.getElementById('modal-cancel');
+        confirmBtn.disabled = true;
+        cancelBtn.disabled = true;
+        confirmBtn.textContent = 'Processing...';
+        
+        try{
+            // Handle bulk actions first
+            if(this.pendingAction.type === 'bulk_status_change'){
+                console.log('Starting bulk status change...');
+                
+                const userIds = this.pendingAction.userIds;
+                const newStatus = this.pendingAction.newStatus;
+                let successCount = 0;
+                let failCount = 0;
+                
+                // Process each user individually
+                for(const userId of userIds) {
+                    try {
+                        const bulkResp = await fetch('api.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                type: 'UpdateUserStatus',
+                                user_id: userId,
+                                is_active: newStatus
+                            })
+                        });
+                        
+                        if (!bulkResp.ok) {
+                            throw new Error(`HTTP error! status: ${bulkResp.status}`);
+                        }
+                        
+                        const bulkRes = await bulkResp.json();
+                        
+                        if(bulkRes.status === 'success') {
+                            successCount++;
+                        } else {
+                            failCount++;
+                            console.error(`Failed to update user ${userId}:`, bulkRes.data);
+                        }
+                    } catch (error) {
+                        failCount++;
+                        console.error(`Error updating user ${userId}:`, error);
+                    }
+                }
+                
+                // Show results
+                if(successCount > 0) {
+                    this.showNotification(`Successfully updated ${successCount} user(s)`, 'success');
+                }
+                if(failCount > 0) {
+                    this.showNotification(`Failed to update ${failCount} user(s)`, 'error');
+                }
+                
+                // Clear selected users and reload
+                this.selectedUsers.clear();
+                this.updateBulkActionButtons();
+                this.loadUsers();
+                this.loadStats();
+            } 
+            // Handle single actions
+            else {
+                let resp;
+                
+                if(this.pendingAction.type === 'status_change'){
+                    resp = await fetch('api.php',{
                         method: 'POST',
-                        headers: {
+                        headers:{
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
                             type: 'UpdateUserStatus',
-                            user_id: userId,
-                            is_active: newStatus
+                            user_id: this.pendingAction.userId,
+                            is_active: this.pendingAction.newStatus
                         })
                     });
-                    
-                    // Check if response is ok
-                    if (!bulkResp.ok) {
-                        throw new Error(`HTTP error! status: ${bulkResp.status}`);
+                } 
+                else if(this.pendingAction.type === 'delete_user'){
+                    resp = await fetch('api.php',{
+                        method: 'POST',
+                        headers:{
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            type: 'DeleteUser',
+                            user_id: this.pendingAction.userId
+                        })
+                    });
+                }
+                else {
+                    console.error('Unknown action type:', this.pendingAction.type);
+                    this.showNotification('Unknown action type', 'error');
+                    return;
+                }
+                
+                if (!resp.ok) {
+                    throw new Error(`HTTP error! status: ${resp.status}`);
+                }
+                
+                const res = await resp.json();
+                
+                if(res.status === 'success'){
+                    this.showNotification(res.data.message || 'Action completed successfully', 'success');
+
+                    // Update the toggle switch if it was a status change
+                    if (this.pendingAction.type === 'status_change') {
+                        const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
+                        if (toggle) {
+                            toggle.checked = this.pendingAction.newStatus;
+                        }
                     }
-                    
-                    const bulkRes = await bulkResp.json();
-                    
-                    if(bulkRes.status === 'success') {
-                        successCount++;
-                    } else {
-                        failCount++;
-                        console.error(`Failed to update user ${userId}:`, bulkRes.data);
+
+                    this.loadUsers();
+                    this.loadStats();
+                } 
+                else{
+                    this.showNotification(res.data || 'Action failed', 'error');
+
+                    // if status change has failed - revert toggle back
+                    if (this.pendingAction.type === 'status_change') {
+                        const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
+                        if (toggle) {
+                            toggle.checked = !this.pendingAction.newStatus;
+                        }
                     }
-                } catch (error) {
-                    failCount++;
-                    console.error(`Error updating user ${userId}:`, error);
                 }
             }
-            
-            // Show results
-            if(successCount > 0) {
-                this.showNotification(`Successfully updated ${successCount} user(s)`, 'success');
-            }
-            if(failCount > 0) {
-                this.showNotification(`Failed to update ${failCount} user(s)`, 'error');
-            }
-            
-            // Clear selected users and reload
-            this.selectedUsers.clear();
-            this.updateBulkActionButtons();
-            this.loadUsers();
-            this.loadStats();
-            
-            // Close modal and reset
-            this.closeModal('confirmation-modal');
-            this.pendingAction = null;
-            document.getElementById('modal-confirm').className = 'btn btn-primary';
-            document.getElementById('modal-confirm').textContent = 'Confirm';
-            return; // Exit early for bulk actions
-        }
-        
-        // Handle single actions
-        let resp;
-        
-        if(this.pendingAction.type === 'status_change'){
-            resp = await fetch('api.php',{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    type: 'UpdateUserStatus',
-                    user_id: this.pendingAction.userId,
-                    is_active: this.pendingAction.newStatus
-                })
-            });
         } 
-        else if(this.pendingAction.type === 'delete_user'){
-            resp = await fetch('api.php',{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    type: 'DeleteUser',
-                    user_id: this.pendingAction.userId
-                })
-            });
-        }
-        else {
-            // Unknown action type
-            console.error('Unknown action type:', this.pendingAction.type);
-            this.showNotification('Unknown action type', 'error');
-            return;
+        catch(err){
+            console.error('Error executing action:', err);
+            this.showNotification('Network error occurred', 'error');
         }
         
-        // Check if response is ok for single actions
-        if (!resp.ok) {
-            throw new Error(`HTTP error! status: ${resp.status}`);
-        }
+        // MOVED THE CLEANUP OUTSIDE OF finally TO ENSURE IT ALWAYS RUNS
+        console.log('Cleaning up modal...');
         
-        const res = await resp.json();
+        // Reset button states
+        confirmBtn.disabled = false;
+        cancelBtn.disabled = false;
         
-        if(res.status === 'success'){
-            this.showNotification(res.data.message || 'Action completed successfully', 'success');
-
-            // Update the toggle switch if it was a status change
-            if (this.pendingAction.type === 'status_change') {
-                const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
-                if (toggle) {
-                    toggle.checked = this.pendingAction.newStatus;
-                }
-            }
-
-            this.loadUsers();
-            this.loadStats();
-        } 
-        else{
-            this.showNotification(res.data || 'Action failed', 'error');
-
-            // if status change has failed - revert toggle back
-            if (this.pendingAction.type === 'status_change') {
-                const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
-                if (toggle) {
-                    toggle.checked = !this.pendingAction.newStatus;
-                }
-            }
-        }
-    } 
-    catch(err){
-        console.error('Error executing action:', err);
-        this.showNotification('Network error occurred', 'error');
-    } 
-    finally{
+        // Close modal - try multiple methods to ensure it closes
         this.closeModal('confirmation-modal');
+        
+        // Force close if the above doesn't work
+        const modal = document.getElementById('confirmation-modal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Reset state
         this.pendingAction = null;
         
-        // reset confirm btn
-        document.getElementById('modal-confirm').className = 'btn btn-primary';
-        document.getElementById('modal-confirm').textContent = 'Confirm';
+        // Reset confirm button
+        confirmBtn.className = 'btn btn-primary';
+        confirmBtn.textContent = 'Confirm';
     }
-}
 
     // show user details asyncronously
     async showUserDetails(userId){
@@ -724,30 +739,47 @@ class AdminDashboard{
     }
 
     showNotification(message, type = 'info'){
-        // notif elem
-        const notif = document.createElement('div');
+        // create or get notif container
+        let container = document.querySelector('.notification-container');
+        
+        if(!container){
+            container = document.createElement('div');
+            container.className = 'notification-container';
+            document.body.appendChild(container);
+        }
 
+        // create notif elem
+        const notif = document.createElement('div');
         notif.className = `notification notification-${type}`;
         notif.innerHTML =`
             <span>${message}</span>
             <button class="notification-close">&times;</button>
         `;
         
-        // add to the page
-        document.body.appendChild(notif);
+        // add to container - stacks vertically
+        container.appendChild(notif);
         
-        // get rid of after 5 sec
-        setTimeout(()=>{
-            if (notif.parentNode) {
+        // func to remove notif and cleanup container
+        const removeNotif = () => {
+            if(notif && notif.parentNode){
                 notif.parentNode.removeChild(notif);
+                
+                // remove container if empty
+                if(container && container.children.length === 0){
+                    container.remove();
+                }
             }
+        };
+        
+        // auto remove after 5 sec
+        const autoRemoveTimer = setTimeout(()=>{
+            removeNotif();
         }, 5000);
         
-        // close it manually with btn
+        // manual close with btn
         notif.querySelector('.notification-close').addEventListener('click', ()=>{
-            if(notif.parentNode){
-                notif.parentNode.removeChild(notif);
-            }
+            clearTimeout(autoRemoveTimer); // clear auto timer
+            removeNotif();
         });
     }
 

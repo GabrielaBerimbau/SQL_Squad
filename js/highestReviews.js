@@ -1,4 +1,4 @@
-// highest-reviews.js - Top Rated Products Page
+// highest-reviews.js - Top Rated Products Page (using same logic as products.js)
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const productContainer = document.getElementById('product-container');
@@ -10,51 +10,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingAnimation = document.getElementById('loading-animation');
     const successAlert = document.getElementById('success-alert');
     
-    // Current filter values
+    
     let filters = {
         category_id: 'default',
         brand: 'default',
-        min_rating: 0,
         sort: 'rating-high',
         search: ''
     };
     
-    // Wishlist items cache
+   
+    let minRatingFilter = 0;
+    
+    // Wishlist items cache to track which products are in the wishlist
     let wishlistItems = {};
     
-    // Initialize page
-    loadTopRatedProducts();
+    // Initialize product display
+    loadProducts();
     
     // Check if user is logged in
     const isLoggedIn = !!localStorage.getItem('user_id');
     if (isLoggedIn) {
+        // If logged in, get user's wishlist items for the UI
         fetchUserWishlist();
     }
     
-    // Setup event listeners
+    // Setup event listeners 
     searchBar.addEventListener('input', debounce(function() {
         filters.search = this.value.trim();
-        loadTopRatedProducts();
+        loadProducts();
     }, 500));
     
     categorySelect.addEventListener('change', function() {
         filters.category_id = this.value;
-        loadTopRatedProducts();
+        loadProducts();
     });
     
     brandSelect.addEventListener('change', function() {
         filters.brand = this.value;
-        loadTopRatedProducts();
+        loadProducts();
     });
     
+    
     ratingFilter.addEventListener('change', function() {
-        filters.min_rating = parseFloat(this.value) || 0;
-        loadTopRatedProducts();
+        minRatingFilter = parseFloat(this.value) || 0;
+        loadProducts();
     });
     
     sortSelect.addEventListener('change', function() {
         filters.sort = this.value;
-        loadTopRatedProducts();
+        loadProducts();
     });
     
     // Add event listener for wishlist buttons
@@ -65,8 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Fetch user's wishlist to know which products are already in wishlist
+    // Fetch user's wishlist to know which products are already in wishlist 
     function fetchUserWishlist() {
+        // Only fetch if logged in
         if (!localStorage.getItem('user_id')) return;
         
         const requestData = {
@@ -97,13 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Update all wishlist buttons based on cached data
+    // Update all wishlist buttons based on cached data (same as products.js)
     function updateWishlistButtonsUI() {
         document.querySelectorAll('.wishlist-btn').forEach(button => {
             const productId = button.getAttribute('data-id');
             if (wishlistItems[productId]) {
                 button.classList.add('in-wishlist');
-                button.textContent = 'In Wishlist';
+                button.textContent = 'Remove from Wishlist';
             } else {
                 button.classList.remove('in-wishlist');
                 button.textContent = 'Add to Wishlist';
@@ -111,8 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Handle adding/removing from wishlist
+
     function handleWishlistAction(productId, button) {
+        // Check if user is logged in
         if (!localStorage.getItem('user_id')) {
             showAlert('Please log in to add items to your wishlist', 'error');
             setTimeout(() => {
@@ -121,18 +127,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Determine action based on whether product is in wishlist
+      
         const isInWishlist = wishlistItems[productId];
         const action = isInWishlist ? 'remove' : 'add';
         
-        // Update UI immediately for better user experience
+     
         if (isInWishlist) {
             button.classList.remove('in-wishlist');
             button.textContent = 'Add to Wishlist';
             delete wishlistItems[productId];
         } else {
             button.classList.add('in-wishlist');
-            button.textContent = 'In Wishlist';
+            button.textContent = 'Remove from Wishlist';
             wishlistItems[productId] = true;
         }
         
@@ -153,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
+                // Show success message
                 const message = action === 'add' 
                     ? 'Product added to wishlist' 
                     : 'Product removed from wishlist';
@@ -161,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Revert UI on error
                 if (isInWishlist) {
                     button.classList.add('in-wishlist');
-                    button.textContent = 'In Wishlist';
+                    button.textContent = 'Remove from Wishlist';
                     wishlistItems[productId] = true;
                 } else {
                     button.classList.remove('in-wishlist');
@@ -178,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Revert UI on error
             if (isInWishlist) {
                 button.classList.add('in-wishlist');
-                button.textContent = 'In Wishlist';
+                button.textContent = 'Remove from Wishlist';
                 wishlistItems[productId] = true;
             } else {
                 button.classList.remove('in-wishlist');
@@ -190,15 +197,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Load top rated products from API
-    function loadTopRatedProducts() {
+    // Load products from API
+    function loadProducts() {
         // Show loading animation
         loadingAnimation.style.display = 'block';
         productContainer.innerHTML = '';
         
         // Prepare data for API request
         const requestData = {
-            type: 'GetTopRatedProducts',
+            type: 'GetAllProducts',  // Using the same working API
             ...filters
         };
         
@@ -216,7 +223,10 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingAnimation.style.display = 'none';
             
             if (data.status === 'success') {
-                displayProducts(data.data.products);
+                // Filter and sort products for top-rated display
+                let filteredProducts = filterAndSortForTopRated(data.data.products);
+                
+                displayProducts(filteredProducts);
                 populateFilterDropdowns(data.data.categories, data.data.brands);
                 
                 // Update wishlist buttons after products are displayed
@@ -232,6 +242,38 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error:', error);
             productContainer.innerHTML = '<p class="error-message">Failed to load products. Please try again later.</p>';
         });
+    }
+    
+  
+    function filterAndSortForTopRated(products) {
+        // Filter products to only show those with ratings
+        let filteredProducts = products.filter(product => {
+            const rating = parseFloat(product.avg_rating) || 0;
+            const reviewCount = parseInt(product.review_count) || 0;
+            
+            // Only show products that have ratings and meet minimum rating filter
+            return reviewCount > 0 && rating >= minRatingFilter;
+        });
+        
+        // Sort products by rating and review count
+        filteredProducts.sort((a, b) => {
+            const ratingA = parseFloat(a.avg_rating) || 0;
+            const ratingB = parseFloat(b.avg_rating) || 0;
+            const countA = parseInt(a.review_count) || 0;
+            const countB = parseInt(b.review_count) || 0;
+            
+            if (filters.sort === 'review-count') {
+                // Sort by review count first, then rating
+                if (countB !== countA) return countB - countA;
+                return ratingB - ratingA;
+            } else {
+                // Default: Sort by rating first, then review count
+                if (ratingB !== ratingA) return ratingB - ratingA;
+                return countB - countA;
+            }
+        });
+        
+        return filteredProducts;
     }
     
     // Display products in the container
@@ -251,39 +293,30 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Generate star rating display
             const stars = generateStarRating(product.avg_rating);
-            const ratingDisplay = `${parseFloat(product.avg_rating).toFixed(1)} / 5.0`;
+            const ratingDisplay = product.avg_rating > 0 ? 
+                `${parseFloat(product.avg_rating).toFixed(1)} / 5.0 (${product.review_count} reviews)` : 
+                'Not Rated Yet';
             
             // Check if product is in stock
             const stockStatus = product.in_stock == 1 ? 
                 '<span class="in-stock">In Stock</span>' : 
                 '<span class="out-of-stock">Out of Stock</span>';
             
-            // Format price
-            const priceDisplay = product.price ? 
-                `<div class="product-price">From R${product.price.toFixed(2)}</div>` : 
-                '<div class="product-price">Price not available</div>';
-            
-            // Determine wishlist status
+            // Determine wishlist status based on our cached data
             const isInWishlist = wishlistItems[product.product_id] || false;
             const wishlistBtnClass = isInWishlist ? 'wishlist-btn in-wishlist' : 'wishlist-btn';
-            const wishlistBtnText = isInWishlist ? 'In Wishlist' : 'Add to Wishlist';
+            const wishlistBtnText = isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
             
             productCard.innerHTML = `
-                <img src="${product.primary_image}" alt="${product.name}" class="product-image">
-                <div class="product-name">${product.name}</div>
-                <div class="product-rating">
-                    <span class="rating-stars">${stars}</span>
-                    <div class="rating-text">${ratingDisplay} (${product.review_count} reviews)</div>
-                </div>
-                ${priceDisplay}
-                <div class="product-stock">${stockStatus}</div>
-                <div class="product-description">${product.description ? product.description.substring(0, 100) + '...' : 'No description available'}</div>
-                <div class="product-actions">
-                    <button class="${wishlistBtnClass}" data-id="${product.product_id}">
-                        ${wishlistBtnText}
-                    </button>
-                    <button class="view-details-btn" onclick="window.location.href='view.php?id=${product.product_id}'">View Details</button>
-                </div>
+                <img src="${product.primary_image}" alt="${product.name}" class="product-image" onclick="window.location.href='view.php?id=${product.product_id}'" style="cursor: pointer;">
+                <h3 class="product-name" onclick="window.location.href='view.php?id=${product.product_id}'" style="cursor: pointer;">${product.name}</h3>
+                <p class="product-rating">${stars} ${ratingDisplay}</p>
+                <p class="product-stock">${stockStatus}</p>
+                <p class="product-description">${product.description ? product.description.substring(0, 100) + '...' : 'No description available'}</p>
+                <button class="${wishlistBtnClass}" data-id="${product.product_id}">
+                    ${wishlistBtnText}
+                </button>
+                <button class="view-details-btn" onclick="window.location.href='view.php?id=${product.product_id}'">View Details</button>
             `;
             
             productContainer.appendChild(productCard);
@@ -315,11 +348,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return stars;
     }
     
-    // Populate filter dropdowns with data from API
+    // Populate filter dropdowns with data from API 
     function populateFilterDropdowns(categories, brands) {
-        // Only populate if this is the first load
+      
         if (categorySelect.options.length <= 1) {
-            // Populate categories
+            
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category.category_id;
@@ -339,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Show alert message
+    // Show alert message 
     function showAlert(message, type) {
         successAlert.textContent = message;
         successAlert.className = 'success-alert ' + type;
