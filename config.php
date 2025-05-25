@@ -1,3 +1,4 @@
+
 <?php
 //enable error reporting for debugging
 error_reporting(E_ALL);

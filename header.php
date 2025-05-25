@@ -12,8 +12,9 @@ if (session_status() === PHP_SESSION_NONE) {
        
         $navItems = [
             'products.php' => 'Products',
-            'deals.php' => 'Best Deals',
+            // 'deals.php' => 'Best Deals',
             'wishlist.php' => 'Wishlist',
+            'highestReviews.php' => 'Top Rated', //updated 
         ];
         
         
