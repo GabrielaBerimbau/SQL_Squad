@@ -257,9 +257,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const wishlistBtnClass = isInWishlist ? 'wishlist-btn in-wishlist' : 'wishlist-btn';
             const wishlistBtnText = isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
             
+            //made product name click
             productCard.innerHTML = `
                 <img src="${product.primary_image}" alt="${product.name}" class="product-image">
-                <h3 class="product-name">${product.name}</h3>
+                <h3 class="product-name" onclick="window.location.href='view.php?id=${product.product_id}'" style="cursor: pointer;">${product.name}</h3>
                 <p class="product-rating">★ ${ratingDisplay}</p>
                 <p class="product-stock">${stockStatus}</p>
                 <p class="product-description">${product.description ? product.description.substring(0, 100) + '...' : 'No description available'}</p>
