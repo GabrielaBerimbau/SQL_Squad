@@ -403,7 +403,6 @@ class AdminDashboard{
                     <div class="user-meta">
                         <span><i class="fas fa-envelope"></i> ${user.email}</span>
                         <span><i class="fas fa-user-tag"></i> ${user.role}</span>
-                        <span><i class="fas fa-calendar-alt"></i> Joined: ${new Date(user.created_at).toLocaleDateString()}</span>
                         ${user.activity_count? `<span><i class="fas fa-chart-line"></i> Activity: ${user.activity_count}</span>`: ''}
                     </div>
                 </div>
