@@ -324,6 +324,6 @@
     </script>
 
     <script src="js/retailerView.js"></script>
-
+    
 </body>
 <?php include 'footer.php'; ?>

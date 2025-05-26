@@ -5,6 +5,7 @@ body {
     background-color: #f7f7f7;
     color: #333;
 }
+
 .navbar {
     background-color: white;
     padding: 15px 20px;
@@ -268,13 +269,16 @@ footer {
     color: white;
     text-align: center;
     padding: 8px 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: static; /* Change from fixed to static */
     border-top: 3px solid #65875e;
     font-family: 'Playfair Display', serif;
     font-size: 14px;
     box-sizing: border-box;
+    margin-top: 40px; /* Add some space above footer */
+}
+
+footer.show-footer {
+    bottom: 0; /* Show when at bottom */
 }
 
 
