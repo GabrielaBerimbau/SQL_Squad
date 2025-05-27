@@ -642,3 +642,18 @@ body {
 .stock-status.out-of-stock::before {
     color: #dc3545;
 }
+
+footer {
+    width: 100%;
+    background-color: #32402f;
+    color: white;
+    text-align: center;
+    padding: 8px 0;
+    position: static;
+    bottom: 0;
+    left: 0;
+    border-top: 3px solid #65875e;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
