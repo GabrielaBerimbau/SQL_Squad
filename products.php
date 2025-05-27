@@ -1,9 +1,7 @@
 <?php
-/**
- * Products page for Splendore
- */
-include('config.php');
 
+include('config.php');
+include 'security.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +22,9 @@ include('config.php');
     <div class="success-alert" id="success-alert"></div>
 
 
-    <!-- Search Bar -->
     <input type="text" class="search-bar" placeholder="Search for products...">
 
 
-    <!-- Filters & Sorting -->
     <div class="filters">
         <div class="filter-box">
             <h3>Category</h3>
@@ -46,7 +42,6 @@ include('config.php');
         </div>
     </div>
 
-    <!-- Product List -->
     <div id="product-container" class="product-container">
         <img id="loading-animation" src="img/loading.gif" alt="Loading..." /> 
     </div>

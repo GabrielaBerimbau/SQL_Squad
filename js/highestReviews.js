@@ -35,18 +35,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Setup event listeners 
-    searchBar.addEventListener('input', debounce(function() {
-        filters.search = this.value.trim();
+    searchBar.addEventListener('input', debounce(function() 
+    {
+        filters.search = escapeHtml(this.value.trim());
         loadProducts();
     }, 500));
     
-    categorySelect.addEventListener('change', function() {
-        filters.category_id = this.value;
+    categorySelect.addEventListener('change', function() 
+    {
+        filters.category_id = escapeHtml(this.value);
         loadProducts();
     });
     
-    brandSelect.addEventListener('change', function() {
-        filters.brand = this.value;
+    brandSelect.addEventListener('change', function() 
+    {
+        filters.brand = escapeHtml(this.value);
         loadProducts();
     });
     

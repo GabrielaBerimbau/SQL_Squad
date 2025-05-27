@@ -1,6 +1,5 @@
-// products.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Elements
+document.addEventListener('DOMContentLoaded', function() 
+{
     const productContainer = document.getElementById('product-container');
     const searchBar = document.querySelector('.search-bar');
     const categorySelect = document.getElementById('category-select');
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingAnimation = document.getElementById('loading-animation');
     const successAlert = document.getElementById('success-alert');
     
-    // Current filter values
+    // filter vals
     let filters = {
         category_id: 'default',
         brand: 'default',
@@ -16,50 +15,57 @@ document.addEventListener('DOMContentLoaded', function() {
         search: ''
     };
     
-    // Wishlist items cache to track which products are in the wishlist
+    // Wishlist items cache
     let wishlistItems = {};
     
-    // Initialize product display
+    // Initialize display
     loadProducts();
     
-    // Check if user is logged in
+    // Check login
     const isLoggedIn = !!localStorage.getItem('user_id');
-    if (isLoggedIn) {
-        // If logged in, get user's wishlist items for the UI
+    if (isLoggedIn) 
+    {
+        // fetch user's wishlist items
         fetchUserWishlist();
     }
     
     // Setup event listeners
-    searchBar.addEventListener('input', debounce(function() {
-        filters.search = this.value.trim();
+    searchBar.addEventListener('input', debounce(function() 
+    {
+        filters.search = escapeHtml(this.value.trim());
         loadProducts();
     }, 500));
     
-    categorySelect.addEventListener('change', function() {
-        filters.category_id = this.value;
+    categorySelect.addEventListener('change', function() 
+    {
+        filters.category_id = escapeHtml(this.value);
         loadProducts();
     });
     
-    brandSelect.addEventListener('change', function() {
-        filters.brand = this.value;
+    brandSelect.addEventListener('change', function() 
+    {
+        filters.brand = escapeHtml(this.value);
         loadProducts();
     });
     
     
-    // Add event listener for wishlist buttons
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('wishlist-btn')) {
+    // event listener for wishlist btns
+    document.addEventListener('click', function(e) 
+    {
+        if (e.target && e.target.classList.contains('wishlist-btn')) 
+        {
             const productId = e.target.getAttribute('data-id');
             handleWishlistAction(productId, e.target);
         }
     });
     
-    // Fetch user's wishlist to know which products are already in wishlist
-    function fetchUserWishlist() {
-        // Only fetch if logged in
+    // Fetch user's wishlist
+    function fetchUserWishlist() 
+    {
         if (!localStorage.getItem('user_id')) return;
         
-        const requestData = {
+        const requestData = 
+        {
             type: 'GetWishlistItems'
         };
         
@@ -72,13 +78,14 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success' && data.data.products) {
+            if (data.status === 'success' && data.data.products) 
+            {
                 // Update wishlist cache
                 data.data.products.forEach(product => {
                     wishlistItems[product.product_id] = true;
                 });
                 
-                // Update UI for all wishlist buttons
+                // update all wishlist buttons
                 updateWishlistButtonsUI();
             }
         })
@@ -87,25 +94,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Update all wishlist buttons based on cached data
+    // Update buttons based on wishlist cache
     function updateWishlistButtonsUI() {
         document.querySelectorAll('.wishlist-btn').forEach(button => {
             const productId = button.getAttribute('data-id');
-            if (wishlistItems[productId]) {
+            if (wishlistItems[productId]) 
+            {
                 button.classList.add('in-wishlist');
                 button.textContent = 'Remove from Wishlist';
-            } else {
+            } 
+            else 
+            {
                 button.classList.remove('in-wishlist');
                 button.textContent = 'Add to Wishlist';
             }
         });
     }
     
-    // Handle adding/removing from wishlist
-    function handleWishlistAction(productId, button) {
-        // Check if user is logged in
+    // Handle add/rem actions
+    function handleWishlistAction(productId, button) 
+    {
         
-        if (!localStorage.getItem('user_id')) {
+        if (!localStorage.getItem('user_id')) 
+        {
             showAlert('Please log in to add items to your wishlist', 'error');
             setTimeout(() => {
                 window.location.href = 'login.php';
@@ -113,22 +124,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Determine action based on whether product is in wishlist
         const isInWishlist = wishlistItems[productId];
         const action = isInWishlist ? 'remove' : 'add';
         
-        // Update UI immediately for better user experience
-        if (isInWishlist) {
+        // immediate updates for better user exp
+        if (isInWishlist) 
+        {
             button.classList.remove('in-wishlist');
             button.textContent = 'Add to Wishlist';
             delete wishlistItems[productId];
-        } else {
+        } 
+        else 
+        {
             button.classList.add('in-wishlist');
             button.textContent = 'Remove from Wishlist';
             wishlistItems[productId] = true;
         }
         
-        const requestData = {
+        const requestData = 
+        {
             type: 'Wishlist',
             action: action,
             product_id: productId,
@@ -144,19 +158,25 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success') {
-                // Show success message
+            if (data.status === 'success') 
+            {
+                // succ message
                 const message = action === 'add' 
                     ? 'Product added to wishlist' 
                     : 'Product removed from wishlist';
                 showAlert(message, 'success');
-            } else {
-                // Revert UI on error
-                if (isInWishlist) {
+            } 
+            else 
+            {
+                // Revert ui on err
+                if (isInWishlist) 
+                {
                     button.classList.add('in-wishlist');
                     button.textContent = 'Remove from Wishlist';
                     wishlistItems[productId] = true;
-                } else {
+                } 
+                else 
+                {
                     button.classList.remove('in-wishlist');
                     button.textContent = 'Add to Wishlist';
                     delete wishlistItems[productId];
@@ -169,11 +189,14 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error:', error);
             
             // Revert UI on error
-            if (isInWishlist) {
+            if (isInWishlist) 
+            {
                 button.classList.add('in-wishlist');
                 button.textContent = 'Remove from Wishlist';
                 wishlistItems[productId] = true;
-            } else {
+            } 
+            else 
+            {
                 button.classList.remove('in-wishlist');
                 button.textContent = 'Add to Wishlist';
                 delete wishlistItems[productId];
@@ -183,40 +206,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Load products from API
-    function loadProducts() {
-        // Show loading animation
+    // Load products endpoint
+    function loadProducts() 
+    {
+        // load anim
         loadingAnimation.style.display = 'block';
         productContainer.innerHTML = '';
         
-        // Prepare data for API request
-        const requestData = {
+        // Prepare data
+        const requestData = 
+        {
             type: 'GetAllProducts',
             ...filters
         };
         
-        // Fetch products from API
+        // Fetch products from API endpoint
         fetch('api.php', {
             method: 'POST',
-            headers: {
+            headers: 
+            {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(requestData)
         })
         .then(response => response.json())
         .then(data => {
-            // Hide loading animation
+            // hide load anim
             loadingAnimation.style.display = 'none';
             
-            if (data.status === 'success') {
+            if (data.status === 'success') 
+            {
                 displayProducts(data.data.products);
                 populateFilterDropdowns(data.data.categories, data.data.brands);
                 
-                // Update wishlist buttons after products are displayed
-                if (localStorage.getItem('user_id')) {
+                // Update wishlist btns after displaying products
+                if (localStorage.getItem('user_id')) 
+                {
                     updateWishlistButtonsUI();
                 }
-            } else {
+            } 
+            else 
+            {
                 productContainer.innerHTML = `<p class="error-message">Error loading products: ${data.data}</p>`;
             }
         })
@@ -227,9 +257,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Display products in the container
-    function displayProducts(products) {
-        if (products.length === 0) {
+    // Display items in their containers
+    function displayProducts(products) 
+    {
+        if (products.length === 0) 
+        {
             productContainer.innerHTML = '<p class="no-products">No products found matching your criteria.</p>';
             return;
         }
@@ -275,9 +307,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Populate filter dropdowns with data from API
-    function populateFilterDropdowns(categories, brands) {
+    function populateFilterDropdowns(categories, brands) 
+    {
         // Only populate if this is the first load (to avoid resetting user selections)
-        if (categorySelect.options.length <= 1) {
+        if (categorySelect.options.length <= 1) 
+        {
             // Populate categories
             categories.forEach(category => {
                 const option = document.createElement('option');
@@ -287,7 +321,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        if (brandSelect.options.length <= 1) {
+        if (brandSelect.options.length <= 1) 
+        {
             // Populate brands
             brands.forEach(brand => {
                 const option = document.createElement('option');
@@ -298,8 +333,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Show alert message
-    function showAlert(message, type) {
+    // alert msg
+    function showAlert(message, type) 
+    {
         successAlert.textContent = message;
         successAlert.className = 'success-alert ' + type;
         successAlert.style.display = 'block';
@@ -309,10 +345,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // Debounce function for search input
-    function debounce(func, wait) {
+    // debounce for search
+    function debounce(func, wait) 
+    {
         let timeout;
-        return function() {
+        return function() 
+        {
             const context = this;
             const args = arguments;
             clearTimeout(timeout);
