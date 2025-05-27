@@ -8,7 +8,7 @@ var RetailerView = {
     init: function() {
         console.log("Initializing RetailerView");
         
-        // Clear any existing event listeners first
+        //clear any existing event listeners first
         this.cleanup();
         
         //get stored id of user logged in
@@ -16,14 +16,13 @@ var RetailerView = {
         var storedUsername = null;
 
         if (typeof(Storage) !== "undefined") {
-            // Use a more specific approach to avoid conflicts
             try {
-                // check localStorage first
+                //check localStorage first
                 storedUserId = window.localStorage.getItem('user_id');
                 storedUsername = window.localStorage.getItem('username');
                 
                 if (!storedUserId || !storedUsername) {
-                    // check sessionStorage as fallback
+                    //check sessionStorage as fallback
                     storedUserId = window.sessionStorage.getItem('user_id');
                     storedUsername = window.sessionStorage.getItem('username');
                 }
@@ -48,7 +47,7 @@ var RetailerView = {
             return;
         }
         
-        // Initialize components in sequence to avoid conflicts
+        //Initialize components in sequence to avoid conflicts
         setTimeout(() => {
             RetailerView.displayUsername();
             RetailerView.setupEventListeners();
@@ -57,11 +56,11 @@ var RetailerView = {
         }, 100);
     },
 
-    // Cleanup function to remove existing event listeners
+    //remove existing event listeners
     cleanup: function() {
         var productsContainer = document.querySelector('.products-container');
         if (productsContainer) {
-            // Remove existing event listeners by cloning the element
+            //remove existing event listeners by cloning the element
             var newContainer = productsContainer.cloneNode(true);
             productsContainer.parentNode.replaceChild(newContainer, productsContainer);
         }
@@ -89,7 +88,7 @@ var RetailerView = {
     setupEventListeners: function() {
         console.log("Setting up event listeners...");
         
-        // Add Product Modal Events
+        //product Modal Events
         var addModal = document.getElementById('addProductModal');
         var addBtn = document.querySelector('.add-button');
         var addCloseBtn = addModal ? addModal.querySelector('.close') : null;
@@ -116,7 +115,7 @@ var RetailerView = {
             };
         }
 
-        // Edit Product Modal Events
+        //edit Product Modal Events
         var editModal = document.getElementById('editProductModal');
         var editCloseBtn = editModal ? editModal.querySelector('.close') : null;
         var editForm = document.getElementById('editProductForm');
@@ -135,7 +134,7 @@ var RetailerView = {
             };
         }
 
-        // Close modals when clicking outside
+        //Close modals when clicking outside
         window.onclick = function(event) {
             if (event.target === addModal) {
                 RetailerView.closeAddModal();
@@ -151,20 +150,20 @@ var RetailerView = {
             productsContainer.addEventListener('click', function(e) {
                 console.log("Click detected on:", e.target);
                 
-                // Prevent multiple event triggers
+                //Prevent multiple event triggers
                 e.stopPropagation();
                 
                 var target = e.target;
                 var button = null;
                 var productId = null;
                 
-                // More robust button detection
+                //button detection
                 if (target.classList.contains('edit-button') || target.classList.contains('delete-button')) {
                     button = target;
                 } else if (target.parentElement && (target.parentElement.classList.contains('edit-button') || target.parentElement.classList.contains('delete-button'))) {
                     button = target.parentElement;
                 } else {
-                    // Check up to 3 levels up for the button
+                    //Check up to 3 levels up for the button
                     var currentElement = target;
                     for (var i = 0; i < 3; i++) {
                         if (currentElement.classList.contains('edit-button') || currentElement.classList.contains('delete-button')) {
@@ -177,7 +176,7 @@ var RetailerView = {
                 }
                 
                 if (button) {
-                    // Get product ID with better error checking
+                    //Get product ID
                     productId = button.getAttribute('data-product-id');
                     
                     if (!productId) {
@@ -198,7 +197,7 @@ var RetailerView = {
                             RetailerView.editProduct(parseInt(productId));
                         } else if (button.classList.contains('delete-button')) {
                             console.log("Delete button clicked for product ID:", productId);
-                            // Add confirmation before delete
+                            //Add confirmation before delete
                             if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
                                 RetailerView.deleteProduct(parseInt(productId));
                             }
@@ -213,7 +212,7 @@ var RetailerView = {
             });
         }
 
-        // Search functionality
+        //Search functionality
         var searchInput = document.querySelector('.search-input');
         if (searchInput) {
             searchInput.addEventListener('input', function() {
@@ -221,7 +220,7 @@ var RetailerView = {
             });
         }
 
-        // Delete All Button
+        //Delete All Button
         var deleteAllBtn = document.querySelector('.delete-all');
         if (deleteAllBtn) {
             deleteAllBtn.onclick = function(e) {
@@ -336,15 +335,15 @@ var RetailerView = {
             if (this.readyState === 4) {
                 if (this.status === 200) {
                     try {
-                        // Parsing response into a JSON object
+                        //Parsing response into a JSON object
                         var data = JSON.parse(this.responseText);
                         console.log("Delete product response as JSON object:", data);
 
-                        // Checking that the request was successful
+                        //Checking that the request was successful
                         if (data.status === "success") {
                             console.log("Product deleted successfully:", data.data);
                             alert("Product deleted successfully!");
-                            // Refresh the products list
+                            //Refresh the products list
                             RetailerView.getProducts();
                         } else {
                             console.error("Delete Product Error:", data.data);
@@ -369,7 +368,7 @@ var RetailerView = {
             RetailerView.setLoading(false);
         };
 
-        // Creating request body with proper data types
+        //Creating request body with proper data types
         var requestData = JSON.stringify({
             "type": "DeleteProduct",
             "user_id": parseInt(RetailerView.userId),
@@ -380,7 +379,7 @@ var RetailerView = {
         request.send(requestData);
     },
 
-    // Edit product function - FIXED
+    //Edit product function - FIXED
     editProduct: function(productId) {
         console.log("Edit product called with ID:", productId);
         RetailerView.openEditModal(productId);
@@ -601,7 +600,7 @@ var RetailerView = {
         var stockStatus = isInStock ? 'In Stock' : 'Out of Stock';
         var stockClass = isInStock ? 'in-stock' : 'out-of-stock';
         
-        // Use a more reliable placeholder or default image
+        //Use a more reliable placeholder or default image
         var imageUrl = product.images && product.images.trim() !== '' 
             ? product.images 
             : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA2MEMzNi41IDYwIDM2LjUgOTAgNzUgOTBTMTEzLjUgNjAgNzUgNjBaIiBmaWxsPSIjQ0NEMkQ4Ii8+CjxwYXRoIGQ9Ik02MCA4NUgzMFY5MEg2MFY4NVoiIGZpbGw9IiNDQ0QyRDgiLz4KPHA+Tm8gSW1hZ2U8L3A+Cjwvc3ZnPgo=';
