@@ -318,11 +318,6 @@
         </div>
     </div>
 
-    <script>
-        // localStorage.setItem('user_id', '4'); //////////////////REPLACE LATER
-        
-    </script>
-
     <script src="js/retailerView.js"></script>
     
 </body>
