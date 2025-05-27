@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function()
             // Create rawdata
             const rawData = {
                 type: 'Login',
-                username: document.getElementById('username').value.trim(),
+                username: escapeHtml(document.getElementById('username').value.trim()),
                 password: document.getElementById('password').value.trim()
             };
             
@@ -150,9 +150,9 @@ document.addEventListener('DOMContentLoaded', function()
                     localStorage.removeItem(STORAGE_KEY);
                     
                     // Store user data in local
-                    localStorage.setItem('user_id', data.data.user_id);
-                    localStorage.setItem('username', data.data.username);
-                    localStorage.setItem('role', data.data.role);
+                    localStorage.setItem('user_id', escapeHtml(data.data.user_id));
+                    localStorage.setItem('username', escapeHtml(data.data.username));
+                    localStorage.setItem('role', escapeHtml(data.data.role));
                     
                     // success message
                     errorMsg.textContent = "Login successful! Redirecting...";
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function()
                 else 
                 {
                     // Login failed
-                    errorMsg.textContent = data.data || 'Login failed. Please try again.';
+                    errorMsg.textContent = escapeHtml(data.data || 'Login failed. Please try again.');
                     errorMsg.style.color = 'red';
                     errorMsg.style.display = 'block';
                     

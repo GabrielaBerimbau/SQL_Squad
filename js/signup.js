@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMsg.style.display = 'none';
         if (successMsg) successMsg.style.display = 'none';
         
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
+        const username = escapeHtml(document.getElementById('username').value.trim());
+        const email = escapeHtml(document.getElementById('email').value.trim());
         const password = document.getElementById('password').value;
         const role = document.getElementById('role').value;
-        const company = document.getElementById('company').value.trim();
+        const company = escapeHtml(document.getElementById('company').value.trim());
         
         if (!username || !email || !password || !role) {
             showError('Please fill in all required fields.');
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } 
             else 
             {
-                showError(data.data || 'Registration failed. Please try again.');
+                showError(escapeHtml(data.data || 'Registration failed. Please try again.'));
             }
         })
         .catch(error => {

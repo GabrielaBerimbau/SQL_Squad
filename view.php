@@ -3,7 +3,7 @@
  * Product View page for CompareIt
  */
 include('config.php');
-
+include_once 'security.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +26,10 @@ include('config.php');
             
             <!-- Image Carousel -->
             <div class="carousel-container">
-                <button id="prev-btn" class="carousel-btn">❮</button>
+                <!-- <button id="prev-btn" class="carousel-btn">❮</button> -->
                 <div class="carousel">
                 </div>
-                <button id="next-btn" class="carousel-btn">❯</button>
+                <!-- <button id="next-btn" class="carousel-btn">❯</button> -->
             </div>
 
             <!-- Product Details -->

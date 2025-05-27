@@ -650,7 +650,7 @@ function createSimplePriceChart() {
     
     function submitReview(modal) {
         const rating = modal.querySelector('#rating').value;
-        const comment = modal.querySelector('#comment').value;
+        const comment = escapeHtml(modal.querySelector('#comment').value);
         
         if (!rating) {
             showAlert('Please select a rating', 'error');

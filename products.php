@@ -1,7 +1,7 @@
 <?php
 
 include('config.php');
-
+include 'security.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
