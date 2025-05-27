@@ -110,6 +110,15 @@ class API
         case 'DeleteUser':
             $this->deleteUser($data);
             break;
+        case 'GetDetailedAnalytics':
+            $this->getDetailedAnalytics($data);
+            break;
+        case 'GetAllReviewsForAdmin':
+            $this->getAllReviewsForAdmin($data);
+            break;
+        case 'DeleteReviewAdmin':
+            $this->deleteReviewAdmin($data);
+            break;
     
         default:
             $this->returnError("Invalid type", 400);
@@ -644,7 +653,7 @@ private function getRetailerProducts($data) {
         return;
     }
 
-    //db query
+    //db query - FIXED: Added p.images to SELECT
     $query = "
         SELECT 
             p.product_id as id,
@@ -653,6 +662,7 @@ private function getRetailerProducts($data) {
             p.brand,
             p.specification,
             p.category_id,
+            p.images,
             l.price,
             l.in_stock,
             l.listing_id,
@@ -693,7 +703,6 @@ private function getRetailerProducts($data) {
 
 //add new product as a retailer
 private function addProduct($data) {
-
     //check user logged in
     if (!isset($data['user_id'])) {
         $this->returnError("User ID required", 400);
@@ -722,7 +731,7 @@ private function addProduct($data) {
         }
     }
 
-    // Validate price - ensure price is a number
+    //validate price - ensure price is a number
     if (!is_numeric($data['price']) || floatval($data['price']) <= 0) {
         $this->returnError("Price must be a valid positive number", 400);
         return;
@@ -732,11 +741,11 @@ private function addProduct($data) {
     $this->conn->begin_transaction();
     
     try {
-        //insert into PRODUCT table
+        //insert into PRODUCT table - FIXED: Added images field
         $productStmt = $this->conn->prepare("
             INSERT INTO PRODUCT 
-            (name, description, brand, category_id, specification) 
-            VALUES (?, ?, ?, ?, ?)
+            (name, description, brand, category_id, specification, images) 
+            VALUES (?, ?, ?, ?, ?, ?)
         ");
         
         $productName = $data['product_name'];
@@ -744,34 +753,12 @@ private function addProduct($data) {
         $brand = $data['brand'] ?? null;
         $categoryId = $data['category_id'] ?? 1; // Default category if not provided
         $specification = $data['specification'] ?? null;
+        $images = $data['image_url'] ?? null; // FIXED: Handle image URL
         
-        $productStmt->bind_param("sssis", $productName, $description, $brand, $categoryId, $specification);
+        $productStmt->bind_param("sssiss", $productName, $description, $brand, $categoryId, $specification, $images);
         $productStmt->execute();
         
         $productId = $this->conn->insert_id;
-        
-        //===================CHECK====================
-        // Handle images/file upload
-        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        //     $targetDir = "img/products/";
-            
-        //     // Create directory if it doesn't exist
-        //     if (!file_exists($targetDir)) {
-        //         mkdir($targetDir, 0777, true);
-        //     }
-            
-        //     // Use product_id for image name for consistency
-        //     $filename = $productId . '.jpg';
-        //     $targetFilePath = $targetDir . $filename;
-            
-        //     // Upload file
-        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-        //         // Add entry to PRODUCT_IMAGES table
-        //         $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-        //         $imageStmt->bind_param("i", $productId);
-        //         $imageStmt->execute();
-        //     }
-        // }
         
         //insert into LISTING table
         $listingStmt = $this->conn->prepare("
@@ -788,18 +775,7 @@ private function addProduct($data) {
         
         $listingId = $this->conn->insert_id;
         
-        // ==================== Price History ====================
-        //insert into PRICE_HISTORY table for the initial price
-        $historyStmt = $this->conn->prepare("
-            INSERT INTO PRICE_HISTORY 
-            (listing_id, price, recorded_date) 
-            VALUES (?, ?, NOW())
-        ");
-        
-        $historyStmt->bind_param("id", $listingId, $price);
-        $historyStmt->execute();
-        
-        // Commit transaction
+        //commit transaction
         $this->conn->commit();
         
         $this->returnSuccess([
@@ -808,7 +784,7 @@ private function addProduct($data) {
             'message' => 'Product added successfully'
         ]);
     } catch (Exception $e) {
-        // Rollback on error
+        //rollback on error
         $this->conn->rollback();
         $this->returnError("Error adding product: " . $e->getMessage(), 500);
     }
@@ -899,37 +875,13 @@ private function updateProduct($data) {
             $updateProductParams[] = $data['specification'];
             $updateProductTypes .= "s";
         }
-        
-        // =================== CHECK ====================
-        //handle images/file upload
-        // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        //     $targetDir = "img/products/";
-            
-        //     // Create directory if it doesn't exist
-        //     if (!file_exists($targetDir)) {
-        //         mkdir($targetDir, 0777, true);
-        //     }
-            
-        //     // Use product_id for image name for consistency
-        //     $filename = $productId . '.jpg';
-        //     $targetFilePath = $targetDir . $filename;
-            
-        //     // Upload file
-        //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-        //         // Check if entry exists in PRODUCT_IMAGES
-        //         $checkImageStmt = $this->conn->prepare("SELECT product_id FROM PRODUCT_IMAGES WHERE product_id = ?");
-        //         $checkImageStmt->bind_param("i", $productId);
-        //         $checkImageStmt->execute();
-        //         $checkImageResult = $checkImageStmt->get_result();
-                
-        //         if ($checkImageResult->num_rows === 0) {
-        //             // Add entry to PRODUCT_IMAGES table if it doesn't exist
-        //             $imageStmt = $this->conn->prepare("INSERT INTO PRODUCT_IMAGES (product_id) VALUES (?)");
-        //             $imageStmt->bind_param("i", $productId);
-        //             $imageStmt->execute();
-        //         }
-        //     }
-        // }
+
+        //FIXED: Handle image URL updates
+        if (isset($data['image_url'])) {
+            $updateProductQuery .= "images = ?, ";
+            $updateProductParams[] = $data['image_url'];
+            $updateProductTypes .= "s";
+        }
         
         //remove trailing comma and space
         $updateProductQuery = rtrim($updateProductQuery, ", ");
@@ -960,15 +912,6 @@ private function updateProduct($data) {
             $listingStmt = $this->conn->prepare("UPDATE LISTING SET price = ?, last_updated = NOW() WHERE listing_id = ?");
             $listingStmt->bind_param("di", $price, $listingId);
             $listingStmt->execute();
-            
-            //add to price history
-            $historyStmt = $this->conn->prepare("
-                INSERT INTO PRICE_HISTORY 
-                (listing_id, price, recorded_date) 
-                VALUES (?, ?, NOW())
-            ");
-            $historyStmt->bind_param("id", $listingId, $price);
-            $historyStmt->execute();
         }
         
         if (isset($data['in_stock'])) {
@@ -1045,12 +988,7 @@ private function deleteProduct($data) {
     // Start transaction
     $this->conn->begin_transaction();
     
-    try {
-        //delete from PRICE_HISTORY table first (foreign key constraint)
-        $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
-        $deletePriceHistoryStmt->bind_param("i", $listingId);
-        $deletePriceHistoryStmt->execute();
-        
+    try {        
         //delete from LISTING table
         $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
         $deleteListingStmt->bind_param("i", $listingId);
@@ -1158,11 +1096,6 @@ private function deleteAllProducts($data) {
         foreach ($listings as $listing) {
             $listingId = $listing['listing_id'];
             $productId = $listing['product_id'];
-            
-            //delete from PRICE_HISTORY table first (foreign key constraint)
-            $deletePriceHistoryStmt = $this->conn->prepare("DELETE FROM PRICE_HISTORY WHERE listing_id = ?");
-            $deletePriceHistoryStmt->bind_param("i", $listingId);
-            $deletePriceHistoryStmt->execute();
             
             //delete from LISTING table
             $deleteListingStmt = $this->conn->prepare("DELETE FROM LISTING WHERE listing_id = ?");
@@ -1933,6 +1866,227 @@ private function deleteUser($data){
         $this-> conn-> rollback();
         $this-> returnError("Error deleting user: " . $e->getMessage(), 500);
     }
+}
+
+private function getDetailedAnalytics($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    // 1. active vs inactive users by role
+    $queryUserStatus = "
+        SELECT 
+            role,
+            COUNT(*) as total_count,
+            SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active_count,
+            SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive_count
+        FROM USERS 
+        WHERE role != 'admin'
+        GROUP BY role
+    ";
+
+    $userStatusResult = $this->conn->query($queryUserStatus);
+    $userStatusData = [];
+    if($userStatusResult){
+        while($row = $userStatusResult->fetch_assoc()){
+            $userStatusData[] = $row;
+        }
+    }
+
+    // 2. users per role (including admins)
+    $queryUserRoles = "
+        SELECT 
+            role,
+            COUNT(*) as count
+        FROM USERS 
+        GROUP BY role
+        ORDER BY count DESC
+    ";
+
+    $userRolesResult = $this->conn->query($queryUserRoles);
+    $userRolesData = [];
+    if($userRolesResult){
+        while($row = $userRolesResult->fetch_assoc()){
+            $userRolesData[] = $row;
+        }
+    }
+
+    // 3. review distribution (star ratings)
+    $queryReviewDist = "
+        SELECT 
+            rating,
+            COUNT(*) as count
+        FROM REVIEW 
+        GROUP BY rating
+        ORDER BY rating ASC
+    ";
+
+    $reviewDistResult = $this->conn->query($queryReviewDist);
+    $reviewDistData = [];
+    // init all ratings to 0
+    for($i = 1; $i <= 5; $i++){
+        $reviewDistData[$i] = 0;
+    }
+    
+    if($reviewDistResult){
+        while($row = $reviewDistResult->fetch_assoc()){
+            $reviewDistData[$row['rating']] = $row['count'];
+        }
+    }
+
+    // 4. customer engagement (customers who wrote reviews)
+    $queryEngagement = "
+        SELECT 
+            (SELECT COUNT(*) FROM CUSTOMER) as total_customers,
+            COUNT(DISTINCT r.user_id) as customers_with_reviews
+        FROM REVIEW r
+        JOIN CUSTOMER c ON r.user_id = c.user_id
+    ";
+
+    $engagementResult = $this->conn->query($queryEngagement);
+    $engagementData = ['total_customers' => 0, 'customers_with_reviews' => 0, 'engagement_percentage' => 0];
+    
+    if($engagementResult){
+        $row = $engagementResult->fetch_assoc();
+        $engagementData['total_customers'] = $row['total_customers'] ?? 0;
+        $engagementData['customers_with_reviews'] = $row['customers_with_reviews'] ?? 0;
+        
+        if($engagementData['total_customers'] > 0){
+            $engagementData['engagement_percentage'] = round(
+                ($engagementData['customers_with_reviews'] / $engagementData['total_customers']) * 100, 1
+            );
+        }
+    }
+
+    $this->returnSuccess([
+        'user_status' => $userStatusData,
+        'user_roles' => $userRolesData,
+        'review_distribution' => $reviewDistData,
+        'customer_engagement' => $engagementData
+    ]);
+}
+
+private function getAllReviewsForAdmin($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    // filter initialisation
+    $whereClause = [];
+    $params = [];
+    $types = "";
+
+    // filter by rating
+    if(isset($data['rating']) && !empty($data['rating']) && $data['rating'] !== 'all'){
+        $whereClause[] = "r.rating = ?";
+        $params[] = intval($data['rating']);
+        $types .= "i";
+    }
+
+    // searching by product name or reviewer name
+    if(isset($data['search']) && !empty($data['search'])){
+        $searchTerm = "%" . $data['search'] . "%";
+        $whereClause[] = "(p.name LIKE ? OR u.username LIKE ? OR r.comment LIKE ?)";
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $types .= "sss";
+    }
+
+    $whereClauseStr = !empty($whereClause) ? "WHERE " . implode(" AND ", $whereClause) : "";
+
+    $query = "
+        SELECT 
+            r.user_id,
+            r.product_id,
+            r.rating,
+            r.comment,
+            r.review_date,
+            u.username,
+            p.name as product_name
+        FROM REVIEW r
+        JOIN USERS u ON r.user_id = u.user_id
+        JOIN PRODUCT p ON r.product_id = p.product_id
+        $whereClauseStr
+        ORDER BY r.review_date DESC
+    ";
+
+    $stmt = $this->conn->prepare($query);
+    
+    if(!empty($params)){
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $reviews = [];
+    while($row = $result->fetch_assoc()){
+        // creating composite review_id
+        $row['review_id'] = $row['user_id'] . '_' . $row['product_id'];
+        $reviews[] = $row;
+    }
+
+    $this->returnSuccess([
+        'reviews' => $reviews,
+        'count' => count($reviews)
+    ]);
+
+    $stmt->close();
+}
+
+private function deleteReviewAdmin($data){
+    // check if the user is an admin
+    if(!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+        $this->returnError("Admin access required", 403);
+        return;
+    }
+
+    if(!isset($data['review_id'])){
+        $this->returnError("Review ID required", 400);
+        return;
+    }
+
+    //parse the composite
+    $reviewIdParts = explode('_', $data['review_id']);
+    if(count($reviewIdParts) !== 2){
+        $this->returnError("Invalid review ID format", 400);
+        return;
+    }
+
+    $userId = intval($reviewIdParts[0]);
+    $productId = intval($reviewIdParts[1]);
+
+    // check if review exists
+    $checkStmt = $this->conn->prepare("SELECT user_id, product_id FROM REVIEW WHERE user_id = ? AND product_id = ?");
+    $checkStmt->bind_param("ii", $userId, $productId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if($checkResult->num_rows === 0){
+        $this->returnError("Review not found", 404);
+        return;
+    }
+
+    // delete review
+    $deleteStmt = $this->conn->prepare("DELETE FROM REVIEW WHERE user_id = ? AND product_id = ?");
+    $deleteStmt->bind_param("ii", $userId, $productId);
+
+    if($deleteStmt->execute()){
+        $this->returnSuccess([
+            'message' => 'Review deleted successfully',
+            'review_id' => $data['review_id']
+        ]);
+    }
+    else{
+        $this->returnError("Failed to delete review", 500);
+    }
+
+    $deleteStmt->close();
 }
 
 

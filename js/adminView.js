@@ -45,6 +45,14 @@ class AdminDashboard{
         // modals
         this.setupModalListeners();
 
+        // review management events
+        document.getElementById('search-reviews').addEventListener('input', this.debounce(()=>this.loadReviews(), 300));
+        document.getElementById('rating-filter').addEventListener('change', ()=>this.loadReviews());
+        document.getElementById('refresh-reviews').addEventListener('click', ()=>{
+            this.loadReviews();
+            this.loadStats(); // refresh stats too
+        });
+
     }
 
     setupModalListeners(){
@@ -93,6 +101,10 @@ class AdminDashboard{
         // specfic data load
         if (tabName === 'stats') {
             this.loadDetailedStats();
+        }
+
+        else if (tabName === 'system') {
+            this.loadReviews(); // loading reviews
         }
     }
 
@@ -144,11 +156,6 @@ class AdminDashboard{
                 <div class="stat-number">${retStats.count}</div>
                 <div class="stat-label">Total Retailers</div>
                 <div class="stat-sublabel">${retStats.active_count} active</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-number">${stats.recent_registrations}</div>
-                <div class="stat-label">New Users (30 days)</div>
             </div>
 
             <div class="stat-card">
@@ -207,6 +214,165 @@ class AdminDashboard{
 
     }
 
+    // load reviews asyncronously
+    // async loadReviews(){
+    //     const search = document.getElementById('search-reviews').value;
+    //     const rating = document.getElementById('rating-filter').value;
+        
+    //     try{
+    //         const resp = await fetch('api.php',{
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 type: 'GetAllReviewsForAdmin',
+    //                 search: search,
+    //                 rating: rating
+    //             })
+    //         });
+            
+    //         const res = await resp.json();
+            
+    //         if(res.status === 'success'){
+    //             this.displayReviews(res.data.reviews);
+    //         } 
+    //         else{
+    //             console.error('Error loading reviews:', res.data);
+    //             this.showNotification('Error loading reviews', 'error');
+    //         }
+    //     } 
+    //     catch(err){
+    //         console.error('Error loading reviews:', err);
+    //         this.showNotification('Network error', 'error');
+    //     }
+    // }
+
+    async loadReviews(){
+        const search = document.getElementById('search-reviews').value;
+        const rating = document.getElementById('rating-filter').value;
+        
+        console.log('Loading reviews with:', { search, rating });
+        
+        try{
+            const resp = await fetch('api.php',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'GetAllReviewsForAdmin',
+                    search: search,
+                    rating: rating
+                })
+            });
+            
+            console.log('Response status:', resp.status);
+            console.log('Response headers:', resp.headers);
+            
+            // get raw resp text
+            const responseText = await resp.text();
+            console.log('Raw response:', responseText);
+            
+            //check if html
+            if(responseText.trim().startsWith('<')){
+                console.error('Received HTML instead of JSON:', responseText.substring(0, 200));
+                this.showNotification('Server returned HTML instead of JSON. Check server logs.', 'error');
+                return;
+            }
+            
+            // parse to json
+            let res;
+            try{
+                res = JSON.parse(responseText);
+            }
+            catch(parseError){
+                console.error('JSON parse error:', parseError);
+                console.error('Response that failed to parse:', responseText);
+                this.showNotification('Invalid JSON response from server', 'error');
+                return;
+            }
+            
+            if(res.status === 'success'){
+                console.log('Successfully loaded reviews:', res.data);
+                this.displayReviews(res.data.reviews);
+            } 
+            else{
+                console.error('API error loading reviews:', res.data);
+                this.showNotification('Error loading reviews: ' + res.data, 'error');
+            }
+        } 
+        catch(err){
+            console.error('Network error loading reviews:', err);
+            this.showNotification('Network error: ' + err.message, 'error');
+        }
+    }
+
+    // display reviews asynchronously
+    displayReviews(reviews){
+        const container = document.getElementById('reviews-container');
+        
+        if(reviews.length === 0){
+            container.innerHTML = '<div class="no-results">No reviews found matching your criteria.</div>';
+            return;
+        }
+        
+        container.innerHTML = reviews.map(review => `
+            <div class="review-item" data-review-id="${review.review_id}">
+                <div class="review-header">
+                    <div class="review-rating">
+                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                        <span class="rating-number">${review.rating}/5</span>
+                    </div>
+                    <div class="review-date">${new Date(review.review_date).toLocaleDateString()}</div>
+                </div>
+                
+                <div class="review-content">
+                    <div class="review-product">
+                        <strong>Product:</strong> ${review.product_name}
+                    </div>
+                    <div class="review-user">
+                        <strong>Reviewer:</strong> ${review.username}
+                    </div>
+                    <div class="review-comment">
+                        <strong>Comment:</strong> ${review.comment || 'No comment provided'}
+                    </div>
+                </div>
+                
+                <div class="review-actions">
+                    <button class="action-btn delete-btn" onclick="adminDashboard.confirmDeleteReview('${review.review_id}')" title="Delete Review">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // confirm deleting review
+    confirmDeleteReview(reviewId){
+        this.pendingAction = {
+            type: 'delete_review',
+            reviewId: reviewId
+        };
+        
+        document.getElementById('modal-title').textContent = 'Confirm Delete Review';
+        document.getElementById('modal-message').textContent = 'Are you sure you want to permanently delete this review? This action cannot be undone.';
+        
+        document.getElementById('modal-user-info').innerHTML = `
+            <div class="user-preview delete-warning">
+                <div class="warning-text">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    This will permanently delete the review and cannot be undone.
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('modal-confirm').className = 'btn btn-danger';
+        document.getElementById('modal-confirm').textContent = 'Delete Review';
+        
+        this.showModal('confirmation-modal');
+    }
+
     displayUsers(users) {
         const container = document.getElementById('users-container');
         
@@ -237,7 +403,6 @@ class AdminDashboard{
                     <div class="user-meta">
                         <span><i class="fas fa-envelope"></i> ${user.email}</span>
                         <span><i class="fas fa-user-tag"></i> ${user.role}</span>
-                        <span><i class="fas fa-calendar-alt"></i> Joined: ${new Date(user.created_at).toLocaleDateString()}</span>
                         ${user.activity_count? `<span><i class="fas fa-chart-line"></i> Activity: ${user.activity_count}</span>`: ''}
                     </div>
                 </div>
@@ -357,80 +522,6 @@ class AdminDashboard{
     }
 
     // confirm the action asyncronously
-    // async executeConfirmedAction(){
-    //     if(!this.pendingAction){
-    //         return;
-    //     } 
-        
-    //     try{
-    //         let resp;
-            
-    //         if(this.pendingAction.type === 'status_change'){
-    //             resp = await fetch('api.php',{
-
-    //                 method: 'POST',
-    //                 headers:{
-    //                     'Content-Type': 'application/json',
-    //                 },
-
-    //                 body: JSON.stringify({
-    //                     type: 'UpdateUserStatus',
-    //                     user_id: this.pendingAction.userId,
-    //                     is_active: this.pendingAction.newStatus
-    //                 })
-    //             });
-    //         } 
-            
-    //         else if(this.pendingAction.type === 'delete_user'){
-    //             resp = await fetch('api.php',{
-
-    //                 method: 'POST',
-    //                 headers:{
-    //                     'Content-Type': 'application/json',
-    //                 },
-
-    //                 body: JSON.stringify({
-    //                     type: 'DeleteUser',
-    //                     user_id: this.pendingAction.userId
-    //                 })
-    //             });
-    //         }
-            
-    //         const res = await resp.json();
-            
-    //         if(res.status === 'success'){
-    //             this.showNotification(res.data.message || 'Action completed successfully', 'success');
-    //             this.loadUsers();
-    //             this.loadStats();
-    //         } 
-            
-    //         else{
-    //             this.showNotification(res.data || 'Action failed', 'error');
-
-    //             // if status change has failed - revert toggle back
-    //             if (this.pendingAction.type === 'status_change') {
-    //                 const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
-    //                 if (toggle) {
-    //                     toggle.checked = !this.pendingAction.newStatus;
-    //                 }
-    //             }
-    //         }
-    //     } 
-        
-    //     catch(err){
-    //         console.error('Error executing action:', err);
-    //         this.showNotification('Network error occurred', 'error');
-    //     } 
-    //     finally{
-    //         this.closeModal('confirmation-modal');
-    //         this.pendingAction = null;
-            
-    //         // reset confrim btn
-    //         document.getElementById('modal-confirm').className = 'btn btn-primary';
-    //         document.getElementById('modal-confirm').textContent = 'Confirm';
-    //     }
-    // }
-
     async executeConfirmedAction(){
         if(!this.pendingAction){
             return;
@@ -500,7 +591,7 @@ class AdminDashboard{
                 this.loadUsers();
                 this.loadStats();
             } 
-            // Handle single actions
+            // handling single actions
             else {
                 let resp;
                 
@@ -517,6 +608,7 @@ class AdminDashboard{
                         })
                     });
                 } 
+
                 else if(this.pendingAction.type === 'delete_user'){
                     resp = await fetch('api.php',{
                         method: 'POST',
@@ -529,7 +621,21 @@ class AdminDashboard{
                         })
                     });
                 }
-                else {
+
+                else if(this.pendingAction.type === 'delete_review'){
+                resp = await fetch('api.php',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'DeleteReviewAdmin',
+                        review_id: this.pendingAction.reviewId
+                    })
+                });
+            }
+
+                else{
                     console.error('Unknown action type:', this.pendingAction.type);
                     this.showNotification('Unknown action type', 'error');
                     return;
@@ -544,17 +650,23 @@ class AdminDashboard{
                 if(res.status === 'success'){
                     this.showNotification(res.data.message || 'Action completed successfully', 'success');
 
-                    // Update the toggle switch if it was a status change
-                    if (this.pendingAction.type === 'status_change') {
+                    // reload reviews if it was a review deletion
+                    if(this.pendingAction.type === 'delete_review'){
+                        this.loadReviews();
+                    }
+
+                    // update toggle for status change
+                    if(this.pendingAction.type === 'status_change'){
                         const toggle = document.getElementById(`toggle-${this.pendingAction.userId}`);
-                        if (toggle) {
+
+                        if(toggle){
                             toggle.checked = this.pendingAction.newStatus;
                         }
                     }
 
                     this.loadUsers();
                     this.loadStats();
-                } 
+                }
                 else{
                     this.showNotification(res.data || 'Action failed', 'error');
 
@@ -573,27 +685,26 @@ class AdminDashboard{
             this.showNotification('Network error occurred', 'error');
         }
         
-        // MOVED THE CLEANUP OUTSIDE OF finally TO ENSURE IT ALWAYS RUNS
         console.log('Cleaning up modal...');
         
-        // Reset button states
+        // reset bttns
         confirmBtn.disabled = false;
         cancelBtn.disabled = false;
         
-        // Close modal - try multiple methods to ensure it closes
+        // modal close
         this.closeModal('confirmation-modal');
         
-        // Force close if the above doesn't work
+        // force close for incase
         const modal = document.getElementById('confirmation-modal');
         if (modal) {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
         
-        // Reset state
+        // state reset
         this.pendingAction = null;
         
-        // Reset confirm button
+        //  confirm button
         confirmBtn.className = 'btn btn-primary';
         confirmBtn.textContent = 'Confirm';
     }
@@ -783,9 +894,168 @@ class AdminDashboard{
         });
     }
 
-    loadDetailedStats() {
-        // detailed analytics placeholder
-        console.log('Loading detailed statistics...');
+    async loadDetailedStats(){
+        try{
+            const resp = await fetch('api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'GetDetailedAnalytics'
+                })
+            });
+            
+            const res = await resp.json();
+            
+            if(res.status === 'success'){
+                this.displayDetailedStats(res.data);
+            } 
+            else{
+                console.error('Error loading detailed stats:', res.data);
+            }
+        } 
+        catch(error){
+            console.error('Error loading detailed stats:', error);
+        }
+    }
+
+    displayDetailedStats(data){
+        // user status breakdown with visual bars
+        const userStatusHtml = `
+            <div class="analytics-card">
+                <h3>User Status by Role</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Active vs Inactive</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.user_status.map(role=>{
+                            const activePercentage = role.total_count > 0? (role.active_count / role.total_count) * 100: 0;
+                            const inactivePercentage = role.total_count > 0? (role.inactive_count / role.total_count) * 100: 0;
+                            
+                            return `
+                                <tr>
+                                    <td><strong>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</strong></td>
+                                    <td>
+                                        <div class="status-bar-container">
+                                            <div class="status-bar">
+                                                <div class="status-bar-active" style="width: ${activePercentage}%" title="Active: ${activePercentage.toFixed(1)}%"></div>
+                                                <div class="status-bar-inactive" style="width: ${inactivePercentage}%" title="Inactive: ${inactivePercentage.toFixed(1)}%"></div>
+                                            </div>
+                                            <div class="status-legend">
+                                                <span class="legend-item">
+                                                    <span class="legend-color active"></span>Active
+                                                </span>
+                                                <span class="legend-item">
+                                                    <span class="legend-color inactive"></span>Inactive
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>${role.total_count}</strong></td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    <p><strong>Visual Proportion of active vs inactive users</strong></p>
+                    <p><strong>Active:</strong> Users who can log in and use the website</p>
+                    <p><strong>Inactive:</strong> Users who are suspended/ blocked from using the website</p>
+                </div>
+            </div>
+        `;
+
+        // users per role table
+        const userRolesHtml = `
+            <div class="analytics-card">
+                <h3>Users by Role</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.user_roles.map(role=>{
+                            const total = data.user_roles.reduce((sum, r)=> sum + parseInt(r.count), 0);
+                            const percentage = total > 0? ((parseInt(role.count) / total) * 100).toFixed(1): 0;
+                            return `
+                                <tr>
+                                    <td>${role.role.charAt(0).toUpperCase() + role.role.slice(1)}s</td>
+                                    <td><strong>${role.count}</strong></td>
+                                    <td>${percentage}%</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        // review distribution
+        const reviewDistHtml = `
+            <div class="analytics-card">
+                <h3>Review Distribution</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Rating</th>
+                            <th>Count</th>
+                            <th>Bar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${[5,4,3,2,1].map(rating=>{
+                            const count = data.review_distribution[rating] || 0;
+                            const total = Object.values(data.review_distribution).reduce((sum, c)=> sum + parseInt(c), 0);
+                            const actualPercentage = total > 0 && count > 0? (count / total) * 100: 0;
+                            return `
+                                <tr>
+                                    <td>${'★'.repeat(rating)}${rating < 5? '☆'.repeat(5 - rating): ''}</td>
+                                    <td><strong>${count}</strong></td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: ${actualPercentage}%"></div>
+                                        </div>
+                                        <span style="font-size: 12px; color: #666; margin-left: 5px;">${Math.round(actualPercentage)}%</span>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        // customer engagement
+        const engagementHtml = `
+            <div class="analytics-card">
+                <h3>Customer Engagement</h3>
+                <div class="engagement-stats">
+                    <div class="engagement-metric">
+                        <div class="engagement-number">${data.customer_engagement.engagement_percentage}%</div>
+                        <div class="engagement-label">Customer Engagement</div>
+                        <div class="engagement-detail">
+                            ${data.customer_engagement.customers_with_reviews} of ${data.customer_engagement.total_customers} customers have written reviews
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // update the analytics grid
+        const analyticsGrid = document.querySelector('.analytics-grid');
+        if(analyticsGrid){
+            analyticsGrid.innerHTML = userStatusHtml + userRolesHtml + reviewDistHtml + engagementHtml;
+        }
     }
 
     debounce(func, wait){

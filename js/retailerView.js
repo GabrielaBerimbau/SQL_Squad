@@ -1,5 +1,4 @@
 //global variables
-
 var RetailerView = {
     userId: null,
     username: null,
@@ -9,20 +8,27 @@ var RetailerView = {
     init: function() {
         console.log("Initializing RetailerView");
         
+        // Clear any existing event listeners first
+        this.cleanup();
+        
         //get stored id of user logged in
         var storedUserId = null;
         var storedUsername = null;
 
-         if (typeof(Storage) !== "undefined") {
-            // check localStorage
-            if (localStorage.getItem('user_id') && localStorage.getItem('username')) {
-                storedUserId = localStorage.getItem('user_id');
-                storedUsername = localStorage.getItem('username');
-            }
-            //check sessionStorage
-            else if (sessionStorage.getItem('user_id') && sessionStorage.getItem('username')) {
-                storedUserId = sessionStorage.getItem('user_id');
-                storedUsername = sessionStorage.getItem('username');
+        if (typeof(Storage) !== "undefined") {
+            // Use a more specific approach to avoid conflicts
+            try {
+                // check localStorage first
+                storedUserId = window.localStorage.getItem('user_id');
+                storedUsername = window.localStorage.getItem('username');
+                
+                if (!storedUserId || !storedUsername) {
+                    // check sessionStorage as fallback
+                    storedUserId = window.sessionStorage.getItem('user_id');
+                    storedUsername = window.sessionStorage.getItem('username');
+                }
+            } catch (e) {
+                console.error("Storage access error:", e);
             }
             
             if (storedUserId && storedUsername) { //user is logged in
@@ -42,10 +48,23 @@ var RetailerView = {
             return;
         }
         
-        RetailerView.displayUsername();
-        RetailerView.setupEventListeners();
-        RetailerView.getProducts();
-        RetailerView.searchFunction();
+        // Initialize components in sequence to avoid conflicts
+        setTimeout(() => {
+            RetailerView.displayUsername();
+            RetailerView.setupEventListeners();
+            RetailerView.getProducts();
+            RetailerView.searchFunction();
+        }, 100);
+    },
+
+    // Cleanup function to remove existing event listeners
+    cleanup: function() {
+        var productsContainer = document.querySelector('.products-container');
+        if (productsContainer) {
+            // Remove existing event listeners by cloning the element
+            var newContainer = productsContainer.cloneNode(true);
+            productsContainer.parentNode.replaceChild(newContainer, productsContainer);
+        }
     },
 
     displayUsername: function() {
@@ -66,101 +85,152 @@ var RetailerView = {
         console.log("User data displayed successfully");
     },
 
-    //setting up all event listeners for the page
+    //setting up all event listeners for the page - FIXED VERSION
     setupEventListeners: function() {
-        //add product button
-        var addProductButton = document.querySelector('.add-button');
-        if (addProductButton) {
-            addProductButton.addEventListener('click', function() {
+        console.log("Setting up event listeners...");
+        
+        // Add Product Modal Events
+        var addModal = document.getElementById('addProductModal');
+        var addBtn = document.querySelector('.add-button');
+        var addCloseBtn = addModal ? addModal.querySelector('.close') : null;
+        var addForm = document.getElementById('addProductForm');
+
+        if (addBtn) {
+            addBtn.onclick = function(e) {
+                e.preventDefault();
                 RetailerView.openAddModal();
-            });
+            };
         }
 
-        //delete all button
-        var deleteAllButton = document.querySelector('.delete-all');
-        if (deleteAllButton) {
-            deleteAllButton.addEventListener('click', function() {
-                RetailerView.deleteAllProducts();
-            });
+        if (addCloseBtn) {
+            addCloseBtn.onclick = function(e) {
+                e.preventDefault();
+                RetailerView.closeAddModal();
+            };
         }
 
-        //add product form submission
-        var addProductForm = document.getElementById('addProductForm');
-        if (addProductForm) {
-            addProductForm.addEventListener('submit', function(e) {
+        if (addForm) {
+            addForm.onsubmit = function(e) {
                 e.preventDefault();
                 RetailerView.handleAddProduct();
-            });
+            };
         }
 
-        //edit product form submission
-        var editProductForm = document.getElementById('editProductForm');
-        if (editProductForm) {
-            editProductForm.addEventListener('submit', function(e) {
+        // Edit Product Modal Events
+        var editModal = document.getElementById('editProductModal');
+        var editCloseBtn = editModal ? editModal.querySelector('.close') : null;
+        var editForm = document.getElementById('editProductForm');
+
+        if (editCloseBtn) {
+            editCloseBtn.onclick = function(e) {
+                e.preventDefault();
+                RetailerView.closeEditModal();
+            };
+        }
+
+        if (editForm) {
+            editForm.onsubmit = function(e) {
                 e.preventDefault();
                 RetailerView.handleEditProduct();
+            };
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target === addModal) {
+                RetailerView.closeAddModal();
+            }
+            if (event.target === editModal) {
+                RetailerView.closeEditModal();
+            }
+        };
+
+        //Product Actions 
+        var productsContainer = document.querySelector('.products-container');
+        if (productsContainer) {
+            productsContainer.addEventListener('click', function(e) {
+                console.log("Click detected on:", e.target);
+                
+                // Prevent multiple event triggers
+                e.stopPropagation();
+                
+                var target = e.target;
+                var button = null;
+                var productId = null;
+                
+                // More robust button detection
+                if (target.classList.contains('edit-button') || target.classList.contains('delete-button')) {
+                    button = target;
+                } else if (target.parentElement && (target.parentElement.classList.contains('edit-button') || target.parentElement.classList.contains('delete-button'))) {
+                    button = target.parentElement;
+                } else {
+                    // Check up to 3 levels up for the button
+                    var currentElement = target;
+                    for (var i = 0; i < 3; i++) {
+                        if (currentElement.classList.contains('edit-button') || currentElement.classList.contains('delete-button')) {
+                            button = currentElement;
+                            break;
+                        }
+                        currentElement = currentElement.parentElement;
+                        if (!currentElement) break;
+                    }
+                }
+                
+                if (button) {
+                    // Get product ID with better error checking
+                    productId = button.getAttribute('data-product-id');
+                    
+                    if (!productId) {
+                        var productCard = button.closest('.product-card');
+                        if (productCard) {
+                            productId = productCard.getAttribute('data-product-id');
+                        }
+                    }
+                    
+                    console.log("Button found:", button.className);
+                    console.log("Product ID found:", productId);
+                    
+                    if (productId && productId !== 'null' && productId !== 'undefined') {
+                        e.preventDefault();
+                        
+                        if (button.classList.contains('edit-button')) {
+                            console.log("Edit button clicked for product ID:", productId);
+                            RetailerView.editProduct(parseInt(productId));
+                        } else if (button.classList.contains('delete-button')) {
+                            console.log("Delete button clicked for product ID:", productId);
+                            // Add confirmation before delete
+                            if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+                                RetailerView.deleteProduct(parseInt(productId));
+                            }
+                        }
+                    } else {
+                        console.error("No valid product ID found for button:", button);
+                        alert("Error: Could not identify product to modify");
+                    }
+                } else {
+                    console.log("No button found in click target");
+                }
             });
         }
 
-        //modal close buttons
-        var closeButtons = document.querySelectorAll('.close');
-        for (var i = 0; i < closeButtons.length; i++) {
-            closeButtons[i].addEventListener('click', function() {
-                RetailerView.closeAllModals();
-            });
-        }
-
-        //click outside modal to close
-        window.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                RetailerView.closeAllModals();
-            }
-        });
-
-        //for edit and delete buttons on products - have to do it like this for when products are dynamically added
-        document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('edit-button') || 
-            (e.target.parentElement && e.target.parentElement.classList.contains('edit-button'))) {
-            var productCard = RetailerView.findParentWithClass(e.target, 'product-card');
-            if (productCard) {
-                var productId = parseInt(productCard.getAttribute('data-product-id'), 10);
-                if (!isNaN(productId)) {
-                    RetailerView.openEditModal(productId);
-                }
-            }
-        }
-        
-        if (e.target && e.target.classList.contains('delete-button') || 
-            (e.target.parentElement && e.target.parentElement.classList.contains('delete-button'))) {
-            var productCard = RetailerView.findParentWithClass(e.target, 'product-card');
-            if (productCard) {
-                var productId = parseInt(productCard.getAttribute('data-product-id'), 10);
-                if (!isNaN(productId)) {
-                    RetailerView.confirmDelete(productId);
-                }
-            }
-        }
-    });
-
-        //search input
+        // Search functionality
         var searchInput = document.querySelector('.search-input');
         if (searchInput) {
-            searchInput.addEventListener('keyup', RetailerView.handleSearch);
+            searchInput.addEventListener('input', function() {
+                RetailerView.filterProducts(this.value);
+            });
         }
 
-        //select all button
-        var selectAllButton = document.querySelector('.select-all');
-        if (selectAllButton) {
-            selectAllButton.addEventListener('click', RetailerView.selectAllProducts);
+        // Delete All Button
+        var deleteAllBtn = document.querySelector('.delete-all');
+        if (deleteAllBtn) {
+            deleteAllBtn.onclick = function(e) {
+                e.preventDefault();
+                RetailerView.deleteAllProducts();
+            };
         }
-    },
-
-    //finding parent element with specific class
-    findParentWithClass: function(element, className) {
-        while (element && !element.classList.contains(className)) {
-            element = element.parentElement;
-        }
-        return element;
+        
+        console.log("Event listeners setup completed");
     },
 
     //loading state
@@ -178,11 +248,12 @@ var RetailerView = {
 
     //get products via api call
     getProducts: function() {
+        console.log("Getting products for user:", RetailerView.userId);
         RetailerView.setLoading(true);
         
         //creating request
         var request = new XMLHttpRequest();
-        request.open('POST', 'api.php', true); // Remove leading slash
+        request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
         //when product data response has loaded
@@ -239,8 +310,17 @@ var RetailerView = {
         request.send(requestData);
     },
 
-    //add product via api call
-    addProduct: function(productData) {
+    //delete product via api call
+    deleteProduct: function(productId) {
+        console.log("Delete product called with ID:", productId);
+        
+        //ensure productId is valid and numeric
+        if (!productId || isNaN(productId) || productId <= 0) {
+            console.error("Invalid product ID:", productId);
+            alert("Error: Invalid product ID");
+            return;
+        }
+
         RetailerView.setLoading(true);
         
         //creating request
@@ -248,20 +328,80 @@ var RetailerView = {
         request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
-        //when add product response has loaded
+        //when delete product response has loaded
+        request.onload = function() {
+            console.log("Delete response status:", this.status);
+            console.log("Delete response text:", this.responseText);
+            
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    try {
+                        // Parsing response into a JSON object
+                        var data = JSON.parse(this.responseText);
+                        console.log("Delete product response as JSON object:", data);
+
+                        // Checking that the request was successful
+                        if (data.status === "success") {
+                            console.log("Product deleted successfully:", data.data);
+                            alert("Product deleted successfully!");
+                            // Refresh the products list
+                            RetailerView.getProducts();
+                        } else {
+                            console.error("Delete Product Error:", data.data);
+                            alert("Error deleting product: " + data.data);
+                        }
+                    } catch (e) {
+                        console.error("JSON Parse Error:", e);
+                        console.error("Raw response:", this.responseText);
+                        alert("Error parsing server response");
+                    }
+                } else {
+                    console.error("Request Error:", this.status, this.statusText);
+                    alert("Network error occurred while deleting product");
+                }
+                RetailerView.setLoading(false);
+            }
+        };
+
+        request.onerror = function() {
+            console.error("Network error occurred");
+            alert("Network error occurred. Please check your connection and server.");
+            RetailerView.setLoading(false);
+        };
+
+        // Creating request body with proper data types
+        var requestData = JSON.stringify({
+            "type": "DeleteProduct",
+            "user_id": parseInt(RetailerView.userId),
+            "product_id": parseInt(productId)
+        });
+
+        console.log("Sending delete product request:", requestData);
+        request.send(requestData);
+    },
+
+    // Edit product function - FIXED
+    editProduct: function(productId) {
+        console.log("Edit product called with ID:", productId);
+        RetailerView.openEditModal(productId);
+    },
+
+    addProduct: function(productData) {
+        RetailerView.setLoading(true);
+        
+        var request = new XMLHttpRequest();
+        request.open('POST', 'api.php', true);
+        request.setRequestHeader('Content-Type', 'application/json');
+
         request.onload = function() {
             if (this.readyState === 4 && this.status === 200) {
                 try {
-                    //parsing response into a JSON object
                     var data = JSON.parse(this.responseText);
                     console.log("Add product response as JSON object: ", data);
 
-                    //checking that the request was successful
                     if (data.status === "success") {
                         console.log("Product added successfully:", data.data);
-                        //refresh the products list
                         RetailerView.getProducts();
-                        //close modal
                         RetailerView.closeAddModal();
                     } else {
                         console.error("Add Product Error:", data.data);
@@ -280,7 +420,12 @@ var RetailerView = {
             }
         };
 
-        //creating request body
+        request.onerror = function() {
+            console.error("Network error occurred");
+            alert("Network error occurred. Please check your connection and server.");
+            RetailerView.setLoading(false);
+        };
+
         var requestData = JSON.stringify({
             "type": 'AddProduct',
             "user_id": RetailerView.userId,
@@ -290,36 +435,30 @@ var RetailerView = {
             "price": productData.price,
             "category_id": productData.category_id,
             "specification": productData.specification,
+            "image_url": productData.image_url,
             "in_stock": productData.in_stock
         });
 
-        //sending the request
+        console.log("Sending add product request:", requestData);
         request.send(requestData);
     },
 
-    //updating product via api call
     updateProduct: function(productId, productData) {
         RetailerView.setLoading(true);
         
-        //creating request
         var request = new XMLHttpRequest();
         request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
-        //when update product response has loaded
         request.onload = function() {
             if (this.readyState === 4 && this.status === 200) {
                 try {
-                    //parsing response into a JSON object
                     var data = JSON.parse(this.responseText);
                     console.log("Update product response as JSON object: ", data);
 
-                    //checking that the request was successful
                     if (data.status === "success") {
                         console.log("Product updated successfully:", data.data);
-                        // Refresh the products list
                         RetailerView.getProducts();
-                        // Close modal
                         RetailerView.closeEditModal();
                     } else {
                         console.error("Update Product Error:", data.data);
@@ -338,7 +477,12 @@ var RetailerView = {
             }
         };
 
-        //creating request body
+        request.onerror = function() {
+            console.error("Network error occurred");
+            alert("Network error occurred. Please check your connection and server.");
+            RetailerView.setLoading(false);
+        };
+
         var requestData = JSON.stringify({
             "type": 'UpdateProduct',
             "user_id": RetailerView.userId,
@@ -349,133 +493,69 @@ var RetailerView = {
             "price": productData.price,
             "category_id": productData.category_id,
             "specification": productData.specification,
+            "image_url": productData.image_url,
             "in_stock": productData.in_stock
         });
 
-        //sending the request
+        console.log("Sending update product request:", requestData);
         request.send(requestData);
     },
 
-    //delete product via api call
-    deleteProduct: function(productId) {
-        RetailerView.setLoading(true);
+    //delete all products
+    deleteAllProducts: function() {
+        if (!confirm('Are you sure you want to delete ALL your products? This action cannot be undone.')) {
+            return;
+        }
         
-        //creating request
+        if (!confirm('This will permanently delete ALL your products. Are you absolutely sure?')) {
+            return;
+        }
+
+        RetailerView.setLoading(true);
+
         var request = new XMLHttpRequest();
         request.open('POST', 'api.php', true);
         request.setRequestHeader('Content-Type', 'application/json');
 
-        //when delete product response has loaded
         request.onload = function() {
             if (this.readyState === 4 && this.status === 200) {
                 try {
-                    //parsing response into a JSON object
                     var data = JSON.parse(this.responseText);
-                    console.log("Delete product response as JSON object: ", data);
+                    console.log("Delete all products response:", data);
 
-                    //checking that the request was successful
                     if (data.status === "success") {
-                        console.log("Product deleted successfully:", data.data);
-                        //refresh the products list
+                        console.log("All products deleted successfully:", data.data);
+                        alert("All products deleted successfully!");
                         RetailerView.getProducts();
                     } else {
-                        console.error("Delete Product Error:", data.data);
-                        alert("Error deleting product: " + data.data);
-                        RetailerView.setLoading(false);
+                        console.error("Delete All Products Error:", data.data);
+                        alert("Error deleting products: " + data.data);
                     }
                 } catch (e) {
                     console.error("JSON Parse Error:", e);
                     alert("Error parsing server response");
-                    RetailerView.setLoading(false);
                 }
             } else {
-                console.error("Request Error:", this.statusText);
-                alert("Network error occurred while deleting product");
-                RetailerView.setLoading(false);
+                console.error("Request Error:", this.status, this.statusText);
+                alert("Network error occurred while deleting products");
             }
+
+            RetailerView.setLoading(false);
         };
 
-        //creating request body
+        request.onerror = function() {
+            console.error("Network error occurred");
+            alert("Network error occurred. Please check your connection and server.");
+            RetailerView.setLoading(false);
+        };
+
         var requestData = JSON.stringify({
-            "type": 'DeleteProduct',
-            "user_id": RetailerView.userId,
-            "product_id": productId
+            "type": 'DeleteAllProducts',
+            "user_id": RetailerView.userId
         });
 
-        //sending the request
+        console.log("Sending delete all request:", requestData);
         request.send(requestData);
-    },
-
-
-    //delete all products
-    // Add this method to your RetailerView object in retailerView.js
-
-    deleteAllProducts: function() {
-        if (RetailerView.products.length === 0) {
-            alert("No products to delete.");
-            return;
-        }
-        
-        var confirmMessage = "Are you sure you want to delete ALL " + RetailerView.products.length + " products? This action cannot be undone.";
-        
-        if (confirm(confirmMessage)) {
-            RetailerView.setLoading(true);
-            
-            //create request
-            var request = new XMLHttpRequest();
-            request.open('POST', 'api.php', true);
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            //when delete all response has loaded
-            request.onload = function() {
-                console.log("Delete all response status:", this.status);
-                console.log("Delete all response text:", this.responseText);
-                
-                if (this.readyState === 4) {
-                    if (this.status === 200) {
-                        try {
-                            //parse response into a JSON object
-                            var data = JSON.parse(this.responseText);
-                            console.log("Delete all products response:", data);
-
-                            //check that the request was successful
-                            if (data.status === "success") {
-                                console.log("All products deleted successfully");
-                                alert(data.data.message || "All products have been deleted successfully.");
-                                //refresh the products list
-                                RetailerView.getProducts();
-                            } else {
-                                console.error("Delete All Products Error:", data.data);
-                                alert("Error deleting products: " + data.data);
-                            }
-                        } catch (e) {
-                            console.error("JSON Parse Error:", e);
-                            console.error("Raw response:", this.responseText);
-                            alert("Error parsing server response. Check console for details.");
-                        }
-                    } else {
-                        console.error("HTTP Error:", this.status, this.statusText);
-                        alert("Network error: " + this.status + " " + this.statusText);
-                    }
-                    RetailerView.setLoading(false);
-                }
-            };
-
-            request.onerror = function() {
-                console.error("Network error occurred");
-                alert("Network error occurred. Please check your connection and server.");
-                RetailerView.setLoading(false);
-            };
-
-            //create request body
-            var requestData = JSON.stringify({
-                "type": 'DeleteAllProducts',
-                "user_id": RetailerView.userId
-            });
-
-            console.log("Sending delete all request:", requestData);
-            request.send(requestData);
-        }
     },
 
     searchFunction: function() {
@@ -493,13 +573,6 @@ var RetailerView = {
         }
     },
 
-    // Confirm delete with user prompt
-    confirmDelete: function(productId) {
-        if (confirm("Are you sure you want to delete this product? This action cannot be undone.")) {
-            RetailerView.deleteProduct(productId);
-        }
-    },
-
     //update products display
     updateProducts: function(products) {
         var productGrid = document.querySelector('.products-container');
@@ -513,23 +586,28 @@ var RetailerView = {
             return;
         }
 
-        //clearing existing products
         var html = '';
         for (var i = 0; i < products.length; i++) {
             html += RetailerView.createProductCard(products[i]);
         }
 
         productGrid.innerHTML = html;
+        console.log("Products updated, total:", products.length);
     },
 
-    //html for single product card
+    //html for single product card - FIXED with better data attributes
     createProductCard: function(product) {
         var isInStock = product.in_stock === 1 || product.in_stock === '1' || product.in_stock === true;
         var stockStatus = isInStock ? 'In Stock' : 'Out of Stock';
         var stockClass = isInStock ? 'in-stock' : 'out-of-stock';
         
+        // Use a more reliable placeholder or default image
+        var imageUrl = product.images && product.images.trim() !== '' 
+            ? product.images 
+            : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA2MEMzNi41IDYwIDM2LjUgOTAgNzUgOTBTMTEzLjUgNjAgNzUgNjBaIiBmaWxsPSIjQ0NEMkQ4Ii8+CjxwYXRoIGQ9Ik02MCA4NUgzMFY5MEg2MFY4NVoiIGZpbGw9IiNDQ0QyRDgiLz4KPHA+Tm8gSW1hZ2U8L3A+Cjwvc3ZnPgo=';
+
         return '<div class="product-card" data-product-id="' + product.id + '">' +
-                '<img class="product-image" src="https://via.placeholder.com/150" alt="' + product.name + '">' +
+                '<img class="product-image" src="' + imageUrl + '" alt="' + product.name + '" onerror="this.onerror=null; this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik03NSA2MEMzNi41IDYwIDM2LjUgOTAgNzUgOTBTMTEzLjUgNjAgNzUgNjBaIiBmaWxsPSIjQ0NEMkQ4Ii8+CjxwYXRoIGQ9Ik02MCA4NUgzMFY5MEg2MFY4NVoiIGZpbGw9IiNDQ0QyRDgiLz4KPHA+Tm8gSW1hZ2U8L3A+Cjwvc3ZnPgo=\'">' +
                 '<div class="product-details">' +
                     '<div class="product-status ' + stockClass + '">' +
                         '<div class="status-dot"></div>' +
@@ -539,10 +617,10 @@ var RetailerView = {
                     '<div class="product-price">R' + parseFloat(product.price).toFixed(2) + '</div>' +
                     '<div class="product-meta">Updated: ' + RetailerView.formatDate(product.updated_at) + '</div>' +
                     '<div class="product-actions">' +
-                        '<button class="action-button edit-button">' +
+                        '<button class="action-button edit-button" data-product-id="' + product.id + '" type="button">' +
                             '<i class="fas fa-edit"></i> Edit' +
                         '</button>' +
-                        '<button class="action-button delete-button">' +
+                        '<button class="action-button delete-button" data-product-id="' + product.id + '" type="button">' +
                             '<i class="fas fa-trash"></i> Delete' +
                         '</button>' +
                     '</div>' +
@@ -565,7 +643,6 @@ var RetailerView = {
         var totalPrice = 0;
         var averagePrice = 0;
         
-        // Calculate average price
         if (totalProducts > 0) {
             for (var i = 0; i < RetailerView.products.length; i++) {
                 totalPrice += parseFloat(RetailerView.products[i].price || 0);
@@ -573,13 +650,11 @@ var RetailerView = {
             averagePrice = totalPrice / totalProducts;
         }
         
-        // Update total products display
         var totalElement = document.getElementById('total-products');
         if (totalElement) {
             totalElement.textContent = totalProducts;
         }
         
-        // Update average price display
         var avgPriceElements = document.querySelectorAll('.stat-value');
         if (avgPriceElements.length > 1) {
             avgPriceElements[1].textContent = 'R' + averagePrice.toFixed(2);
@@ -605,16 +680,16 @@ var RetailerView = {
 
     openEditModal: function(productId) {
         var product = null;
-        //finding product to edit
         for (var i = 0; i < RetailerView.products.length; i++) {
-            if (RetailerView.products[i].id === productId) {
+            if (parseInt(RetailerView.products[i].id) === parseInt(productId)) {
                 product = RetailerView.products[i];
                 break;
             }
         }
 
-        if (!product) { //if product not found
+        if (!product) {
             console.error('Product not found', productId);
+            alert('Product not found');
             return;
         }
 
@@ -633,14 +708,12 @@ var RetailerView = {
         }
     },
 
-     closeAllModals: function() {
+    closeAllModals: function() {
         RetailerView.closeAddModal();
         RetailerView.closeEditModal();
     },
 
     //form functions
-
-    //clearing form for adding a new product
     clearAddForm: function() {
         var form = document.getElementById('addProductForm');
         if (form) {
@@ -648,7 +721,6 @@ var RetailerView = {
         }
     },
 
-    //clear form for editing a product
     clearEditForm: function() {
         var form = document.getElementById('editProductForm');
         if (form) {
@@ -656,25 +728,23 @@ var RetailerView = {
         }
     },
 
-    //populating form with existing values in order to update product
     populateEditForm: function(product) {
         var form = document.getElementById('editProductForm');
         if (form) {
             form.setAttribute('data-product-id', product.id);
         }
 
-        //populate form fields with product data
         var fields = {
             'edit_product_name': product.name,
             'edit_description': product.description,
             'edit_brand': product.brand,                
             'edit_price': product.price,                
             'edit_category': product.category_id,       
-            'edit_specification': product.specification, 
+            'edit_specification': product.specification,
+            'edit_image_url': product.images,
             'edit_stock': product.in_stock 
         };
 
-        
         for (var fieldId in fields) {
             if (fields.hasOwnProperty(fieldId)) {
                 var field = document.getElementById(fieldId);
@@ -687,12 +757,20 @@ var RetailerView = {
                 }
             }
         }
-        
+
+        var imagePreview = document.getElementById('current_image_preview');
+        if (imagePreview && product.images) {
+            imagePreview.src = product.images;
+            imagePreview.style.display = 'block';
+            imagePreview.onerror = function() {
+                this.src = 'https://via.placeholder.com/100?text=No+Image';
+            };
+        } else if (imagePreview) {
+            imagePreview.style.display = 'none';
+        }
     },
 
     //product handler functions
-
-    //add product
     handleAddProduct: function() {
         var form = document.getElementById('addProductForm');
         if (!form) {
@@ -707,10 +785,10 @@ var RetailerView = {
             'price': formData.get('price'),
             'category_id': formData.get('category') || 1,
             'specification': formData.get('specification') || '',
+            'image_url': formData.get('image_url') || '',
             'in_stock': 1
         };
 
-        //form validation
         if (!productData.name || !productData.description || !productData.price) {
             alert('Please fill in all required fields');
             return;
@@ -724,7 +802,6 @@ var RetailerView = {
         RetailerView.addProduct(productData);
     },
 
-    //edit product
     handleEditProduct: function() {
         var form = document.getElementById('editProductForm');
         if (!form) {
@@ -745,10 +822,10 @@ var RetailerView = {
             'price': parseFloat(formData.get('price')),
             'category_id': parseInt(formData.get('category')) || 1,
             'specification': formData.get('specification') || '',
+            'image_url': formData.get('image_url') || '',
             'in_stock': formData.get('product_stock') ? 1 : 0
         };
 
-        //form validation
         if (!productData.name || !productData.description || !productData.price) {
             alert('Please fill in all required fields');
             return;
@@ -767,7 +844,6 @@ var RetailerView = {
         RetailerView.updateProducts(filteredProducts);
     },
 
-    //need to filter products with search result
     filterProducts: function(searchText) {
         if (!searchText || searchText.trim() === '') {
             return RetailerView.products;
@@ -787,7 +863,6 @@ var RetailerView = {
         });
     },
 
-
     clearSearch: function() {
         var searchInput = document.querySelector('.search-input');
         if (searchInput) {
@@ -798,11 +873,20 @@ var RetailerView = {
 
     selectAllProducts: function() {
         console.log("Select all functionality not implemented yet");
-    },
-
+    }
 };
 
 //initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    RetailerView.init();
+    console.log("DOM loaded, initializing RetailerView...");
+    
+    //delay ensures all resources are loaded
+    setTimeout(function() {
+        try {
+            RetailerView.init();
+        } catch (error) {
+            console.error("Error initializing RetailerView:", error);
+            alert("Error initializing the application. Please refresh the page.");
+        }
+    }, 200);
 });
