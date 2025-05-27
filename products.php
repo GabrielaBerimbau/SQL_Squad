@@ -1,1 +1,53 @@
-<!-- SQL Squad -->
+<?php
+
+include('config.php');
+include 'security.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - COS221</title>
+    <link rel="stylesheet" href="css/products.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>All Products</h1>
+    </header>
+
+    <?php include_once "header.php"; ?>
+    <div class="success-alert" id="success-alert"></div>
+
+
+    <input type="text" class="search-bar" placeholder="Search for products...">
+
+
+    <div class="filters">
+        <div class="filter-box">
+            <h3>Category</h3>
+            <select id="category-select">
+                <option value="default">All Categories</option>
+            </select>
+        </div>
+
+
+        <div class="filter-box">
+            <h3>Brand</h3>
+            <select id="brand-select">
+                <option value="default">All Brands</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="product-container" class="product-container">
+        <img id="loading-animation" src="img/loading.gif" alt="Loading..." /> 
+    </div>
+
+    <script src="js/products.js"></script>
+
+    <?php include_once "footer.php"; ?>
+</body>
+</html>

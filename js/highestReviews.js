@@ -1,35 +1,40 @@
-document.addEventListener('DOMContentLoaded', function() 
-{
+// highest-reviews.js - Top Rated Products Page (using same logic as products.js)
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
     const productContainer = document.getElementById('product-container');
     const searchBar = document.querySelector('.search-bar');
     const categorySelect = document.getElementById('category-select');
     const brandSelect = document.getElementById('brand-select');
+    const ratingFilter = document.getElementById('rating-filter');
+    const sortSelect = document.getElementById('sort-select');
     const loadingAnimation = document.getElementById('loading-animation');
     const successAlert = document.getElementById('success-alert');
     
-    // filter vals
+    
     let filters = {
         category_id: 'default',
         brand: 'default',
-        sort: 'default',
+        sort: 'rating-high',
         search: ''
     };
     
-    // Wishlist items cache
+   
+    let minRatingFilter = 0;
+    
+    // Wishlist items cache to track which products are in the wishlist
     let wishlistItems = {};
     
-    // Initialize display
+    // Initialize product display
     loadProducts();
     
-    // Check login
+    // Check if user is logged in
     const isLoggedIn = !!localStorage.getItem('user_id');
-    if (isLoggedIn) 
-    {
-        // fetch user's wishlist items
+    if (isLoggedIn) {
+        // If logged in, get user's wishlist items for the UI
         fetchUserWishlist();
     }
     
-    // Setup event listeners
+    // Setup event listeners 
     searchBar.addEventListener('input', debounce(function() 
     {
         filters.search = escapeHtml(this.value.trim());
@@ -49,23 +54,30 @@ document.addEventListener('DOMContentLoaded', function()
     });
     
     
-    // event listener for wishlist btns
-    document.addEventListener('click', function(e) 
-    {
-        if (e.target && e.target.classList.contains('wishlist-btn')) 
-        {
+    ratingFilter.addEventListener('change', function() {
+        minRatingFilter = parseFloat(this.value) || 0;
+        loadProducts();
+    });
+    
+    sortSelect.addEventListener('change', function() {
+        filters.sort = this.value;
+        loadProducts();
+    });
+    
+    // Add event listener for wishlist buttons
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('wishlist-btn')) {
             const productId = e.target.getAttribute('data-id');
             handleWishlistAction(productId, e.target);
         }
     });
     
-    // Fetch user's wishlist
-    function fetchUserWishlist() 
-    {
+    // Fetch user's wishlist to know which products are already in wishlist 
+    function fetchUserWishlist() {
+        // Only fetch if logged in
         if (!localStorage.getItem('user_id')) return;
         
-        const requestData = 
-        {
+        const requestData = {
             type: 'GetWishlistItems'
         };
         
@@ -78,14 +90,13 @@ document.addEventListener('DOMContentLoaded', function()
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success' && data.data.products) 
-            {
+            if (data.status === 'success' && data.data.products) {
                 // Update wishlist cache
                 data.data.products.forEach(product => {
                     wishlistItems[product.product_id] = true;
                 });
                 
-                // update all wishlist buttons
+                // Update UI for all wishlist buttons
                 updateWishlistButtonsUI();
             }
         })
@@ -94,29 +105,24 @@ document.addEventListener('DOMContentLoaded', function()
         });
     }
     
-    // Update buttons based on wishlist cache
+    // Update all wishlist buttons based on cached data (same as products.js)
     function updateWishlistButtonsUI() {
         document.querySelectorAll('.wishlist-btn').forEach(button => {
             const productId = button.getAttribute('data-id');
-            if (wishlistItems[productId]) 
-            {
+            if (wishlistItems[productId]) {
                 button.classList.add('in-wishlist');
                 button.textContent = 'Remove from Wishlist';
-            } 
-            else 
-            {
+            } else {
                 button.classList.remove('in-wishlist');
                 button.textContent = 'Add to Wishlist';
             }
         });
     }
     
-    // Handle add/rem actions
-    function handleWishlistAction(productId, button) 
-    {
-        
-        if (!localStorage.getItem('user_id')) 
-        {
+
+    function handleWishlistAction(productId, button) {
+        // Check if user is logged in
+        if (!localStorage.getItem('user_id')) {
             showAlert('Please log in to add items to your wishlist', 'error');
             setTimeout(() => {
                 window.location.href = 'login.php';
@@ -124,25 +130,22 @@ document.addEventListener('DOMContentLoaded', function()
             return;
         }
         
+      
         const isInWishlist = wishlistItems[productId];
         const action = isInWishlist ? 'remove' : 'add';
         
-        // immediate updates for better user exp
-        if (isInWishlist) 
-        {
+     
+        if (isInWishlist) {
             button.classList.remove('in-wishlist');
             button.textContent = 'Add to Wishlist';
             delete wishlistItems[productId];
-        } 
-        else 
-        {
+        } else {
             button.classList.add('in-wishlist');
             button.textContent = 'Remove from Wishlist';
             wishlistItems[productId] = true;
         }
         
-        const requestData = 
-        {
+        const requestData = {
             type: 'Wishlist',
             action: action,
             product_id: productId,
@@ -158,25 +161,19 @@ document.addEventListener('DOMContentLoaded', function()
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success') 
-            {
-                // succ message
+            if (data.status === 'success') {
+                // Show success message
                 const message = action === 'add' 
                     ? 'Product added to wishlist' 
                     : 'Product removed from wishlist';
                 showAlert(message, 'success');
-            } 
-            else 
-            {
-                // Revert ui on err
-                if (isInWishlist) 
-                {
+            } else {
+                // Revert UI on error
+                if (isInWishlist) {
                     button.classList.add('in-wishlist');
                     button.textContent = 'Remove from Wishlist';
                     wishlistItems[productId] = true;
-                } 
-                else 
-                {
+                } else {
                     button.classList.remove('in-wishlist');
                     button.textContent = 'Add to Wishlist';
                     delete wishlistItems[productId];
@@ -189,14 +186,11 @@ document.addEventListener('DOMContentLoaded', function()
             console.error('Error:', error);
             
             // Revert UI on error
-            if (isInWishlist) 
-            {
+            if (isInWishlist) {
                 button.classList.add('in-wishlist');
                 button.textContent = 'Remove from Wishlist';
                 wishlistItems[productId] = true;
-            } 
-            else 
-            {
+            } else {
                 button.classList.remove('in-wishlist');
                 button.textContent = 'Add to Wishlist';
                 delete wishlistItems[productId];
@@ -206,47 +200,43 @@ document.addEventListener('DOMContentLoaded', function()
         });
     }
     
-    // Load products endpoint
-    function loadProducts() 
-    {
-        // load anim
+    // Load products from API
+    function loadProducts() {
+        // Show loading animation
         loadingAnimation.style.display = 'block';
         productContainer.innerHTML = '';
         
-        // Prepare data
-        const requestData = 
-        {
-            type: 'GetAllProducts',
+        // Prepare data for API request
+        const requestData = {
+            type: 'GetAllProducts',  // Using the same working API
             ...filters
         };
         
-        // Fetch products from API endpoint
+        // Fetch products from API
         fetch('api.php', {
             method: 'POST',
-            headers: 
-            {
+            headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(requestData)
         })
         .then(response => response.json())
         .then(data => {
-            // hide load anim
+            // Hide loading animation
             loadingAnimation.style.display = 'none';
             
-            if (data.status === 'success') 
-            {
-                displayProducts(data.data.products);
+            if (data.status === 'success') {
+                // Filter and sort products for top-rated display
+                let filteredProducts = filterAndSortForTopRated(data.data.products);
+                
+                displayProducts(filteredProducts);
                 populateFilterDropdowns(data.data.categories, data.data.brands);
                 
-                // Update wishlist btns after displaying products
-                if (localStorage.getItem('user_id')) 
-                {
+                // Update wishlist buttons after products are displayed
+                if (localStorage.getItem('user_id')) {
                     updateWishlistButtonsUI();
                 }
-            } 
-            else 
-            {
+            } else {
                 productContainer.innerHTML = `<p class="error-message">Error loading products: ${data.data}</p>`;
             }
         })
@@ -257,12 +247,42 @@ document.addEventListener('DOMContentLoaded', function()
         });
     }
     
-    // Display items in their containers
-    function displayProducts(products) 
-    {
-        if (products.length === 0) 
-        {
-            productContainer.innerHTML = '<p class="no-products">No products found matching your criteria.</p>';
+  
+    function filterAndSortForTopRated(products) {
+        // Filter products to only show those with ratings
+        let filteredProducts = products.filter(product => {
+            const rating = parseFloat(product.avg_rating) || 0;
+            const reviewCount = parseInt(product.review_count) || 0;
+            
+            // Only show products that have ratings and meet minimum rating filter
+            return reviewCount > 0 && rating >= minRatingFilter;
+        });
+        
+        // Sort products by rating and review count
+        filteredProducts.sort((a, b) => {
+            const ratingA = parseFloat(a.avg_rating) || 0;
+            const ratingB = parseFloat(b.avg_rating) || 0;
+            const countA = parseInt(a.review_count) || 0;
+            const countB = parseInt(b.review_count) || 0;
+            
+            if (filters.sort === 'review-count') {
+                // Sort by review count first, then rating
+                if (countB !== countA) return countB - countA;
+                return ratingB - ratingA;
+            } else {
+                // Default: Sort by rating first, then review count
+                if (ratingB !== ratingA) return ratingB - ratingA;
+                return countB - countA;
+            }
+        });
+        
+        return filteredProducts;
+    }
+    
+    // Display products in the container
+    function displayProducts(products) {
+        if (products.length === 0) {
+            productContainer.innerHTML = '<p class="no-products">No top-rated products found matching your criteria.</p>';
             return;
         }
         
@@ -274,7 +294,8 @@ document.addEventListener('DOMContentLoaded', function()
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
             
-            // Format the rating with review count
+            // Generate star rating display
+            const stars = generateStarRating(product.avg_rating);
             const ratingDisplay = product.avg_rating > 0 ? 
                 `${parseFloat(product.avg_rating).toFixed(1)} / 5.0 (${product.review_count} reviews)` : 
                 'Not Rated Yet';
@@ -289,11 +310,10 @@ document.addEventListener('DOMContentLoaded', function()
             const wishlistBtnClass = isInWishlist ? 'wishlist-btn in-wishlist' : 'wishlist-btn';
             const wishlistBtnText = isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
             
-            //made product name click
             productCard.innerHTML = `
-                <img src="${product.primary_image}" alt="${product.name}" class="product-image">
+                <img src="${product.primary_image}" alt="${product.name}" class="product-image" onclick="window.location.href='view.php?id=${product.product_id}'" style="cursor: pointer;">
                 <h3 class="product-name" onclick="window.location.href='view.php?id=${product.product_id}'" style="cursor: pointer;">${product.name}</h3>
-                <p class="product-rating">★ ${ratingDisplay}</p>
+                <p class="product-rating">${stars} ${ratingDisplay}</p>
                 <p class="product-stock">${stockStatus}</p>
                 <p class="product-description">${product.description ? product.description.substring(0, 100) + '...' : 'No description available'}</p>
                 <button class="${wishlistBtnClass}" data-id="${product.product_id}">
@@ -306,13 +326,36 @@ document.addEventListener('DOMContentLoaded', function()
         });
     }
     
-    // Populate filter dropdowns with data from API
-    function populateFilterDropdowns(categories, brands) 
-    {
-        // Only populate if this is the first load (to avoid resetting user selections)
-        if (categorySelect.options.length <= 1) 
-        {
-            // Populate categories
+    // Generate star rating display
+    function generateStarRating(rating) {
+        let stars = '';
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        
+        // Add full stars
+        for (let i = 0; i < fullStars; i++) {
+            stars += '★';
+        }
+        
+        // Add half star if needed
+        if (hasHalfStar) {
+            stars += '☆';
+        }
+        
+        // Add empty stars to make 5 total
+        const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        for (let i = 0; i < remainingStars; i++) {
+            stars += '☆';
+        }
+        
+        return stars;
+    }
+    
+    // Populate filter dropdowns with data from API 
+    function populateFilterDropdowns(categories, brands) {
+      
+        if (categorySelect.options.length <= 1) {
+            
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category.category_id;
@@ -321,8 +364,7 @@ document.addEventListener('DOMContentLoaded', function()
             });
         }
         
-        if (brandSelect.options.length <= 1) 
-        {
+        if (brandSelect.options.length <= 1) {
             // Populate brands
             brands.forEach(brand => {
                 const option = document.createElement('option');
@@ -333,9 +375,8 @@ document.addEventListener('DOMContentLoaded', function()
         }
     }
     
-    // alert msg
-    function showAlert(message, type) 
-    {
+    // Show alert message 
+    function showAlert(message, type) {
         successAlert.textContent = message;
         successAlert.className = 'success-alert ' + type;
         successAlert.style.display = 'block';
@@ -345,12 +386,10 @@ document.addEventListener('DOMContentLoaded', function()
         }, 3000);
     }
     
-    // debounce for search
-    function debounce(func, wait) 
-    {
+    // Debounce function for search input
+    function debounce(func, wait) {
         let timeout;
-        return function() 
-        {
+        return function() {
             const context = this;
             const args = arguments;
             clearTimeout(timeout);

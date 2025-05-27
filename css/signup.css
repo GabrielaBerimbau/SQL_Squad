@@ -1,1 +1,147 @@
-/* SQL Squad */
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #32402f;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.signup-section {
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.signup-section h2 {
+    color: #32402f;
+    margin-bottom: 20px;
+}
+
+#signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#signup-form label {
+    text-align: left;
+    font-weight: bold;
+    color: #32402f;
+}
+
+#signup-form input,
+#signup-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#signup-form button {
+    background-color: #32402f;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 20px;
+}
+
+#signup-form button:hover {
+    background-color: #506046;
+}
+
+#error-msg {
+    font-size: 14px;
+    color: red;
+    margin-top: -10px;
+}
+
+@media (max-width: 480px) {
+    .signup-section {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    #signup-form input,
+    #signup-form select,
+    #signup-form button {
+        font-size: 14px;
+    }
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #32402f;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.back-button:hover {
+    background-color: #476242;
+}
+
+footer {
+    width: 100%;
+    background-color: #32402f;
+    color: white;
+    text-align: center;
+    padding: 8px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top: 3px solid #65875e;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Updated company field styling */
+.company-field {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-10px);
+    margin-top: -15px;
+    margin-bottom: -15px;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.company-field.show {
+    opacity: 1;
+    max-height: 120px;
+    transform: translateY(0);
+    margin-top: 0;
+    margin-bottom: 0;
+    visibility: visible;
+}
+
+.company-field label {
+    text-align: left;
+    font-weight: bold;
+    color: #32402f;
+    margin-bottom: 5px;
+}
+
+.company-field input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
