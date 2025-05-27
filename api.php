@@ -680,7 +680,7 @@ private function getRetailerProducts($data) {
         return;
     }
 
-    //db query - FIXED: Added p.images to SELECT
+    //db query
     $query = "
         SELECT 
             p.product_id as id,
@@ -712,13 +712,13 @@ private function getRetailerProducts($data) {
     //fetching all the products
     $products = [];
     while ($row = $result->fetch_assoc()) {
-        // Format price
+        //ensure price is a float
         $row['price'] = floatval($row['price']);
         
         $products[] = $row;
     }
     
-    // Return the data
+    //return the data
     $this->returnSuccess([
         'products' => $products,
         'count' => count($products)
@@ -738,7 +738,7 @@ private function addProduct($data) {
     
     $userId = $data['user_id'];
 
-     //check user is a retailer
+    //check user is a retailer
     $checkStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
     $checkStmt->bind_param("i", $userId);
     $checkStmt->execute();
@@ -768,7 +768,7 @@ private function addProduct($data) {
     $this->conn->begin_transaction();
     
     try {
-        //insert into PRODUCT table - FIXED: Added images field
+        //insert into PRODUCT table
         $productStmt = $this->conn->prepare("
             INSERT INTO PRODUCT 
             (name, description, brand, category_id, specification, images) 
@@ -778,9 +778,9 @@ private function addProduct($data) {
         $productName = $data['product_name'];
         $description = $data['description'];
         $brand = $data['brand'] ?? null;
-        $categoryId = $data['category_id'] ?? 1; // Default category if not provided
+        $categoryId = $data['category_id'] ?? 1; //default category if not provided
         $specification = $data['specification'] ?? null;
-        $images = $data['image_url'] ?? null; // FIXED: Handle image URL
+        $images = $data['image_url'] ?? null; //image URL
         
         $productStmt->bind_param("sssiss", $productName, $description, $brand, $categoryId, $specification, $images);
         $productStmt->execute();
@@ -795,7 +795,7 @@ private function addProduct($data) {
         ");
         
         $price = floatval($data['price']);
-        $inStock = isset($data['in_stock']) ? 1 : 1; // Default to in stock
+        $inStock = isset($data['in_stock']) ? 1 : 1; //default to in stock
         
         $listingStmt->bind_param("iidi", $productId, $userId, $price, $inStock);
         $listingStmt->execute();
@@ -903,7 +903,7 @@ private function updateProduct($data) {
             $updateProductTypes .= "s";
         }
 
-        //FIXED: Handle image URL updates
+        //image URL updates
         if (isset($data['image_url'])) {
             $updateProductQuery .= "images = ?, ";
             $updateProductParams[] = $data['image_url'];
@@ -919,7 +919,7 @@ private function updateProduct($data) {
         $updateProductTypes .= "i";
         
         //fields aren't empty and need to be updated
-        if (count($updateProductParams) > 1) { // More than just the product_id
+        if (count($updateProductParams) > 1) { //more than just the product_id
             $productStmt = $this->conn->prepare($updateProductQuery);
             $productStmt->bind_param($updateProductTypes, ...$updateProductParams);
             $productStmt->execute();
@@ -960,7 +960,7 @@ private function updateProduct($data) {
             'message' => 'Product updated successfully'
         ]);
     } catch (Exception $e) {
-        // Rollback on error
+        //rollback on error
         $this->conn->rollback();
         $this->returnError("Error updating product: " . $e->getMessage(), 500);
     }
@@ -975,7 +975,7 @@ private function deleteProduct($data) {
     
     $userId = $data['user_id'];
     
-    // Check if product_id is provided
+    //check product_id is provided
     if (!isset($data['product_id'])) {
         $this->returnError("Product ID required", 400);
         return;
@@ -983,7 +983,7 @@ private function deleteProduct($data) {
     
     $productId = $data['product_id'];
     
-    // Check if user is a retailer
+    //check user is a retailer
     $checkRetailerStmt = $this->conn->prepare("SELECT user_id FROM RETAILER WHERE user_id = ?");
     $checkRetailerStmt->bind_param("i", $userId);
     $checkRetailerStmt->execute();
@@ -994,7 +994,7 @@ private function deleteProduct($data) {
         return;
     }
     
-    // Check if product belongs to this retailer
+    //check that listing belongs to the retailer
     $checkProductStmt = $this->conn->prepare("
         SELECT l.listing_id 
         FROM LISTING l 
@@ -1012,7 +1012,7 @@ private function deleteProduct($data) {
     $listingRow = $checkProductResult->fetch_assoc();
     $listingId = $listingRow['listing_id'];
     
-    // Start transaction
+    //start transaction
     $this->conn->begin_transaction();
     
     try {        
@@ -1030,16 +1030,6 @@ private function deleteProduct($data) {
         
         //if no other listings exist, delete the product
         if ($checkOtherListingsRow['count'] == 0) {
-            // // Delete from PRODUCT_IMAGES table ///////////////////CHECK
-            // $deleteImagesStmt = $this->conn->prepare("DELETE FROM PRODUCT_IMAGES WHERE product_id = ?");
-            // $deleteImagesStmt->bind_param("i", $productId);
-            // $deleteImagesStmt->execute();
-            
-            // // Delete image file if it exists
-            // $imagePath = "img/products/" . $productId . ".jpg";
-            // if (file_exists($imagePath)) {
-            //     unlink($imagePath);
-            // }
             
             //delete from WISHLIST table
             $deleteWishlistStmt = $this->conn->prepare("DELETE FROM WISHLIST WHERE product_id = ?");
@@ -1064,7 +1054,7 @@ private function deleteProduct($data) {
             'message' => 'Product deleted successfully'
         ]);
     } catch (Exception $e) {
-        // Rollback on error
+        //rollback on error
         $this->conn->rollback();
         $this->returnError("Error deleting product: " . $e->getMessage(), 500);
     }
@@ -1157,7 +1147,7 @@ private function deleteAllProducts($data) {
             $deletedCount++;
         }
         
-        // Commit transaction
+        //commit transaction
         $this->conn->commit();
         
         $this->returnSuccess([
@@ -1166,7 +1156,7 @@ private function deleteAllProducts($data) {
         ]);
         
     } catch (Exception $e) {
-        // Rollback on error
+        //rollback on error
         $this->conn->rollback();
         $this->returnError("Error deleting products: " . $e->getMessage(), 500);
     }
@@ -1676,11 +1666,7 @@ private function getAdminStats($data){
         $roleStats[$row['role']] = $row;
     }
 
-    // Since created_at column doesn't exist, i'll set recent registrations to 0 for now
-    // add this column later or use another approach
     $recentData = ['recent_registrations' => 0];
-
-    // Skip the recent registrations query since created_at doesn't exist
 
     // product and listing stats
     $queryProdList = "
