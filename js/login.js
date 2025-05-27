@@ -1,14 +1,15 @@
-// login.js with client-side rate limiting only
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() 
+{
     const loginForm = document.getElementById('login-form');
     const errorMsg = document.getElementById('error-msg');
     const submitButton = loginForm ? loginForm.querySelector('button[type="submit"]') : null;
     
-    // Rate limiting configuration
+    // Rate limiting config
     const RATE_LIMIT_DURATION = 30000; // 30 sec
     const STORAGE_KEY = 'last_login_attempt';
     
-    function checkRateLimit() {
+    function checkRateLimit() 
+    {
         const lastAttempt = localStorage.getItem(STORAGE_KEY);
         if (!lastAttempt) return true;
         
@@ -16,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return timeSinceLastAttempt >= RATE_LIMIT_DURATION;
     }
     
-    function getRemainingTime() {
+    function getRemainingTime() 
+    {
         const lastAttempt = localStorage.getItem(STORAGE_KEY);
         if (!lastAttempt) return 0;
         
@@ -25,16 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.max(0, Math.ceil(remainingTime / 1000));
     }
     
-    function updateSubmitButton() {
+    function updateSubmitButton() 
+    {
         if (!submitButton) return;
         
-        if (checkRateLimit()) {
+        if (checkRateLimit()) 
+        {
             submitButton.disabled = false;
             submitButton.textContent = 'Login';
             submitButton.style.opacity = '1';
             submitButton.style.cursor = 'pointer';
             submitButton.style.backgroundColor = '';
-        } else {
+        } 
+        else 
+        {
             const remainingSeconds = getRemainingTime();
             submitButton.disabled = true;
             submitButton.textContent = `Please wait ${remainingSeconds}s`;
@@ -44,38 +50,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function startCountdown() {
+    function startCountdown() 
+    {
         const countdownInterval = setInterval(() => {
-            if (checkRateLimit()) {
+            if (checkRateLimit()) 
+            {
                 clearInterval(countdownInterval);
                 updateSubmitButton();
-                // Clear rate limit message if it's showing
-                if (errorMsg && errorMsg.textContent.includes('Please wait')) {
+                if (errorMsg && errorMsg.textContent.includes('Please wait')) 
+                {
                     errorMsg.style.display = 'none';
                 }
-            } else {
+            } 
+            else 
+            {
                 updateSubmitButton();
             }
         }, 1000);
     }
     
-    // Initialize button state on page load
     updateSubmitButton();
-    if (!checkRateLimit()) {
+    if (!checkRateLimit()) 
+    {
         startCountdown();
-        // Show rate limit message on page load if still in cooldown
         const remainingSeconds = getRemainingTime();
         errorMsg.textContent = `Please wait ${remainingSeconds} seconds before trying again.`;
         errorMsg.style.color = '#ff8c00';
         errorMsg.style.display = 'block';
     }
     
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+    if (loginForm) 
+    {
+        loginForm.addEventListener('submit', function(e) 
+        {
             e.preventDefault();
             
-            // Check rate limit before proceeding
-            if (!checkRateLimit()) {
+            // Check rate limit
+            if (!checkRateLimit()) 
+            {
                 const remainingSeconds = getRemainingTime();
                 errorMsg.textContent = `Please wait ${remainingSeconds} seconds before trying again.`;
                 errorMsg.style.color = '#ff8c00';
@@ -83,17 +95,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Clear previous error messages
+            // Clear prev err
             errorMsg.style.display = 'none';
             
-            // Create raw data object with the required format
+            // Create rawdata
             const rawData = {
                 type: 'Login',
                 username: document.getElementById('username').value.trim(),
                 password: document.getElementById('password').value.trim()
             };
             
-            // Validate username not empty
+            // Not empty checker
             if (!rawData.username) {
                 errorMsg.textContent = "Username is required.";
                 errorMsg.style.color = 'red';
@@ -101,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Validate password not empty
+            // Not empty checker
             if (!rawData.password) {
                 errorMsg.textContent = "Password is required.";
                 errorMsg.style.color = 'red';
@@ -109,15 +121,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Record this login attempt BEFORE making the request
+            // Record this login attempt
             localStorage.setItem(STORAGE_KEY, Date.now().toString());
             
-            // Disable button and show loading state
+            // Disable buttons
             submitButton.disabled = true;
             submitButton.textContent = 'Logging in...';
             submitButton.style.opacity = '0.7';
             
-            // Send login request to the API endpoint
+            // Send to endpoint
             fetch('api.php', {
                 method: 'POST',
                 headers: {
@@ -131,24 +143,26 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 console.log('Parsed data:', data);
-                
-                if (data.status === 'success') {
-                    // Login successful - clear the rate limit
+                //successful login
+                if (data.status === 'success') 
+                {
+                    // clear the rate limit
                     localStorage.removeItem(STORAGE_KEY);
                     
-                    // Store user data in localStorage for client-side access
+                    // Store user data in local
                     localStorage.setItem('user_id', data.data.user_id);
                     localStorage.setItem('username', data.data.username);
                     localStorage.setItem('role', data.data.role);
                     
-                    // Show success message
+                    // success message
                     errorMsg.textContent = "Login successful! Redirecting...";
                     errorMsg.style.color = "green";
                     errorMsg.style.display = 'block';
                     
-                    // Redirect based on user role
+                    // Redirect
                     let redirectPage;
-                    switch(data.data.role) {
+                    switch(data.data.role) 
+                    {
                         case 'customer':
                             redirectPage = 'products.php';
                             break;
@@ -162,17 +176,19 @@ document.addEventListener('DOMContentLoaded', function() {
                             redirectPage = 'index.php';
                     }
                     
-                    // Redirect after a short delay
+                    // Redirect after delay
                     setTimeout(() => {
                         window.location.href = redirectPage;
                     }, 1500);
-                } else {
-                    // Login failed - show error and start countdown
+                } 
+                else 
+                {
+                    // Login failed
                     errorMsg.textContent = data.data || 'Login failed. Please try again.';
                     errorMsg.style.color = 'red';
                     errorMsg.style.display = 'block';
                     
-                    // Start the countdown for the rate limit
+                    // Start countdown
                     startCountdown();
                 }
             })
@@ -182,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 errorMsg.style.color = 'red';
                 errorMsg.style.display = 'block';
                 
-                // Start the countdown for the rate limit even on network errors
                 startCountdown();
             });
         });

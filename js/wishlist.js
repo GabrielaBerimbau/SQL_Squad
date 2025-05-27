@@ -119,7 +119,8 @@ document.addEventListener('DOMContentLoaded', function()
             product_id: productId
         };
         
-        if (itemElement) {
+        if (itemElement) 
+        {
             itemElement.classList.add('removing');
             itemElement.style.opacity = '0.5';
         }
