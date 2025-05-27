@@ -1649,11 +1649,7 @@ private function getAdminStats($data){
         $roleStats[$row['role']] = $row;
     }
 
-    // Since created_at column doesn't exist, i'll set recent registrations to 0 for now
-    // add this column later or use another approach
     $recentData = ['recent_registrations' => 0];
-
-    // Skip the recent registrations query since created_at doesn't exist
 
     // product and listing stats
     $queryProdList = "
